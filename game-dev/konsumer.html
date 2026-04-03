@@ -40,10 +40,14 @@
         .content-area li { margin-bottom: .35rem; }
         .content-embed { width: 100%; aspect-ratio: 16 / 9; margin: 1rem 0; }
         .content-embed iframe { width: 100%; height: 100%; border: none; display: block; }
-        .image-panel { width: 33.333%; flex-shrink: 0; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: column; gap: 4px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
-        .image-panel img { width: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
-        .image-panel img:hover { opacity: 1; }
-        .image-panel img { cursor: zoom-in; }
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-label { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .5rem; padding: .9rem .35rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #f81562; background: #000; border: none; z-index: 1; user-select: none; pointer-events: none; flex-shrink: 0; }
+        .image-panel-label span { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+        .image-panel-label svg { width: 14px; height: 18px; flex-shrink: 0; color: #f81562; }
+        .image-panel-images { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .image-panel-images img { width: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-images img:hover { opacity: 1; }
+        .image-panel-images img { cursor: zoom-in; }
         /* ── Lightbox ── */
         #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
         #lightbox.open { opacity: 1; pointer-events: auto; }
@@ -169,8 +173,11 @@
         </div>
 
         <div class="image-panel">
+            <div class="image-panel-label"><span>Gallery</span><svg viewBox="0 0 10 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="1" width="6" height="9" rx="3"/><line x1="5" y1="3.5" x2="5" y2="5.5"/><polyline points="3,11.5 5,13.5 7,11.5"/></svg></div>
+            <div class="image-panel-images">
             <img src="img/pages/konsumer/8bc1c03c10ce90de73d2203a0e42d130aad9e81b437c53930e0d4fd81a4359a4-2538256882.jpg" alt="Project Konsume Screenshot" loading="lazy">
             <img src="img/pages/konsumer/57078_front-396203993.jpg" alt="Project Konsume Art" loading="lazy">
+            </div>
         </div>
     </main>
 
@@ -183,7 +190,7 @@
 (function () {
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lightbox-img');
-    document.querySelectorAll('.image-panel img').forEach(function (img) {
+    document.querySelectorAll('.image-panel-images img').forEach(function (img) {
         img.addEventListener('click', function () {
             lbImg.src = this.src;
             lbImg.alt = this.alt;
