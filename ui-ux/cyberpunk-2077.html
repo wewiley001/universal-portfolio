@@ -232,8 +232,9 @@
         .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
         .acc-cols-img:hover { opacity: 1; }
 
-        .acc-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .acc-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
         .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
         .acc-gallery img:hover { opacity: 1; }
 
         .image-panel {
@@ -409,17 +410,39 @@
                         </button>
                         <div class="accordion-body" id="acc-research" role="region">
                             <div class="accordion-inner">
-                                <h1>Modding Community Analysis</h1>
-                                <p>The CP2077 modding community is a strong indicator of player priorities. The most broadly endorsed mods addressed:</p>
-                                <ul>
-                                    <li>Better loot markers and item filtering</li>
-                                    <li>Filtering save files by lifepath</li>
-                                    <li>Improved quest tracking display</li>
-                                    <li>Customizable HUD element colors</li>
-                                </ul>
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Modding Community Analysis</h1>
+                                        <p>The CP2077 modding community is a strong indicator of player priorities. The most broadly endorsed mods addressed:</p>
+                                        <ul>
+                                            <li>Better loot markers and item filtering</li>
+                                            <li>Filtering save files by lifepath</li>
+                                            <li>Improved quest tracking display</li>
+                                            <li>Customizable HUD element colors</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-research/modding-community-analysis.png" alt="Modding Community Analysis" loading="lazy">
+                                    </div>
+                                </div>
                                 <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
-                                <h1>Visual Inspiration</h1>
-                                <p>Side-by-side analysis of the 2018 demo UI versus the shipped product revealed the earlier design made stronger use of scenic Night City imagery as a backdrop — an approach lost in the final release.</p>
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Visual Inspiration</h1>
+                                        <p>Side-by-side analysis of the 2018 demo UI versus the shipped product revealed the earlier design made stronger use of scenic Night City imagery as a backdrop — an approach lost in the final release.</p>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/1890faaa-3591-4131-ba83-b7080812da42_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/2d57086d-fc75-440b-94d4-c22a2fad7bb6_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/3d1fbbfb-3145-4c22-96ba-47a067976c14_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/5f439896-e359-465d-922e-6c285c08ae7f_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/90d8a532-2f05-40fb-9460-5ee18a44d89b_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/98d94daa-b6fb-438e-ab05-6c09e62e6873_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-research/visual-inspiration/f6fe574d-39f6-4141-b77e-ea525f911f7e_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -433,9 +456,35 @@
                             <div class="accordion-inner">
                                 <div class="acc-cols">
                                     <div>
+                                        <h1>Proposed User Flow</h1>
+                                        <p>I mapped out the experience from the moment a player boots the game to the point where they enter the player menus to access their inventory.</p>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-ideations/user-flow.png" alt="Proposed User Flow" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <div class="acc-cols">
+                                    <div>
                                         <h1>First Mockup Iterations</h1>
                                         <p>Initial designs used Night City scenic photography as full-bleed backgrounds with overlaid UI chrome. This approach leaned heavily into the world-as-UI aesthetic.</p>
-                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/1. StartMenu.png" alt="Early — Start Menu" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/1. Game Save.png" alt="Early — Game Save 1" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/2. Game Save.png" alt="Early — Game Save 2" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Load Screens.png" alt="Early — Load Screens" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Player Menu - MAIN.png" alt="Early — Player Menu Main" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Player Menu - Equipment.png" alt="Early — Player Menu Equipment" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Player Menu - Cyberware.png" alt="Early — Player Menu Cyberware" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Player Menu - Map.png" alt="Early — Player Menu Map" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <div class="acc-cols">
+                                    <div>
                                         <h1>Community Feedback</h1>
                                         <p>Sharing within the CP2077 community surfaced consistent criticism:</p>
                                         <ul>
@@ -446,12 +495,7 @@
                                         </ul>
                                     </div>
                                     <div>
-                                        <div class="acc-gallery" style="grid-template-columns: repeat(2, 1fr);">
-                                            <img src="img/pages/cyberpunk-2077/gallery-first/Game Save - CORPO.webp" alt="Early — Game Save Corpo" loading="lazy">
-                                            <img src="img/pages/cyberpunk-2077/gallery-first/Game Save - NOMAD.webp" alt="Early — Game Save Nomad" loading="lazy">
-                                            <img src="img/pages/cyberpunk-2077/gallery-first/Game Save - Street Kid.webp" alt="Early — Game Save Street Kid" loading="lazy">
-                                            <img src="img/pages/cyberpunk-2077/gallery-first/Player Menu - Main.webp" alt="Early — Player Menu Main" loading="lazy">
-                                        </div>
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-ideations/community-feedback.png" alt="Community Feedback" loading="lazy">
                                     </div>
                                 </div>
                                 <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">

@@ -232,8 +232,9 @@
         .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
         .acc-cols-img:hover { opacity: 1; }
 
-        .acc-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .acc-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
         .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
         .acc-gallery img:hover { opacity: 1; }
 
         .image-panel {
@@ -404,16 +405,44 @@
                         </button>
                         <div class="accordion-body" id="acc-research" role="region">
                             <div class="accordion-inner">
-                                <h1>Community Research</h1>
-                                <p>Reddit threads across r/Starfield surfaced recurring complaints about inventory depth and navigation. NexusMods analysis of "StarUI Inventory" — the most downloaded UI mod — confirmed players wanted detailed stat readouts, subcategory filtering, and better item sorting tools.</p>
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Community Research</h1>
+                                        <p>Reddit threads across r/Starfield surfaced recurring complaints about inventory depth and navigation. NexusMods analysis of "StarUI Inventory" — the most downloaded UI mod — confirmed players wanted detailed stat readouts, subcategory filtering, and better item sorting tools.</p>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/starfield/gallery-research/community-research/0101fad9-24a7-4bbe-8e72-a94909ab55da_rw_1200.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/01520693-95ba-4c1c-88db-366ac4a16071_rw_1920.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/2c03d284-387c-4149-a9b1-93ca0b42c855_rw_1920.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/37fab3e9-b676-440d-8c3c-e9ed1ad4a3c9_rw_1920.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/96305e0a-3caf-4906-8d63-c527f1ece55e_rw_1920.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/b500657a-e5b6-4ec0-95fd-983e0e478277_rw_1200.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/e60ce782-23f4-4210-97ea-6c52c2054662_rw_1920.png" alt="Community Research" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/community-research/f5fa8634-cbd8-400c-ad80-f1af135b8545_rw_1920.png" alt="Community Research" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
                                 <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
-                                <h1>Visual Inspiration</h1>
-                                <p>Comparative research covered:</p>
-                                <ul>
-                                    <li><strong>The Witcher 3</strong> — rich stat readouts, strong item categorization</li>
-                                    <li><strong>Destiny 2</strong> — clean icon-based layout with expandable detail pane</li>
-                                    <li><strong>Baldur's Gate 3</strong> — dense information hierarchy with excellent sorting</li>
-                                </ul>
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Visual Inspiration</h1>
+                                        <p>Comparative research covered:</p>
+                                        <ul>
+                                            <li><strong>The Witcher 3</strong> — rich stat readouts, strong item categorization</li>
+                                            <li><strong>Destiny 2</strong> — clean icon-based layout with expandable detail pane</li>
+                                            <li><strong>Baldur's Gate 3</strong> — dense information hierarchy with excellent sorting</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/starfield/gallery-research/visual-inspiration/b455bd01-148a-4814-b058-a83477840e24_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/visual-inspiration/c0bad5e1-6c98-42d6-bac9-d860fb49fae2_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/visual-inspiration/d5cab5eb-97a5-40bb-9116-57bf7effd516_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-research/visual-inspiration/dcf25284-e205-4ee6-9551-06a6dbd9a5a0_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -427,6 +456,16 @@
                             <div class="accordion-inner">
                                 <div class="acc-cols">
                                     <div>
+                                        <h1>User Flow</h1>
+                                        <p>A user flow diagram was developed before visual design began, mapping all major navigation paths through the inventory system from the Menu Landing screen to sub-categories.</p>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/starfield/design-sys/Starfield INV Flow.png" alt="Starfield Inventory Flow Diagram" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">                                
+                                <div class="acc-cols">
+                                    <div>
                                         <h1>Three Design Directions</h1>
                                         <p>Three concepts were developed and shared with the community for feedback:</p>
                                         <ul>
@@ -434,25 +473,23 @@
                                             <li><strong>Minimalist</strong> — Destiny-inspired; clean rows, collapsed by default</li>
                                             <li><strong>Full Functionality</strong> — Witcher/BG3 inspired; maximum data density</li>
                                         </ul>
-                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
-                                        <h1>Community Feedback</h1>
-                                        <p>Middleground and Full Functionality were most popular but critiqued as too cluttered. Minimalist received praise for clean layout. Players strongly preferred data readouts over icon-only slots. A small minority still preferred the vanilla UI, emphasizing how subjective game UI is.</p>
                                     </div>
                                     <div>
-                                        <div class="acc-gallery" style="grid-template-columns: repeat(2, 1fr);">
-                                            <img src="img/pages/starfield/gallery-first/Inventory Middleground.png" alt="Inventory — Middleground" loading="lazy">
-                                            <img src="img/pages/starfield/gallery-first/Inventory Minimalist.png" alt="Inventory — Minimalist" loading="lazy">
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/starfield/gallery-first/01Mockup.png" alt="Inventory — Middleground" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-first/02Mockup.png" alt="Inventory — Minimalist" loading="lazy">
+                                            <img src="img/pages/starfield/gallery-first/03Mockup.png" alt="Inventory — Full Functionality" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
                                 <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
                                 <div class="acc-cols">
                                     <div>
-                                        <h1>User Flow</h1>
-                                        <p>A user flow diagram was developed before visual design began, mapping all major navigation paths through the inventory system from the Menu Landing screen to sub-categories.</p>
+                                        <h1>Community Feedback</h1>
+                                        <p>Middleground and Full Functionality were most popular but critiqued as too cluttered. Minimalist received praise for clean layout. Players strongly preferred data readouts over icon-only slots. A small minority still preferred the vanilla UI, emphasizing how subjective game UI is.</p>
                                     </div>
                                     <div>
-                                        <img class="acc-cols-img" src="img/pages/starfield/design-sys/Starfield INV Flow.png" alt="Starfield Inventory Flow Diagram" loading="lazy">
+                                        <img class="acc-cols-img" src="img\pages\starfield\gallery-research\community-feedback.png" alt="Starfield Inventory Flow Diagram" loading="lazy">
                                     </div>
                                 </div>
                             </div>

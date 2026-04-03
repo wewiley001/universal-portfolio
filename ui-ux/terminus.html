@@ -232,8 +232,9 @@
         .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
         .acc-cols-img:hover { opacity: 1; }
 
-        .acc-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .acc-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
         .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
         .acc-gallery img:hover { opacity: 1; }
 
         .image-panel {
@@ -403,8 +404,22 @@
                         </button>
                         <div class="accordion-body" id="acc-research" role="region">
                             <div class="accordion-inner">
-                                <h1>Competitive Analysis</h1>
-                                <p>Destiny 2 is the definitive looter-shooter RPG live service game — its icon-to-category interface and cursor-based navigation serve as the primary reference point. Dead Space uses minimal HUD elements to enforce a horror ambiance. Since Terminus is a cosmic horror concept, a similar HUD philosophy feeds into the Sci-Fi horror aesthetic.</p>
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Competitive Analysis</h1>
+                                        <p>Destiny 2 is the definitive looter-shooter RPG live service game — its icon-to-category interface and cursor-based navigation serve as the primary reference point. Dead Space uses minimal HUD elements to enforce a horror ambiance. Since Terminus is a cosmic horror concept, a similar HUD philosophy feeds into the Sci-Fi horror aesthetic.</p>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/terminus/gallery-research/0c30d873-1cbe-4909-8fa6-d6cd6307ae91_rw_1920.png" alt="Research" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-research/5ec4b46b-dbbb-4ca7-87de-a34bc6d7fddc_rw_1920.png" alt="Research" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-research/640482a4-a055-40d8-8c44-baeb33a76ade_rw_1920.png" alt="Research" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-research/90674e0d-36cb-4e1d-86a7-f74357853b26_rw_1920.png" alt="Research" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-research/98e5f093-1786-47a5-be26-3ec48f7fdfce_rw_1920.png" alt="Research" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-research/f0a9d39a-5265-45c6-bdc9-f8ed6df64b72_rw_1920.png" alt="Research" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -418,32 +433,50 @@
                             <div class="accordion-inner">
                                 <div class="acc-cols">
                                     <div>
+                                        <h1>User Flow</h1>
+                                        <p>The user flow of the Character Menu is inspired by Destiny 2's character menu, where the equipment page serves as the landing page for the whole menu.</p>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/terminus/gallery-ideation/user-flow.png" alt="User Flow" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <div class="acc-cols">
+                                    <div>
                                         <h1>Design Iterations</h1>
                                         <p>The main focus was finding a balance of hi-tech and occult designs that make sense within a science fiction, cosmic horror theme. The color scheme was kept as simplistic as possible and applied consistently across situations — item rarity, gameplay difficulty, and navigation states.</p>
                                         <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
                                         <p>The user flow of the Character Menu is inspired by Destiny 2's character menu, where the equipment page serves as the landing page for the whole menu. A major concept in Lovecraftian Horror — non-Euclidean geometry — influenced the Skill Tree and splash screen designs.</p>
                                     </div>
                                     <div>
-                                        <img class="acc-cols-img" src="img/pages/terminus/design-sys/TV - 1.png" alt="Terminus TV Mockup" loading="lazy">
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/terminus/design-sys/TV - 1.png" alt="Terminus TV Mockup" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-first/Frontier - MAIN MENU - Landing Screen.png" alt="Main Menu — Landing Screen" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-first/Frontier - MAIN MENU - PRESS START.png" alt="Main Menu — Press Start" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - CHARACTER - Ranger.png" alt="Character Menu — Ranger" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - EQUIP - ARMOR.png" alt="Character Menu — Equip Armor" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - EQUIP - WEAPON_Prime.png" alt="Character Menu — Weapon Prime" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - SKILLTREE - Ranger.png" alt="Character Menu — Skill Tree" loading="lazy">
+                                        </div>
                                     </div>
                                 </div>
                                 <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
-                                <h1>Competitive Research &amp; Visual Inspiration</h1>
-                                <div class="acc-gallery" style="margin-top:1rem; grid-template-columns: repeat(2, 1fr);">
-                                    <img src="img/pages/terminus/design-sys/Competitive Analayis.png" alt="Competitive Analysis" loading="lazy">
-                                    <img src="img/pages/terminus/design-sys/Visual Inspirations.png" alt="Visual Inspirations" loading="lazy">
-                                    <img src="img/pages/terminus/design-sys/Gameplay HUD.png" alt="Gameplay HUD" loading="lazy">
-                                    <img src="img/pages/terminus/design-sys/PLAYER HUD ASSETS.png" alt="Player HUD Assets" loading="lazy">
-                                </div>
-                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
-                                <h1>Early Mockups</h1>
-                                <div class="acc-gallery" style="margin-top:1rem; grid-template-columns: repeat(3, 1fr);">
-                                    <img src="img/pages/terminus/gallery-first/Frontier - MAIN MENU - Landing Screen.png" alt="Main Menu — Landing Screen" loading="lazy">
-                                    <img src="img/pages/terminus/gallery-first/Frontier - MAIN MENU - PRESS START.png" alt="Main Menu — Press Start" loading="lazy">
-                                    <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - CHARACTER - Ranger.png" alt="Character Menu — Ranger" loading="lazy">
-                                    <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - EQUIP - ARMOR.png" alt="Character Menu — Equip Armor" loading="lazy">
-                                    <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - EQUIP - WEAPON_Prime.png" alt="Character Menu — Weapon Prime" loading="lazy">
-                                    <img src="img/pages/terminus/gallery-first/Frontier -Character Menu - SKILLTREE - Ranger.png" alt="Character Menu — Skill Tree" loading="lazy">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Visual Inspiration</h1>
+                                        <p>The inspiration gallery tries to take both aesthetic and functionality designs from multiple games that either enforce an immersive experience within a stylized world, and/or push forth live feature elements to further the GaaS features of TERMINUS.</p>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/047fce5c-4155-49eb-8b41-8e2c387ab0ae_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/5052b49d-758c-4148-a13f-d3035d056f35_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/817f27c6-8c59-4ad0-a1ae-47b8d2bfe4ae_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/d99e8430-deac-49b3-8eb7-3c66e498a69a_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/da8604f1-39b7-4dac-b3b2-386d3b5b117b_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/e855476f-efaa-45a5-9f6c-9591b7b0d19c_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                            <img src="img/pages/terminus/gallery-ideation/visual-inspiration/e88b55e1-81b7-470d-8f02-07b94fcf3672_rw_1920.png" alt="Visual Inspiration" loading="lazy">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
