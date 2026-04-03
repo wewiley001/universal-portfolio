@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --yellow: #fdef03; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Topbar ── */
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* ── Main scroll area ── */
+        .page {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding: 3rem 4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .hero-photo {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(248,21,98,.4);
+        }
+        .hero-text {}
+        .hero-name {
+            font-size: 2.6rem;
+            font-weight: 300;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .hero-location {
+            margin-top: .4rem;
+            font-size: .72rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+        }
+        .hero-location span { color: var(--accent); }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+            margin-top: 1rem;
+        }
+        .tag {
+            font-size: .58rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 2px 7px;
+        }
+
+        /* ── Content grid ── */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        .content-col {
+            padding: 2.5rem 4rem;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+        .content-col:last-child { border-right: none; }
+
+        .section-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid rgba(248,21,98,.2);
+        }
+        .bio-text {
+            font-size: .95rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,.65);
+        }
+        .bio-text p + p { margin-top: .9rem; }
+        .bio-text strong { color: #fff; font-weight: 600; }
+
+        /* ── Timeline ── */
+        .timeline { display: flex; flex-direction: column; gap: 1.4rem; }
+        .timeline-item { display: flex; gap: 1rem; }
+        .timeline-dot {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-top: .45rem;
+        }
+        .timeline-year {
+            font-size: .65rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+            margin-bottom: .15rem;
+        }
+        .timeline-title {
+            font-size: .9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .timeline-sub {
+            font-size: .8rem;
+            color: rgba(255,255,255,.4);
+            margin-top: .1rem;
+        }
+
+        /* ── Skills ── */
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .skill-group-label {
+            font-size: .65rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+            margin-bottom: .4rem;
+        }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+        .skill-tag {
+            font-size: .68rem;
+            padding: 3px 9px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 2px;
+            color: rgba(255,255,255,.6);
+            letter-spacing: .05em;
+        }
+
+        /* ── Contact ── */
+        .contact-list { display: flex; flex-direction: column; gap: .7rem; }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-decoration: none;
+            color: rgba(255,255,255,.55);
+            font-size: .88rem;
+            transition: color .2s;
+        }
+        .contact-item:hover { color: var(--hover); }
+        .contact-item svg { fill: currentColor; width: 16px; height: 16px; flex-shrink: 0; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="../" class="back-link">&#8592; Portfolio</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+        </svg>
+        <span>About</span>
+    </div>
+</header>
+
+<div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <img class="hero-photo"
+             src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/36993d68-2f6f-485e-be30-e348218b7a30_rw_1200.jpg?h=4dfc74d29073a0294d05c984cd56f405"
+             alt="Will Wiley">
+        <div class="hero-text">
+            <h1 class="hero-name">Will Wiley</h1>
+            <p class="hero-location">Chicago, <span>Illinois</span></p>
+            <div class="hero-tags">
+                <span class="tag">Game Design</span>
+                <span class="tag">UI/UX Design</span>
+                <span class="tag">Software Dev</span>
+                <span class="tag">Content Creation</span>
+                <span class="tag">Visual Storytelling</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content">
+
+        <!-- Left: Bio -->
+        <div class="content-col">
+            <p class="section-label">About Me</p>
+            <div class="bio-text">
+                <p>I'm a multidisciplinary designer specializing in <strong>visual storytelling</strong>. My general specialties include designing, writing, and user testing interactive and multimedia projects.</p>
+                <p>In 2014, I graduated from <strong>Columbia College Chicago</strong> with a degree in Game Design, but spent nearly the next decade in educational publishing, specializing in digital asset management and design.</p>
+                <p>In 2022, I made a career change and worked as a <strong>QA Analyst at Netherrealm Studios</strong>, primarily contributing to the production of <strong>Mortal Kombat 1</strong>, which was released in 2023.</p>
+                <p>I developed an interest in UX design to complement my technical and creative skills and have been working towards specializing in <strong>interaction design for games</strong>.</p>
+                <p>I am now seeking new opportunities in the game development industry, while also remaining open to the broader tech industry and adjacent avenues to apply and grow my skill set.</p>
+            </div>
+        </div>
+
+        <!-- Right: Timeline + Skills -->
+        <div class="content-col">
+            <p class="section-label">Experience</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <div class="timeline-year">2022 — 2025</div>
+                        <div class="timeline-title">QA Analyst</div>
+                        <div class="timeline-sub">Netherrealm Studios / WB Studios</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <div class="timeline-year">2014 — 2024</div>
+                        <div class="timeline-title">Digital Asset Management & Design</div>
+                        <div class="timeline-sub">Cricket Media</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <div class="timeline-year">2014</div>
+                        <div class="timeline-title">B.A. Game Design</div>
+                        <div class="timeline-sub">Columbia College Chicago</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-label" style="margin-top: 2rem;">Skills</p>
+            <div class="skills-grid">
+                <div>
+                    <p class="skill-group-label">Design</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Interaction Design</span>
+                        <span class="skill-tag">Visual Design</span>
+                        <span class="skill-tag">Prototyping</span>
+                        <span class="skill-tag">User Testing</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="skill-group-label">Development</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML / CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Game Design</span>
+                        <span class="skill-tag">QA Testing</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="skill-group-label">Tools</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Adobe Suite</span>
+                        <span class="skill-tag">Unreal Engine</span>
+                        <span class="skill-tag">Unity</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="section-label" style="margin-top: 2rem;">Contact</p>
+            <div class="contact-list">
+                <a href="https://wewiley.com" target="_blank" rel="noopener" class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    wewiley.com
+                </a>
+                <a href="https://www.linkedin.com/in/wewiley" target="_blank" rel="noopener" class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    linkedin.com/in/wewiley
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

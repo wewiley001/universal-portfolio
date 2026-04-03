@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-area {
+            flex: 1;
+            font-size: .875rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .content-area img {
+            width: 100%;
+            display: block;
+        }
+        .content-area > iframe {
+            height: calc(100vh - var(--bar-h));
+            width: auto;
+            aspect-ratio: 16 / 9;
+            max-width: 100%;
+            display: block;
+            border: none;
+        }
+        .iframe-pair {
+            display: flex;
+            gap: 4px;
+        }
+        .iframe-pair iframe {
+            flex: 1;
+            min-width: 0;
+            aspect-ratio: 16 / 9;
+            display: block;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; UI/UX</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        <span>UI/UX</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <a href="ghost-of-yotei.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/ghost-of-yotei_thumb.jpg" alt="Ghost of Yotei Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Ghost of Yotei — Usability Redesigns</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="mortal-kombat-1-mobile.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/mortal-kombat-1-mobile_thumb.webp" alt="Mortal Kombat 1 Concept" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">MK1 Mobile UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="terminus.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/terminus_thumb.png" alt="Terminus" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Terminus — GaaS UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="cyberpunk-2077.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/cyberpunk-2077_thumb.jpg" alt="Cyberpunk 2077 Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Cyberpunk 2077 — Menu Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="starfield.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/starfield_thumb.jpg" alt="Starfield Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Starfield — Inventory Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="etsy.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/etsy_thumb.png" alt="Etsy Mobile App Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Etsy Mobile App — Redesign w/ AI</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="scorn.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/scorn_thumb.jpg" alt="Scorn Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Scorn — Analysis</span>
+                <span class="card-tag">Analysis</span>
+            </div>
+        </a>
+        <a href="email-advertising.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/steam-email_thumb.jpg" alt="Email Advertising Mockup" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Email Advertising — Mockup</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Ghost of Yotei — Usability Redesigns</h1>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Client</span>
+                    <span class="info-value">Personal Project</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">UX Designer</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Team</span>
+                    <span class="info-value">Solo Contributor</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Timeline</span>
+                    <span class="info-value">In Progress</span>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <img src="img/pages/ghost-of-yotei/01 - cover.png" alt="Cover" loading="lazy">
+                <img src="img/pages/ghost-of-yotei/02 - Overview.png" alt="Overview" loading="lazy">
+                <img src="img/pages/ghost-of-yotei/03 - Kurosawa - Problem.png" alt="Kurosawa — Problem" loading="lazy">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/gt8A5z2txNY?si=2RpU3fsapr94CU5y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <img src="img/pages/ghost-of-yotei/05 - Kurosawa - Solution.png" alt="Kurosawa — Solution" loading="lazy">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/-SRHGZ1u2qI?si=LjrCgkKE7U-3N2pb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <img src="img/pages/ghost-of-yotei/07 - Watanabe-Problem.png" alt="Watanabe — Problem" loading="lazy">
+                <img src="img/pages/ghost-of-yotei/10 - Watanabe-Solution.png" alt="Watanabe — Solution" loading="lazy">
+                <div class="iframe-pair">
+                    <iframe src="https://www.youtube.com/embed/J8PhLLHOniQ?si=arlbhBZQBgxuPvy5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/RZbKOo9mTgA?si=K3CU1TxqNsUpVTIS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/lPDit6OTMdI?si=tCFlAldz7GG1xTKu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+</body>
+</html>

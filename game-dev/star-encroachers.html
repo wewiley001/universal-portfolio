@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Encroachers — Game Dev</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .topbar { height: var(--bar-h); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); background: #000; }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+        .layout { display: flex; flex: 1; overflow: hidden; }
+        .sidebar { width: var(--sidebar-w); flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.07); overflow-y: auto; padding: .9rem 0 1.5rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+        .content-area { flex: 1; font-size: .875rem; line-height: 1.75; color: rgba(255,255,255,.65); }
+        .content-area h2 { font-size: 1rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.9); margin: 1.5rem 0 .5rem; }
+        .content-area h2:first-child { margin-top: 0; }
+        .content-area p { margin-bottom: .75rem; }
+        .image-panel { width: 33.333%; flex-shrink: 0; overflow-y: auto; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: column; gap: 4px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .image-panel img { width: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel img:hover { opacity: 1; }
+        .image-panel img { cursor: zoom-in; }
+        /* ── Lightbox ── */
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="../" class="back-link">&#8592; Portfolio</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M21.58 16.09l-1.09-7.66C20.21 6.46 18.52 5 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19c.68 0 1.32-.27 1.8-.75L9 16h6l2.25 2.25c.48.48 1.13.75 1.8.75 1.56 0 2.75-1.37 2.53-2.91zM11 11H9v2H8v-2H6v-1h2V8h1v2h2v1zm4 1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2-3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+        </svg>
+        <span>Game Dev</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <!-- ── Star Encroachers (active) ── -->
+        <a href="star-encroachers.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/star_thumb.png" alt="Star Encroachers" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Star Encroachers</span><span class="card-tag">Game Demo</span></div>
+        </a>
+
+        <!-- ── Mortal Kombat 1 ── -->
+        <a href="mortal-kombat-1.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/mki_thumb.jpg" alt="Mortal Kombat 1" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Mortal Kombat 1</span><span class="card-tag">Game Release</span></div>
+        </a>
+
+        <!-- ── Astray ── -->
+        <a href="astray.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/astray_thumb.avif" alt="Astray: A Forsaken Tale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Astray: A Forsaken Tale</span><span class="card-tag">Game Release</span></div>
+        </a>
+
+        <!-- ── Project Konsume ── -->
+        <a href="konsumer.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/konsume_thumb.jpg" alt="Project Konsume" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Project Konsume</span><span class="card-tag">Prototype</span></div>
+        </a>
+
+        <!-- ── The Wabbajawn ── -->
+        <a href="wabbajawn.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/wabbajawn_thumb.jpg" alt="The Wabbajawn" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Wabbajawn</span><span class="card-tag">Game Mod</span></div>
+        </a>
+
+        <!-- ── Observation Deck ── -->
+        <a href="observation-deck.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/observation-deck_thumb.png" alt="Observation Deck" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Observation Deck</span><span class="card-tag">Level/Environment</span></div>
+        </a>
+
+        <!-- ── Ancient Temple ── -->
+        <a href="ancient-temple.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/ancienttemple_thumb.png" alt="Ancient Temple" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Ancient Temple</span><span class="card-tag">Level/Environment</span></div>
+        </a>
+
+        <!-- ── Face Off ── -->
+        <a href="faceoff.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/face-off_thumb.png" alt="Face Off" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Face Off</span><span class="card-tag">Cinematic</span></div>
+        </a>
+
+        <!-- ── Astral Trials ── -->
+        <a href="astral-trials.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/astral_thumb.png" alt="Astral Trials" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Astral Trials</span><span class="card-tag">Game Demo</span></div>
+        </a>
+
+        <!-- ── Mortal Kombat: Onslaught ── -->
+        <a href="mortal-kombat-onslaught.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/mko_thumb.jpg" alt="Mortal Kombat: Onslaught" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Mortal Kombat: Onslaught</span><span class="card-tag">Game Release</span></div>
+        </a>
+
+        <!-- ── Cyberpunk Apartment ── -->
+        <a href="cyberpunk-apartment.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/cyberpunk-apt_thumb.webp" alt="Cyberpunk Apartment" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Cyberpunk Apartment</span><span class="card-tag">Level/Environment</span></div>
+        </a>
+
+        <!-- ── Target Practice ── -->
+        <a href="target-practice.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/targetpractive_thumb.webp" alt="Target Practice" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Target Practice</span><span class="card-tag">Game Demo</span></div>
+        </a>
+
+        <!-- ── Creation Kit Mods ── -->
+        <a href="creation-kit-mods.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/creation_thumb.png" alt="Creation Kit Mods" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Creation Kit Mods</span><span class="card-tag">Game Mod</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Star Encroachers</h1>
+
+            <div class="content-area">
+                <h2>Background</h2>
+                <p>A space-themed game demo.</p>
+            </div>
+        </div>
+
+        <div class="image-panel">
+            <img src="img/pages/star-encroacher/LJjyLf.png" alt="Star Encroachers" loading="lazy">
+        </div>
+    </main>
+
+</div>
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.image-panel img').forEach(function (img) {
+        img.addEventListener('click', function () {
+            lbImg.src = this.src;
+            lbImg.alt = this.alt;
+            lb.classList.add('open');
+        });
+    });
+    function close() { lb.classList.remove('open'); lbImg.src = ''; }
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.getElementById('lightbox-close').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
+</body>
+</html>

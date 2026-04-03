@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Dev — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Top bar ── */
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* ── Gallery grid ── */
+        .gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 6px;
+            overflow: hidden;
+        }
+
+        .card:nth-child(1) { grid-column: 1;     grid-row: 1 / 7; } /* TradeSage               — full  */
+        .card:nth-child(2) { grid-column: 2;     grid-row: 1 / 4; } /* Content Automation      — half  */
+        .card:nth-child(3) { grid-column: 3 / 5; grid-row: 1 / 7; } /* Prompt-to-SQL           — full 2-wide */
+        .card:nth-child(4) { grid-column: 2;     grid-row: 4 / 7; } /* Selenite                — half  */
+        .card:nth-child(5) { grid-column: 5;     grid-row: 1 / 7; } /* Creationist Bot         — full  */
+
+        /* ── Cards ── */
+        .card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+            background: #070707;
+            border: 1px solid #f81562;
+            transition: border-color .25s;
+        }
+        .card:hover { border-color: #fdef03; z-index: 1; }
+
+        .card-thumb { position: absolute; inset: 0; overflow: hidden; }
+        .card-thumb svg { width: 100%; height: 100%; display: block; }
+        .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.5; }
+
+        /* ── Hover overlay ── */
+        .card-info {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(to bottom, transparent 0%, rgba(253,239,3,.88) 100%);
+            opacity: 0;
+            transition: opacity .25s;
+        }
+        .card:hover .card-info { opacity: 1; }
+
+        .card-title { font-size: 1.1rem; font-weight: 500; letter-spacing: .03em; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,.9), 0 0 20px rgba(0,0,0,.7); }
+        .card-tag {
+            text-shadow: 0 1px 6px rgba(0,0,0,.9);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.4);
+            border-radius: 2px;
+            padding: 2px 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: color .2s, border-color .2s;
+        }
+        .card:hover .card-tag { color: #fff; border-color: rgba(255,255,255,.4); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="../" class="back-link">&#8592; Portfolio</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+        </svg>
+        <span>Software Dev</span>
+    </div>
+</header>
+
+<div class="gallery">
+
+    <!-- ── TradeSage ── -->
+    <a href="tradesage.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/tradesage_thumb.jpg" alt="TradeSage" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">TradeSage</span>
+            <span class="card-tag">AI Tool</span>
+        </div>
+    </a>
+
+    <!-- ── Content Automation Pipeline ── -->
+    <a href="content-automation-pipeline.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/content-automation_thumb.jpg" alt="Content Automation Pipeline" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Content Automation Pipeline</span>
+            <span class="card-tag">Automation</span>
+        </div>
+    </a>
+
+    <!-- ── Prompt to SQL ── -->
+    <a href="prompt-to-sql.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/prompt-to-sql_thumb.jpg" alt="Prompt to SQL" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Prompt to SQL</span>
+            <span class="card-tag">AI Tool</span>
+        </div>
+    </a>
+
+    <!-- ── Selenite ── -->
+    <a href="selenite.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/selenite_thumb.jpeg" alt="Selenite" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Selenite</span>
+            <span class="card-tag">Desktop App</span>
+        </div>
+    </a>
+
+    <!-- ── Creationist Bot ── -->
+    <a href="creationist.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/creationist_thumb.jpg" alt="Creationist Bot" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Creationist Bot</span>
+            <span class="card-tag">Automation</span>
+        </div>
+    </a>
+
+</div>
+
+</body>
+</html>

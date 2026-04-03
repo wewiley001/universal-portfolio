@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-area {
+            flex: 1;
+            font-size: .875rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+
+        .accordion { display: flex; flex-direction: column; gap: 4px; }
+        .accordion-item { border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+        .accordion-trigger {
+            width: 100%;
+            background: #070707;
+            border: none;
+            color: #fff;
+            text-align: left;
+            padding: .8rem 1rem;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: background .2s, color .2s;
+        }
+        .accordion-trigger:hover { background: rgba(248,21,98,.06); color: var(--hover); }
+        .accordion-trigger[aria-expanded="true"] { background: rgba(248,21,98,.08); color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .accordion-icon {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: transform .25s;
+        }
+        .accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+        .accordion-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .28s ease;
+        }
+        .accordion-body.open { grid-template-rows: 1fr; }
+        .accordion-inner {
+            overflow: hidden;
+            padding: 0 1rem;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+        .accordion-body.open .accordion-inner { padding: 1rem; }
+        .accordion-inner p + p { margin-top: .75rem; }
+        .accordion-inner ul { padding-left: 1.25rem; }
+        .accordion-inner li + li { margin-top: .35rem; }
+
+        .acc-cols { display: grid; grid-template-columns: 35% 65%; gap: 1.25rem; align-items: center; }
+        .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-cols-img:hover { opacity: 1; }
+
+        .acc-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:hover { opacity: 1; }
+
+        .image-panel {
+            width: 33.333%;
+            flex-shrink: 0;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .image-panel img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            opacity: .75;
+            transition: opacity .3s;
+            cursor: zoom-in;
+        }
+        .image-panel img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; UI/UX</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        <span>UI/UX</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <a href="cyberpunk-2077.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/cyberpunk-2077_thumb.jpg" alt="Cyberpunk 2077 Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Cyberpunk 2077 — Menu Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="mortal-kombat-1-mobile.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/mortal-kombat-1-mobile_thumb.webp" alt="Mortal Kombat 1 Concept" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">MK1 Mobile UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="terminus.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/terminus_thumb.png" alt="Terminus" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Terminus — GaaS UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="starfield.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/starfield_thumb.jpg" alt="Starfield Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Starfield — Inventory Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="etsy.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/etsy_thumb.png" alt="Etsy Mobile App Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Etsy Mobile App — Redesign w/ AI</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="scorn.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/scorn_thumb.jpg" alt="Scorn Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Scorn — Analysis</span>
+                <span class="card-tag">Analysis</span>
+            </div>
+        </a>
+        <a href="ghost-of-yotei.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/ghost-of-yotei_thumb.jpg" alt="Ghost of Yotei Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Ghost of Yotei — Usability Redesigns</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="email-advertising.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/steam-email_thumb.jpg" alt="Email Advertising Mockup" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Email Advertising — Mockup</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Cyberpunk 2077 — Menu Redesign</h1>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Client</span>
+                    <span class="info-value">Personal Project</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">UX, Visual, Motion Designer</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Team</span>
+                    <span class="info-value">Solo Contributor</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Timeline</span>
+                    <span class="info-value">3 Weeks</span>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="accordion">
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-overview">
+                            Overview
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body open" id="acc-overview" role="region">
+                            <div class="accordion-inner">
+                                <p>Despite a rocky launch in 2020, Cyberpunk 2077 (in its 2.0/Phantom Liberty state) is one of the most polished AAA games available. The world design and art direction are phenomenal — but there are specific design decisions in the UI that could be done differently for a more immersive, cohesive experience.</p>
+                                <p>This project was a personal fan effort to explore how the game's menus could better capitalize on its rich visual identity without deviating from the Night City aesthetic.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-define-problem">
+                            Define Problem
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-define-problem" role="region">
+                            <div class="accordion-inner">
+                                <p>The CP2077 interface underwent significant changes between the 2018 demo and the shipped product, resulting in both aesthetic and usability regressions. Specific challenges:</p>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <ul>
+                                    <li>It is a fully-fleshed out, shipped title — changes must be respectful of existing art direction.</li>
+                                    <li>Aesthetic versus functional debates are pronounced in a game with such a strong identity.</li>
+                                </ul>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <h2>Goals</h2>
+                                <ul>
+                                    <li>Capitalize on world design aesthetics — the world itself is the best asset.</li>
+                                    <li>Improve functionality and information clarity in menus.</li>
+                                    <li>Refine navigation flow between Journal, Map, and Inventory.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-research">
+                            Research
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-research" role="region">
+                            <div class="accordion-inner">
+                                <h1>Modding Community Analysis</h1>
+                                <p>The CP2077 modding community is a strong indicator of player priorities. The most broadly endorsed mods addressed:</p>
+                                <ul>
+                                    <li>Better loot markers and item filtering</li>
+                                    <li>Filtering save files by lifepath</li>
+                                    <li>Improved quest tracking display</li>
+                                    <li>Customizable HUD element colors</li>
+                                </ul>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <h1>Visual Inspiration</h1>
+                                <p>Side-by-side analysis of the 2018 demo UI versus the shipped product revealed the earlier design made stronger use of scenic Night City imagery as a backdrop — an approach lost in the final release.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-ideations">
+                            Ideations
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-ideations" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>First Mockup Iterations</h1>
+                                        <p>Initial designs used Night City scenic photography as full-bleed backgrounds with overlaid UI chrome. This approach leaned heavily into the world-as-UI aesthetic.</p>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <h1>Community Feedback</h1>
+                                        <p>Sharing within the CP2077 community surfaced consistent criticism:</p>
+                                        <ul>
+                                            <li>Felt cramped and "mobile-game-esque"</li>
+                                            <li>Lack of clear indicating elements for selection states</li>
+                                            <li>Colors were too oversaturated</li>
+                                            <li>Condensed display font didn't read well at game resolution</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery" style="grid-template-columns: repeat(2, 1fr);">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Game Save - CORPO.webp" alt="Early — Game Save Corpo" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Game Save - NOMAD.webp" alt="Early — Game Save Nomad" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Game Save - Street Kid.webp" alt="Early — Game Save Street Kid" loading="lazy">
+                                            <img src="img/pages/cyberpunk-2077/gallery-first/Player Menu - Main.webp" alt="Early — Player Menu Main" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Typography &amp; Design System</h1>
+                                        <p>A revised type scale and element system were developed to address the readability and density issues found in the first round. Semi-transparent panels replaced full-bleed backgrounds, and a more deliberate accent-color hierarchy was applied.</p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2,1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/design-sys/Typography.png" alt="Typography System" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/design-sys/Color Swatches.png" alt="Color System" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/design-sys/Elements.png" alt="UI Elements Reference" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/design-sys/Elements-1.png" alt="UI Elements 1" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-results">
+                            Results
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-results" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Final Design</h1>
+                                        <h2>Game Boot &amp; Save Selection</h2>
+                                        <p>The game boot screen redesign treats world design as the first selling point — dramatic scenic imagery is used from the first screen. The save selection screen allows filtering by lifepath (Corpo, Nomad, Street Kid), resolving a top modding community request.</p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-final/1. StartMenu.png" alt="Start Menu" loading="lazy" style="grid-column: 1 / -1;">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-final/1. Game Save - CORPO.png" alt="Game Save — Corpo" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-final/1. Game Save - NOMAD.png" alt="Game Save — Nomad" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h2>Player Menu</h2>
+                                        <p>The player menu uses semi-transparent backgrounds to keep Night City visible behind all menus. More vibrant but better-controlled colors were applied. The Journal was reorganized to separate World Lore from active Missions, and category navigation was simplified with persistent breadcrumbs.</p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-final/Player Menu - MAIN.png" alt="Player Menu — Main" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/cyberpunk-2077/gallery-final/Player Menu - STATS.png" alt="Player Menu — Stats" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-takeaways">
+                            Takeaways
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-takeaways" role="region">
+                            <div class="accordion-inner">
+                                <p>Feedback fundamentally forced a rethinking of assumptions. The first iteration felt intuitive to design but received a clear response — back to the drawing board. This reinforced the value of community feedback loops in public-facing fan work.</p>
+                                <p>Cyberpunk 2077 has an incredibly devoted fanbase who know the game intimately. Designing for them requires humility and willingness to defer to their experience. Not all design ideas that seem visually sound hold up under real user scrutiny.</p>
+                                <p>The importance of a second opinion — especially from people with context you don't have — cannot be overstated.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="image-panel">
+            <img src="img/pages/cyberpunk-2077/gallery-final/1. StartMenu.png" alt="Start Menu" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/1. Game Save - CORPO.png" alt="Game Save — Corpo" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/1. Game Save - NOMAD.png" alt="Game Save — Nomad" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/1. Game Save - Streek Kid.png" alt="Game Save — Street Kid" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/2. Game Save.png" alt="Game Save" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/2. Delete Save.png" alt="Delete Save" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Load Screens.png" alt="Load Screens" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - MAIN.png" alt="Player Menu — Main" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - STATS.png" alt="Player Menu — Stats" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - EQUIPMENT.png" alt="Player Menu — Equipment" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - CYBERWARE.png" alt="Player Menu — Cyberware" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - MAP.png" alt="Player Menu — Map" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - Journal.png" alt="Player Menu — Journal" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - Journal - STORY01.png" alt="Journal — Story 01" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - Journal - STORY02.png" alt="Journal — Story 02" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - Journal - STORY03.png" alt="Journal — Story 03" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - Journal - STORY04.png" alt="Journal — Story 04" loading="lazy">
+            <img src="img/pages/cyberpunk-2077/gallery-final/Player Menu - Journal - STORY05.png" alt="Journal — Story 05" loading="lazy">
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var isOpen = this.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.accordion-trigger').forEach(function (b) {
+                b.setAttribute('aria-expanded', 'false');
+                document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');
+            });
+            if (!isOpen) {
+                this.setAttribute('aria-expanded', 'true');
+                document.getElementById(this.getAttribute('aria-controls')).classList.add('open');
+            }
+        });
+    });
+
+    document.querySelectorAll('.image-panel img').forEach(function (img) {
+        img.addEventListener('click', function () { openLightbox(img.src, img.alt); });
+    });
+
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+</body>
+</html>

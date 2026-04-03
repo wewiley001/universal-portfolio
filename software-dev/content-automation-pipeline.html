@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Automation Pipeline — Software Dev</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 252px; --bar-h: 52px; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .topbar { height: var(--bar-h); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); background: #000; }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+        .layout { display: flex; flex: 1; overflow: hidden; }
+        .sidebar { width: var(--sidebar-w); flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.07); overflow-y: auto; padding: .9rem 0 1.5rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+        .main { flex: 1; overflow-y: auto; padding: 2rem 2.5rem; display: flex; flex-direction: column; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; flex-wrap: wrap; }
+        .info-row { flex: 1; min-width: 130px; display: flex; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); display: flex; align-items: center; }
+        .info-value a { color: var(--hover); text-decoration: none; transition: opacity .2s; }
+        .info-value a:hover { opacity: .75; }
+        .content-area { font-size: .875rem; line-height: 1.75; color: rgba(255,255,255,.65); }
+        .content-area h2 { font-size: 1rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.9); margin: 1.5rem 0 .5rem; }
+        .content-area h2:first-child { margin-top: 0; }
+        .content-area p { margin-bottom: .75rem; }
+        .content-area ul { margin: 0 0 .75rem 1.25rem; }
+        .content-area li { margin-bottom: .35rem; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="../" class="back-link">&#8592; Portfolio</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+        </svg>
+        <span>Software Dev</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <a href="content-automation-pipeline.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/content-automation_thumb.jpg" alt="Content Automation Pipeline" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Content Automation Pipeline</span><span class="card-tag">Automation</span></div>
+        </a>
+        <a href="tradesage.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/tradesage_thumb.jpg" alt="TradeSage" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">TradeSage</span><span class="card-tag">AI Tool</span></div>
+        </a>
+        <a href="prompt-to-sql.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/prompt-to-sql_thumb.jpg" alt="Prompt to SQL" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Prompt to SQL</span><span class="card-tag">AI Tool</span></div>
+        </a>
+        <a href="selenite.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/selenite_thumb.jpeg" alt="Selenite" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Selenite</span><span class="card-tag">Desktop App</span></div>
+        </a>
+        <a href="creationist.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/creationist_thumb.jpg" alt="Creationist Bot" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Creationist Bot</span><span class="card-tag">Automation</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <h1 class="page-title">Content Automation Pipeline</h1>
+
+        <div class="info-bar">
+            <div class="info-row">
+                <span class="info-label">Type</span>
+                <span class="info-value">Automation</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Languages</span>
+                <span class="info-value">Python · TypeScript</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">License</span>
+                <span class="info-value">BSD-2-Clause</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Repository</span>
+                <span class="info-value"><a href="https://github.com/wewiley001/Content-Automation-Pipeline" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></span>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <h2>Overview</h2>
+            <p>Content Automation Pipeline is a prototype system for generating YouTube video content entirely through local AI. It chains together AI-powered stages — from script and asset generation to a monitoring dashboard — to produce publish-ready video without manual intervention.</p>
+            <p>The pipeline runs fully offline using a locally hosted LLM (configured via a custom Modelfile), making it a self-contained content factory for experimenting with AI-driven media production.</p>
+
+            <h2>Features</h2>
+            <ul>
+                <li>End-to-end anime/video pipeline from topic to finished content</li>
+                <li>Local LLM integration via custom Ollama Modelfile</li>
+                <li>Asset generation and management pipeline</li>
+                <li>TypeScript-based monitoring dashboard for pipeline status</li>
+            </ul>
+
+            <h2>Tech Stack</h2>
+            <ul>
+                <li>Python — pipeline orchestration and AI stage logic</li>
+                <li>TypeScript — web-based monitoring dashboard</li>
+                <li>Ollama (local LLM) — content generation engine</li>
+            </ul>
+        </div>
+    </main>
+
+</div>
+
+</body>
+</html>

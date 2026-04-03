@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-area {
+            flex: 1;
+            font-size: .875rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+
+        .accordion { display: flex; flex-direction: column; gap: 4px; }
+        .accordion-item { border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+        .accordion-trigger {
+            width: 100%;
+            background: #070707;
+            border: none;
+            color: #fff;
+            text-align: left;
+            padding: .8rem 1rem;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: background .2s, color .2s;
+        }
+        .accordion-trigger:hover { background: rgba(248,21,98,.06); color: var(--hover); }
+        .accordion-trigger[aria-expanded="true"] { background: rgba(248,21,98,.08); color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .accordion-icon {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: transform .25s;
+        }
+        .accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+        .accordion-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .28s ease;
+        }
+        .accordion-body.open { grid-template-rows: 1fr; }
+        .accordion-inner {
+            overflow: hidden;
+            padding: 0 1rem;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+        .accordion-body.open .accordion-inner { padding: 1rem; }
+        .accordion-inner p + p { margin-top: .75rem; }
+        .accordion-inner ul { padding-left: 1.25rem; }
+        .accordion-inner li + li { margin-top: .35rem; }
+
+        .acc-cols { display: grid; grid-template-columns: 35% 65%; gap: 1.25rem; align-items: start; }
+        .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-cols-img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; UI/UX</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        <span>UI/UX</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <a href="scorn.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/scorn_thumb.jpg" alt="Scorn Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Scorn — Analysis</span>
+                <span class="card-tag">Analysis</span>
+            </div>
+        </a>
+        <a href="mortal-kombat-1-mobile.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/mortal-kombat-1-mobile_thumb.webp" alt="Mortal Kombat 1 Concept" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">MK1 Mobile UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="terminus.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/terminus_thumb.png" alt="Terminus" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Terminus — GaaS UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="cyberpunk-2077.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/cyberpunk-2077_thumb.jpg" alt="Cyberpunk 2077 Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Cyberpunk 2077 — Menu Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="starfield.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/starfield_thumb.jpg" alt="Starfield Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Starfield — Inventory Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="etsy.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/etsy_thumb.png" alt="Etsy Mobile App Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Etsy Mobile App — Redesign w/ AI</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="ghost-of-yotei.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/ghost-of-yotei_thumb.jpg" alt="Ghost of Yotei Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Ghost of Yotei — Usability Redesigns</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="email-advertising.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/steam-email_thumb.jpg" alt="Email Advertising Mockup" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Email Advertising — Mockup</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Scorn — Analysis</h1>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Client</span>
+                    <span class="info-value">Personal Project</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">UX, Game Designer</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Team</span>
+                    <span class="info-value">Solo Contributor</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Timeline</span>
+                    <span class="info-value">1 Week</span>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="accordion">
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-overview">
+                            Overview
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body open" id="acc-overview" role="region">
+                            <div class="accordion-inner">
+                                <p>Scorn is a survival horror game released in October 2022. Set in a stark, alien world inspired by the works of H.R. Giger and Zdzisław Beksiński, it was critically praised for its visual art direction and environmental puzzles. However, it received mixed reactions regarding game length, pacing, and unbalanced combat.</p>
+                                <p>This analysis attempts to re-imagine Scorn's game design into a more cohesive experience — identifying where the game's identity clashes with its mechanics, and proposing alternatives from a UX and game design lens.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-define-problem">
+                            Define Problem
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-define-problem" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <p>The developers intentionally designed the game with minimal exposition — the player is thrown into the world with no context, instructions, or clear narrative guidance. While this aligns philosophically with Lovecraftian unknowability, it compounds an already fragmented experience.</p>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <h2>Pain Points</h2>
+                                        <ul>
+                                            <li><strong>Combat is unbalanced</strong> — player health is low going into encounters while enemy damage output is disproportionately high.</li>
+                                            <li><strong>Save system is punishing</strong> — location-based manual saves can lock players into progression traps with insufficient resources.</li>
+                                            <li><strong>Identity crisis</strong> — Scorn doesn't clearly define whether it's a horror game, a puzzle game, or an FPS, which creates conflicting expectations.</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p style="color: rgba(255,255,255,.3); font-size: .75rem; text-align: center; padding-top: 4rem;">Scorn contains no traditional UI screens — this analysis focuses on game design and experience rather than visual UX artifacts.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-research">
+                            Research
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-research" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Competitive Analysis</h1>
+                                        <p>Four games were analyzed as reference points for specific design problems Scorn faces:</p>
+                                        <ul>
+                                            <li><strong>Resident Evil 4</strong> — location-based manual saves that give players agency without trapping them</li>
+                                            <li><strong>Half-Life: Alyx</strong> — minimal HUD horror experience that still gives players enough spatial awareness</li>
+                                            <li><strong>Crimson Snow</strong> — checkpoint saves keyed to puzzle completion; low friction for short experiences</li>
+                                            <li><strong>The Witness</strong> — pure puzzle game with zero combat; discovery is the entire experience</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h1>Community Research</h1>
+                                        <p>A poll was run on the Scorn subreddit asking how players perceive the game's primary identity:</p>
+                                        <ul>
+                                            <li><strong>Horror Game</strong></li>
+                                            <li><strong>Puzzle Game</strong></li>
+                                            <li><strong>FPS Game</strong></li>
+                                        </ul>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <p>Result: The vast majority of respondents do not perceive Scorn as an FPS. Combat was broadly identified as the element most harmful to the overall experience.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-ideations">
+                            Ideations
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-ideations" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Game Type</h1>
+                                        <ul>
+                                            <li><strong>Free Roam Mode</strong> — like Assassin's Creed: Odyssey/Origins Discovery Tour; removes combat entirely, leaving pure exploration and atmosphere</li>
+                                            <li><strong>Puzzles Only</strong> — like The Witness; strip out combat entirely, lean into the identity players actually gave it</li>
+                                        </ul>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <h1>Save Mechanics</h1>
+                                        <ul>
+                                            <li><strong>Location-based manual saves</strong> — like RE4; preserved agency and tension without resource traps</li>
+                                            <li><strong>Autosave on puzzle completion</strong> — like The Witness and Crimson Snow; removes the save system from the player's cognitive load</li>
+                                        </ul>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <h1>Combat</h1>
+                                        <ul>
+                                            <li><strong>Eliminate entirely</strong> — strip all combat from the experience</li>
+                                            <li><strong>Tweak the balance</strong> — faster strafe speed, toned-down enemy accuracy, better feedback on damage taken</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p style="color: rgba(255,255,255,.3); font-size: .75rem;">Each pairing was evaluated against data from the community poll, competitive analysis findings, and the original developer intent.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-results">
+                            Results
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-results" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Recommendation</h1>
+                                        <p>Based on research and community data, the proposed solution is:</p>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <ul>
+                                            <li><strong>Puzzles Only</strong> — aligns with community identity perception and removes the jarring tonal shift of combat</li>
+                                            <li><strong>Autosave on puzzle completion</strong> — removes save anxiety and aligns with the game's commitment to keeping the player in the world without menus</li>
+                                            <li><strong>Eliminate combat</strong> — makes the game more cohesive, shorter in perceived length, and fully committed to its environmental horror identity</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p style="color: rgba(255,255,255,.3); font-size: .75rem; padding-top: 2rem;">The recommended experience is a ~4-hour atmospheric puzzle game with no combat, autosaving, and the full visual and audio design intact. Scorn's world is extraordinary — the design should serve it, not fight it.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-takeaways">
+                            Takeaways
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-takeaways" role="region">
+                            <div class="accordion-inner">
+                                <p>Game UX doesn't always involve the visual. Scorn's primary UX failures are mechanical and structural — the absence of traditional UI elements means the experience must carry all meaning through environmental design, pacing, and player agency over systems like saves and combat.</p>
+                                <p>This project reinforced the importance of clearly defining what kind of experience a game is before shipping — not to constrain creativity, but to ensure all design decisions serve a coherent player promise.</p>
+                                <p>Not all game experiences need explicit context or narrative provided to the player — sometimes discovery and uncertainty are the point. But that philosophy requires mechanical consistency: if you remove context from the story, remove friction from the systems too.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var isOpen = this.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.accordion-trigger').forEach(function (b) {
+                b.setAttribute('aria-expanded', 'false');
+                document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');
+            });
+            if (!isOpen) {
+                this.setAttribute('aria-expanded', 'true');
+                document.getElementById(this.getAttribute('aria-controls')).classList.add('open');
+            }
+        });
+    });
+
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+</body>
+</html>

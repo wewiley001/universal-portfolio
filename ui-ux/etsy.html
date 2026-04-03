@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-area {
+            flex: 1;
+            font-size: .875rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+
+        .accordion { display: flex; flex-direction: column; gap: 4px; }
+        .accordion-item { border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+        .accordion-trigger {
+            width: 100%;
+            background: #070707;
+            border: none;
+            color: #fff;
+            text-align: left;
+            padding: .8rem 1rem;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: background .2s, color .2s;
+        }
+        .accordion-trigger:hover { background: rgba(248,21,98,.06); color: var(--hover); }
+        .accordion-trigger[aria-expanded="true"] { background: rgba(248,21,98,.08); color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .accordion-icon {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: transform .25s;
+        }
+        .accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+        .accordion-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .28s ease;
+        }
+        .accordion-body.open { grid-template-rows: 1fr; }
+        .accordion-inner {
+            overflow: hidden;
+            padding: 0 1rem;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+        .accordion-body.open .accordion-inner { padding: 1rem; }
+        .accordion-inner p + p { margin-top: .75rem; }
+        .accordion-inner ul { padding-left: 1.25rem; }
+        .accordion-inner li + li { margin-top: .35rem; }
+
+        .acc-cols { display: grid; grid-template-columns: 35% 65%; gap: 1.25rem; align-items: center; }
+        .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-cols-img:hover { opacity: 1; }
+
+        .acc-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:hover { opacity: 1; }
+
+        .image-panel {
+            width: 33.333%;
+            flex-shrink: 0;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .image-panel img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            opacity: .75;
+            transition: opacity .3s;
+            cursor: zoom-in;
+        }
+        .image-panel img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; UI/UX</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        <span>UI/UX</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <a href="etsy.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/etsy_thumb.png" alt="Etsy Mobile App Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Etsy Mobile App — Redesign w/ AI</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="mortal-kombat-1-mobile.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/mortal-kombat-1-mobile_thumb.webp" alt="Mortal Kombat 1 Concept" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">MK1 Mobile UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="terminus.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/terminus_thumb.png" alt="Terminus" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Terminus — GaaS UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+        <a href="cyberpunk-2077.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/cyberpunk-2077_thumb.jpg" alt="Cyberpunk 2077 Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Cyberpunk 2077 — Menu Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="starfield.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/starfield_thumb.jpg" alt="Starfield Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Starfield — Inventory Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="scorn.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/scorn_thumb.jpg" alt="Scorn Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Scorn — Analysis</span>
+                <span class="card-tag">Analysis</span>
+            </div>
+        </a>
+        <a href="ghost-of-yotei.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/ghost-of-yotei_thumb.jpg" alt="Ghost of Yotei Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Ghost of Yotei — Usability Redesigns</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+        <a href="email-advertising.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/steam-email_thumb.jpg" alt="Email Advertising Mockup" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Email Advertising — Mockup</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Etsy Mobile App — Redesign w/ AI</h1>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Client</span>
+                    <span class="info-value">Personal Project</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">UX Designer</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Team</span>
+                    <span class="info-value">Solo Contributor</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Timeline</span>
+                    <span class="info-value">3 Weeks</span>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="accordion">
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-overview">
+                            Overview
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body open" id="acc-overview" role="region">
+                            <div class="accordion-inner">
+                                <p>An AI-enhanced UX redesign of the Etsy mobile app, exploring how thoughtfully integrated AI features can improve the buyer journey — from product discovery to checkout — while maintaining Etsy's artisan marketplace identity.</p>
+                                <p>The project covers all major user flows: discovery, search, product pages, seller profiles, checkout, and order tracking.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-define-problem">
+                            Define Problem
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-define-problem" role="region">
+                            <div class="accordion-inner">
+                                <p>Etsy's mobile app can feel inconsistent across its core user journeys. Friction points exist at discovery (relying on text search when the inventory is inherently visual), checkout (uneven payment flow), and order tracking (limited transparency between purchase and delivery).</p>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <h2>Goals</h2>
+                                <ul>
+                                    <li>Strengthen visual-first discovery with AI-curated image feeds.</li>
+                                    <li>Simplify the checkout flow across payment methods.</li>
+                                    <li>Improve order tracking transparency with real-time step indicators.</li>
+                                    <li>Surface seller context more prominently throughout the buyer journey.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-research">
+                            Research
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-research" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Existing Flow Analysis</h1>
+                                        <p>Research screenshots were captured and annotated for the four highest-traffic flows: Discover, Image Feed, Product Page, and Seller Page. Each was evaluated for information hierarchy, navigation clarity, and visual consistency.</p>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <p>Key findings: the discovery page over-indexes on promoted/paid listings; the image feed lacks intent — it shows items without clear paths to purchase; the product page buries seller information below the fold; seller pages lack social proof elements.</p>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery" style="grid-template-columns: repeat(2, 1fr);">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-research/Discover Page.png" alt="Research — Discover Page" loading="lazy">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-research/ImageFeed.png" alt="Research — Image Feed" loading="lazy">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-research/Product Page.png" alt="Research — Product Page" loading="lazy">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-research/SellerPage.png" alt="Research — Seller Page" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-ideations">
+                            Ideations
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-ideations" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Wireframes</h1>
+                                        <p>Wireframes were developed for all six primary screens before moving to high-fidelity. The preference page was a new addition — allowing buyers to configure AI discovery parameters (style, category, price range, maker geography) to personalize the feed from first launch.</p>
+                                    </div>
+                                    <div>
+                                        <div class="acc-gallery" style="grid-template-columns: repeat(2, 1fr);">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-wireframes/Discover Page.png" alt="Wireframe — Discover Page" loading="lazy" style="grid-column: 1 / -1;">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-wireframes/Product Page.png" alt="Wireframe — Product Page" loading="lazy">
+                                            <img src="img/pages/etsy-mobil-ai-redesign/gallery-wireframes/Preference Page.png" alt="Wireframe — Preference Page" loading="lazy">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
+                                <div class="acc-cols" style="align-items: start; margin-top: 0;">
+                                    <div>
+                                        <h1>Design System</h1>
+                                        <p>A refined type scale and color palette were developed maintaining Etsy's brand orange while reducing visual noise across list views and checkout steps.</p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/design-sys/Slide 16_9 - 1.png" alt="Design System — Slide 1" loading="lazy" style="grid-column: 1 / -1;">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/design-sys/Slide 16_9 - 2.png" alt="Design System — Slide 2" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/design-sys/Slide 16_9 - 3.png" alt="Design System — Slide 3" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-results">
+                            Results
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-results" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Final Design</h1>
+                                        <h2>Discovery &amp; Search</h2>
+                                        <p>The Discover page uses an AI-curated image feed based on preferences set at onboarding or adjustable in the Preference Page. The Search page integrates visual search — point a camera at an object to find similar items on Etsy.</p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/gallery-final/Discover Page.png" alt="Discover Page" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/gallery-final/SearchPage.png" alt="Search Page" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h2>Checkout &amp; Order Tracking</h2>
+                                        <p>Checkout was simplified to three clear steps: Cart &amp; Delivery, Payment, Confirmation. Order tracking provides real-time status across five states — Confirmed, Shipped, In Transit, Received, and Delivered — with a chat integration for direct seller contact.</p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Cart & Delivery.png" alt="Checkout — Cart &amp; Delivery" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Shipped.png" alt="Order Tracking — Shipped" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-takeaways">
+                            Takeaways
+                            <svg class="accordion-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-takeaways" role="region">
+                            <div class="accordion-inner">
+                                <p>AI features in consumer apps are only valuable when they reduce friction rather than adding novelty. Etsy's product catalog is inherently visual and handmade — AI curation must preserve the serendipitous discovery feeling that differentiates it from Amazon, rather than overly narrowing results.</p>
+                                <p>Standardized checkout flows reduce cart abandonment. Even small inconsistencies across payment paths erode buyer confidence, especially on a platform where trust in individual sellers is a core part of the value proposition.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="image-panel">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Discover Page.png" alt="Discover Page" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/ImageFeed.png" alt="Image Feed" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/SearchPage.png" alt="Search Page" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Preference Page.png" alt="Preference Page" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page.png" alt="Product Page" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page - Add to Cart.png" alt="Product Page — Add to Cart" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page - Comments.png" alt="Product Page — Comments" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/SellerPage.png" alt="Seller Page" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Cart & Delivery.png" alt="Checkout — Cart &amp; Delivery" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Payment Type.png" alt="Checkout — Payment Type" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Confirmations.png" alt="Checkout — Confirmation" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Confirmed.png" alt="Order Tracking — Confirmed" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Shipped.png" alt="Order Tracking — Shipped" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Chat.png" alt="Order Tracking — Chat" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Recieved.png" alt="Order Tracking — Received" loading="lazy">
+            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Delivered.png" alt="Order Tracking — Delivered" loading="lazy">
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var isOpen = this.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.accordion-trigger').forEach(function (b) {
+                b.setAttribute('aria-expanded', 'false');
+                document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');
+            });
+            if (!isOpen) {
+                this.setAttribute('aria-expanded', 'true');
+                document.getElementById(this.getAttribute('aria-controls')).classList.add('open');
+            }
+        });
+    });
+
+    document.querySelectorAll('.image-panel img').forEach(function (img) {
+        img.addEventListener('click', function () { openLightbox(img.src, img.alt); });
+    });
+
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+</body>
+</html>

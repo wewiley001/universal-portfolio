@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Top bar ── */
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* ── Layout ── */
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ── Cards ── */
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb svg { width: 100%; height: 116px; display: block; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        /* ── Main ── */
+        .main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        /* ── Page Title ── */
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        /* ── Info Bar ── */
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ── Content Area ── */
+        .content-area {
+            flex: 1;
+            font-size: .875rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+
+        /* ── Accordion ── */
+        .accordion { display: flex; flex-direction: column; gap: 4px; }
+        .accordion-item { border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+        .accordion-trigger {
+            width: 100%;
+            background: #070707;
+            border: none;
+            color: #fff;
+            text-align: left;
+            padding: .8rem 1rem;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: background .2s, color .2s;
+        }
+        .accordion-trigger:hover { background: rgba(248,21,98,.06); color: var(--hover); }
+        .accordion-trigger[aria-expanded="true"] { background: rgba(248,21,98,.08); color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .accordion-icon {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: transform .25s;
+        }
+        .accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+        .accordion-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .28s ease;
+        }
+        .accordion-body.open { grid-template-rows: 1fr; }
+        .accordion-inner {
+            overflow: hidden;
+            padding: 0 1rem;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.65);
+        }
+        .accordion-body.open .accordion-inner { padding: 1rem; }
+        .accordion-inner p + p { margin-top: .75rem; }
+        .accordion-inner ul { padding-left: 1.25rem; }
+        .accordion-inner li + li { margin-top: .35rem; }
+
+        /* ── Accordion two-col ── */
+        .acc-cols { display: grid; grid-template-columns: 35% 65%; gap: 1.25rem; align-items: center; }
+        .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-cols-img:hover { opacity: 1; }
+
+        /* ── Accordion image gallery ── */
+        .acc-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:hover { opacity: 1; }
+
+        /* ── Image Panel ── */
+        .image-panel {
+            width: 33.333%;
+            flex-shrink: 0;
+            overflow-y: auto;
+            border-left: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .image-panel img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            opacity: .75;
+            transition: opacity .3s;
+        }
+        .image-panel img:hover { opacity: 1; }
+        .image-panel img { cursor: zoom-in; }
+
+        /* ── Lightbox ── */
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+
+
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; UI/UX</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        <span>UI/UX</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+
+        <!-- ── Mortal Kombat 1 Mobile ── -->
+        <a href="mortal-kombat-1-mobile.html" class="card card--active">
+            <div class="card-thumb"><img src="img/thumb/mortal-kombat-1-mobile_thumb.webp" alt="Mortal Kombat 1 Concept" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">MK1 Mobile UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+
+        <!-- ── Terminus ── -->
+        <a href="terminus.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/terminus_thumb.png" alt="Terminus" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Terminus — GaaS UX Concept</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+
+        <!-- ── Cyberpunk 2077 ── -->
+        <a href="cyberpunk-2077.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/cyberpunk-2077_thumb.jpg" alt="Cyberpunk 2077 Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Cyberpunk 2077 — Menu Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+
+        <!-- ── Starfield ── -->
+        <a href="starfield.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/starfield_thumb.jpg" alt="Starfield Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Starfield — Inventory Redesign</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+
+        <!-- ── Etsy ── -->
+        <a href="etsy.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/etsy_thumb.png" alt="Etsy Mobile App Redesign" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Etsy Mobile App — Redesign w/ AI</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+
+        <!-- ── Scorn ── -->
+        <a href="scorn.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/scorn_thumb.jpg" alt="Scorn Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Scorn — Analysis</span>
+                <span class="card-tag">Analysis</span>
+            </div>
+        </a>
+
+        <!-- ── Ghost of Yotei ── -->
+        <a href="ghost-of-yotei.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/ghost-of-yotei_thumb.jpg" alt="Ghost of Yotei Analysis" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Ghost of Yotei — Usability Redesigns</span>
+                <span class="card-tag">Redesign</span>
+            </div>
+        </a>
+
+        <!-- ── Email Advertising ── -->
+        <a href="email-advertising.html" class="card">
+            <div class="card-thumb"><img src="img/thumb/steam-email_thumb.jpg" alt="Email Advertising Mockup" loading="lazy"></div>
+            <div class="card-body">
+                <span class="card-title">Email Advertising — Mockup</span>
+                <span class="card-tag">Concept</span>
+            </div>
+        </a>
+
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">MK1 Mobile UX Concept</h1>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Client</span>
+                    <span class="info-value">Personal Project</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">UI/UX Designer, Game Designer</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Team</span>
+                    <span class="info-value">Solo Contributor</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Timeline</span>
+                    <span class="info-value">1 Week</span>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="accordion">
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="true" aria-controls="acc-overview">
+                            Overview
+                            <svg class="accordion-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body open" id="acc-overview" role="region">
+                            <div class="accordion-inner">
+                                <p>Having personally worked on Mortal Kombat 1 as a QA Analyst for two years, I wanted to create a concept for a mobile interface for the game that functions similarly to that of the traditional controller interface.</p>
+                                <p>This is an independent personal project. It has never been — nor was ever — conceived for development by Netherrealm Studios.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-define-problem">
+                            Define Problem
+                            <svg class="accordion-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-define-problem" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <p>Fighting games are designed — if not dependent — on physical controllers for input. MK1 also operates on Unreal Engine 4, providing a high level of visual fidelity I didn't want to obstruct. The core goals were:</p>
+                                        <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                        <ul>
+                                            <li>Maximize screen real estate without obstructing visual design.</li>
+                                            <li>Create a viable interface usable with only thumbs and no other inputs.</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/mortal-kombat-1-mobile/research/02-l-1569402022.jpg" alt="MK1 Mobile Research Reference" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-research">
+                            Research
+                            <svg class="accordion-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-research" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Visual Inspiration</h1>
+                                        <p>Shadow Fight Arena was identified as the closest existing interface to the target concept — a mobile fighting game with minimal HUD obstruction. Its primary limitation is that the simplified input scheme wouldn't meet the complexity of Mortal Kombat's combo system.</p>
+                                    </div>
+                                    <div class="acc-gallery" style="grid-template-columns: repeat(2, 1fr);">
+                                        <img src="img/pages/mortal-kombat-1-mobile/research/screen2-full-2051242576.jpg" alt="Shadow Fight Arena — Screen" loading="lazy" style="grid-column: 1 / -1;">
+                                        <img src="img/pages/mortal-kombat-1-mobile/research/Shadow-Fight-Arena_Beginner-Tips_EN_1-3696909761.png" alt="Shadow Fight Arena — Beginner Tips" loading="lazy">
+                                        <img src="img/pages/mortal-kombat-1-mobile/research/Shadow-Fight-Arena_Kate-Guide_EN_1-3481658636.png" alt="Shadow Fight Arena — Kate Guide" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-ideations">
+                            Ideations
+                            <svg class="accordion-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-ideations" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>User Flow</h1>
+                                        <p>The interface redesign utilizes five primary menus — swipeable left or right — each focusing on a specific game feature from the console version. Navigation is designed to keep both thumbs stationary, mirroring the physical ergonomics of a handheld controller.</p>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/mortal-kombat-1-mobile/design-sys/userflow.jpg" alt="MK1 Mobile User Flow" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
+                                <h1>Wireframes</h1>
+                                <div class="acc-gallery" style="margin-top:1rem; grid-template-columns: repeat(2, 1fr);">
+                                    <img src="img/pages/mortal-kombat-1-mobile/gallery-wireframe/Android+Large+-+1+(1).webp" alt="Wireframe — Screen 1" loading="lazy">
+                                    <img src="img/pages/mortal-kombat-1-mobile/gallery-wireframe/Android+Large+-+3.webp" alt="Wireframe — Screen 3" loading="lazy">
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 1rem;">
+                                <h1>Design Systems</h1>
+                                <div class="acc-gallery" style="margin-top:1rem; grid-template-columns: repeat(3, 1fr);">
+                                    <img src="img/pages/mortal-kombat-1-mobile/design-sys/Slide 16_9 - 1.png" alt="Design System — Slide 1" loading="lazy">
+                                    <img src="img/pages/mortal-kombat-1-mobile/design-sys/Slide 16_9 - 2.png" alt="Design System — Slide 2" loading="lazy">
+                                    <img src="img/pages/mortal-kombat-1-mobile/design-sys/Slide 16_9 - 3.png" alt="Design System — Slide 3" loading="lazy">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-results">
+                            Results
+                            <svg class="accordion-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-results" role="region">
+                            <div class="accordion-inner">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h1>Final Design</h1>
+                                        <h2>Main Menus</h2>
+                                        <p>The Main menus have been redesigned with a touch screen in mind for ease of navigation between different modes, as well as condensing as much information from the full console counterpart. </p>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+                                        <img class="acc-cols-img" src="img/pages/mortal-kombat-1-mobile/gallery-final/Main-Story.png" alt="Main Menu — Story" loading="lazy" style="grid-column: 1 / -1;">
+                                        <img class="acc-cols-img" src="img/pages/mortal-kombat-1-mobile/gallery-final/Persistant-Quests.png" alt="Persistent — Quests" loading="lazy">
+                                        <img class="acc-cols-img" src="img/pages/mortal-kombat-1-mobile/gallery-final/CharacterSelect-Kameo.png" alt="Character Select — Kameo" loading="lazy">
+                                    </div>
+                                </div>
+                                <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
+                                <div class="acc-cols">
+                                    <div>
+                                        <h2>Gameplay</h2>
+                                        <p>The gameplay interface has been redesigned with a touch screen in mind, ensuring intuitive controls and a seamless experience for players. </p>
+                                    </div>
+                                    <div>
+                                        <img class="acc-cols-img" src="img/pages/mortal-kombat-1-mobile/gallery-final/Gameplay-FightUI.png" alt="Gameplay — Fight UI" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger" aria-expanded="false" aria-controls="acc-takeaways">
+                            Takeaways
+                            <svg class="accordion-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div class="accordion-body" id="acc-takeaways" role="region">
+                            <div class="accordion-inner">
+                                <p>Making a mobile interface for a fighting game is interesting, mainly for the fact that it has always been a genre that relied on physical controllers for inputs. Redesigning the menus was the easiest part — conceptualizing how to translate the controller inputs to a touchscreen at MK's level of complexity was the real challenge.</p>
+                                <p>The exercise forced thinking beyond the visual aspects of the game and towards the physical platform, its strengths, and its limitations — pushing design thinking beyond visual experiences and into the broader correlation between physical platform and game design.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="image-panel">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/StartScreen.png" alt="Start Screen" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/HomeScreen.png" alt="Home Screen" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/CharacterSelect-Roster.png" alt="Character Select — Roster" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/CharacterSelect-Kameo.png" alt="Character Select — Kameo" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/Main-Story.png" alt="Main Menu — Story" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/Main-Towers.png" alt="Main Menu — Towers" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/Persistant-Main.png" alt="Persistent — Main" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/Persistant-Quests.png" alt="Persistent — Quests" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/Gameplay-FightUI.png" alt="Gameplay — Fight UI" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/SHRINE-Main.png" alt="Shrine — Main" loading="lazy">
+            <img src="img/pages/mortal-kombat-1-mobile/gallery-final/Shrine-MobileStore.png" alt="Shrine — Mobile Store" loading="lazy">
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    // Accordion
+    document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var isOpen = this.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.accordion-trigger').forEach(function (b) {
+                b.setAttribute('aria-expanded', 'false');
+                document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');
+            });
+            if (!isOpen) {
+                this.setAttribute('aria-expanded', 'true');
+                document.getElementById(this.getAttribute('aria-controls')).classList.add('open');
+            }
+        });
+    });
+
+    // Image Panel
+    document.querySelectorAll('.image-panel img').forEach(function (img) {
+        img.addEventListener('click', function () { openLightbox(img.src, img.alt); });
+    });
+
+    // Lightbox
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})()
+</script>
+</body>
+</html>

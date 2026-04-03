@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* ── Gallery grid — 11 cards, 6 cols × 8 rows ── */
+        .gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            gap: 6px;
+            overflow: hidden;
+        }
+
+        .card:nth-child(1)  { grid-column: 2/4; grid-row: 1 / 3; } /* Blog Archive              — wide top (2c×2r)  */
+        .card:nth-child(2)  { grid-column: 2;   grid-row: 3 / 6; } /* Editorials                — mid-left (1c×3r)  */
+        .card:nth-child(3)  { grid-column: 3;   grid-row: 3 / 5; } /* Excerpts & Drafts         — small (1c×2r)     */
+        .card:nth-child(4)  { grid-column: 3;   grid-row: 5 / 9; } /* Documentation             — tall (1c×4r)      */
+        .card:nth-child(5)  { grid-column: 6;   grid-row: 1 / 9; } /* Motion Graphics           — FULL HEIGHT (1c×8r)*/
+        .card:nth-child(6)  { grid-column: 4;   grid-row: 1 / 9; } /* Freelance Video           — FULL HEIGHT (1c×8r)*/
+        .card:nth-child(7)  { grid-column: 1;   grid-row: 1 / 9; } /* Roleplay Comedy           — FULL HEIGHT (1c×8r)*/
+        .card:nth-child(8)  { grid-column: 2;   grid-row: 6 / 9; } /* CROWNMOBB Product         — bottom-left (1c×3r)*/
+        .card:nth-child(9)  { grid-column: 5;   grid-row: 1 / 4; } /* Graphic Design Gallery    — top (1c×3r)       */
+        .card:nth-child(10) { grid-column: 5;   grid-row: 4 / 7; } /* Virtual Avatar by AI      — mid (1c×3r)       */
+        .card:nth-child(11) { grid-column: 5;   grid-row: 7 / 9; } /* Cyberpunk Apartment 3D    — bottom (1c×2r)    */
+
+        /* ── Cards ── */
+        .card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+            background: #070707;
+            border: 1px solid #f81562;
+            transition: border-color .25s;
+        }
+        .card:hover { border-color: #fdef03; z-index: 1; }
+
+        .card-thumb { position: absolute; inset: 0; overflow: hidden; }
+        .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.5; }
+
+        /* ── Hover overlay ── */
+        .card-info {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(to bottom, transparent 0%, rgba(253,239,3,.88) 100%);
+            opacity: 0;
+            transition: opacity .25s;
+        }
+        .card:hover .card-info { opacity: 1; }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            text-shadow: 0 1px 8px rgba(0,0,0,.9), 0 0 20px rgba(0,0,0,.7);
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .card-tag {
+            text-shadow: 0 1px 6px rgba(0,0,0,.9);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.4);
+            border-radius: 2px;
+            padding: 2px 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ── WIP Overlay ── */
+        .wip-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wip-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+            max-width: 440px;
+            padding: 3rem 2.5rem;
+            border: 1px solid rgba(248,21,98,0.35);
+            border-radius: 8px;
+            background: rgba(248,21,98,0.04);
+        }
+        .wip-icon svg { width: 40px; height: 40px; fill: var(--accent); opacity: 0.7; }
+        .wip-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); }
+        .wip-title { font-size: 2.2rem; font-weight: 200; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; }
+        .wip-body { font-size: 0.82rem; line-height: 1.75; color: rgba(255,255,255,0.45); }
+        .wip-back { margin-top: 0.5rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color .2s; }
+        .wip-back:hover { color: var(--hover); }
+    </style>
+</head>
+<body>
+
+<div class="wip-overlay">
+    <div class="wip-box">
+        <div class="wip-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        </div>
+        <p class="wip-label">Work in Progress</p>
+        <h1 class="wip-title">Content</h1>
+        <p class="wip-body">This section is still being built out. Check back soon for the full gallery.</p>
+        <a href="../" class="wip-back">&#8592; Return to Portfolio</a>
+    </div>
+</div>
+
+<div class="wip-overlay">
+    <div class="wip-box">
+        <div class="wip-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        </div>
+        <p class="wip-label">Work in Progress</p>
+        <h1 class="wip-title">Content</h1>
+        <p class="wip-body">This section is still being built out. Check back soon for the full gallery.</p>
+        <a href="../" class="wip-back">&#8592; Return to Portfolio</a>
+    </div>
+</div>
+
+<header class="topbar">
+    <a href="../" class="back-link">&#8592; Portfolio</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+        </svg>
+        <span>Content</span>
+    </div>
+</header>
+
+<div class="gallery">
+
+    <!-- ── Blog Archive ── -->
+    <a href="blog-archive.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/blog-archive_thumb.png" alt="Blog Archive" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Blog Archive</span>
+            <span class="card-tag">Writing</span>
+        </div>
+    </a>
+
+    <!-- ── Editorials ── -->
+    <a href="editorials.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/editorials_thumb.png" alt="Editorials" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Editorials</span>
+            <span class="card-tag">Writing</span>
+        </div>
+    </a>
+
+    <!-- ── Excerpts & Drafts ── -->
+    <a href="excerpts-drafts.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/excerpts-drafts_thumb.jpg" alt="Excerpts &amp; Drafts" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Excerpts &amp; Drafts</span>
+            <span class="card-tag">Writing</span>
+        </div>
+    </a>
+
+    <!-- ── Documentation ── -->
+    <a href="documentation.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/documentation_thumb.png" alt="Game Documentation" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Game Documentation</span>
+            <span class="card-tag">Writing</span>
+        </div>
+    </a>
+
+    <!-- ── Motion Graphics ── -->
+    <a href="motion-graphics.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/motion-graphics_thumb.jpg" alt="VFX / Motion Graphics" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">VFX / Motion Graphics</span>
+            <span class="card-tag">Graphics</span>
+        </div>
+    </a>
+
+    <!-- ── Professional Video Gallery ── -->
+    <a href="freelance-pro-video-gallery.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/freelance-video_thumb.jpg" alt="Professional Video Gallery" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Professional Video Gallery</span>
+            <span class="card-tag">Video</span>
+        </div>
+    </a>
+
+    <!-- ── Roleplay Comedy Videos ── -->
+    <a href="roleplay-comedy-videos.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/roleplay-comedy_thumb.webp" alt="Roleplay Comedy Videos" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Roleplay Comedy Videos</span>
+            <span class="card-tag">Video</span>
+        </div>
+    </a>
+
+    <!-- ── Commentary & Vlog Videos ── -->
+    <a href="commentary-vlog-videos.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/commentary-vlog_thumb.jpg" alt="Commentary &amp; Vlog Videos" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Commentary &amp; Vlog Videos</span>
+            <span class="card-tag">Video</span>
+        </div>
+    </a>
+
+    <!-- ── CROWNMOBB Product Graphics ── -->
+    <a href="shop-crownmobb-product-graphics.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/crownmobb_thumb.jpg" alt="CROWNMOBB Product Graphics" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">CROWNMOBB Product Graphics</span>
+            <span class="card-tag">Graphics</span>
+        </div>
+    </a>
+
+    <!-- ── Graphic Design Gallery ── -->
+    <a href="graphic-design-gallery.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/graphic-design_thumb.jpg" alt="Graphic Design Gallery" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Graphic Design Gallery</span>
+            <span class="card-tag">Graphics</span>
+        </div>
+    </a>
+
+    <!-- ── Virtual Avatar by AI ── -->
+    <a href="virtual-avatar-by-ai.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/virtual-avatar_thumb.jpg" alt="Virtual Avatar by AI" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Virtual Avatar by AI</span>
+            <span class="card-tag">Graphics</span>
+        </div>
+    </a>
+
+    <!-- ── Cyberpunk Apartment 3D Backdrops ── -->
+    <a href="cyberpunk-apartment-3d-backdrops.html" class="card">
+        <div class="card-thumb">
+            <img src="img/thumb/cyberpunk-apartment-3d_thumb.jpg" alt="Cyberpunk Apartment 3D Backdrops" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Cyberpunk Apartment 3D Backdrops</span>
+            <span class="card-tag">Graphics</span>
+        </div>
+    </a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --pink:        #f81562;
+    --yellow:      #fdef03;
+    --cyan:        #5df6fe;
+    --border-size: 5px;
+    --ease:        0.3s ease;
+}
+
+html, body {
+    height: 100%;
+    background: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   INTRO OVERLAY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.93);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.intro-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-box {
+    text-align: center;
+    max-width: 560px;
+    width: 90%;
+    padding: 3rem 2.5rem;
+    position: relative;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(248, 21, 98, 0.3);
+}
+
+/* Corner accents */
+.intro-box::before,
+.intro-box::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-style: solid;
+    border-color: var(--pink);
+}
+
+.intro-box::before {
+    top: -2px;
+    left: -2px;
+    border-width: 2px 0 0 2px;
+}
+
+.intro-box::after {
+    bottom: -2px;
+    right: -2px;
+    border-width: 0 2px 2px 0;
+}
+
+.intro-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1rem;
+}
+
+.intro-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.intro-divider {
+    width: 50px;
+    height: 1px;
+    background: var(--pink);
+    margin: 0 auto 1.5rem;
+}
+
+.intro-body {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+.intro-enter {
+    background: transparent;
+    border: 1px solid var(--pink);
+    color: var(--pink);
+    padding: 0.65rem 2.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--ease), color var(--ease);
+}
+
+.intro-enter:hover {
+    background: var(--pink);
+    color: #000;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SECTIONS LAYOUT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.sections {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.section {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    text-decoration: none;
+    background: #000;
+    border-left:  var(--border-size) solid var(--pink);
+    border-right: var(--border-size) solid var(--pink);
+    transition: border-color var(--ease);
+    z-index: 0;
+}
+
+/* Collapse the shared border between adjacent sections */
+.section + .section {
+    margin-left: calc(-1 * var(--border-size));
+}
+
+.section:hover {
+    border-color: var(--yellow);
+    z-index: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BACKGROUND IMAGES
+   Replace the gradient values below with:
+   background-image: url('../images/your-image.jpg');
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.section-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+    transition: transform 0.6s ease;
+}
+
+.section:hover .section-bg {
+    transform: scale(1.04);
+}
+
+#sec-gamedev .section-bg {
+    background:
+        repeating-linear-gradient(0deg,   transparent, transparent 39px, rgba(140, 40, 255, 0.12) 40px),
+        repeating-linear-gradient(90deg,  transparent, transparent 39px, rgba(140, 40, 255, 0.12) 40px),
+        radial-gradient(ellipse at 50% 40%, #2a0d52 0%, #08000f 70%);
+}
+
+#sec-softdev .section-bg {
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 255, 80, 0.07) 0px, transparent 1px, transparent 22px),
+        radial-gradient(ellipse at 50% 60%, #072a10 0%, #000902 70%);
+}
+
+#sec-uiux .section-bg {
+    background:
+        radial-gradient(circle at 25% 55%, rgba(230, 0, 180, 0.22) 0%, transparent 50%),
+        radial-gradient(circle at 75% 45%, rgba(60, 0, 240, 0.22) 0%, transparent 50%),
+        radial-gradient(circle at 50% 15%, rgba(0, 180, 255, 0.12) 0%, transparent 40%),
+        #04000e;
+}
+
+#sec-content .section-bg {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 130, 0, 0.06) 0px,
+            rgba(255, 130, 0, 0.06) 2px,
+            transparent 2px,
+            transparent 44px
+        ),
+        radial-gradient(ellipse at 50% 50%, #271000 0%, #040100 70%);
+}
+
+#sec-about .section-bg {
+    background:
+        radial-gradient(ellipse at 50% 40%, #001827 0%, #000a0f 70%),
+        repeating-linear-gradient(135deg, rgba(0, 180, 255, 0.05) 0px, transparent 1px, transparent 30px);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HOVER GRADIENT OVERLAY
+   top: 50% opacity → bottom: fully transparent
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.section-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(253, 239, 3, 0.5) 0%,
+        rgba(253, 239, 3, 0)   100%
+    );
+    opacity: 0;
+    transition: opacity var(--ease);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.section:hover .section-gradient {
+    opacity: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SECTION CONTENT  (icon + title)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.section-inner {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1rem;
+    padding: 1rem;
+}
+
+.section-icon {
+    width: 52px;
+    height: 52px;
+    fill: var(--pink);
+    flex-shrink: 0;
+    transition: fill var(--ease);
+    filter: drop-shadow(0 0 6px transparent);
+}
+
+.section-title {
+    font-size: clamp(0.65rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--pink);
+    text-align: center;
+    transition: color var(--ease), text-shadow var(--ease);
+}
+
+.section:hover .section-icon {
+    fill: var(--cyan);
+    filter: drop-shadow(0 0 8px rgba(93, 246, 254, 0.5));
+}
+
+.section:hover .section-title {
+    color: var(--cyan);
+    text-shadow: 0 0 12px rgba(93, 246, 254, 0.4);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE — stack vertically on small screens
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 640px) {
+    html, body {
+        overflow-y: auto;
+    }
+
+    .sections {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .section {
+        height: 25vh;
+        min-height: 130px;
+        border-top:    var(--border-size) solid var(--pink);
+        border-bottom: var(--border-size) solid var(--pink);
+        border-left:   var(--border-size) solid var(--pink);
+        border-right:  var(--border-size) solid var(--pink);
+    }
+
+    .section + .section {
+        margin-left: 0;
+        margin-top: calc(-1 * var(--border-size));
+    }
+
+    .section-icon {
+        width: 36px;
+        height: 36px;
+    }
+}
