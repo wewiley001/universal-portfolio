@@ -160,12 +160,18 @@
             color: rgba(255,255,255,.4);
             margin-top: .1rem;
         }
+        .timeline-desc {
+            font-size: .78rem;
+            color: rgba(255,255,255,.35);
+            margin-top: .3rem;
+            line-height: 1.6;
+        }
 
         /* ── Skills ── */
         .skills-grid {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
         }
         .skill-group-label {
             font-size: .65rem;
@@ -222,11 +228,11 @@
             <h1 class="hero-name">Will Wiley</h1>
             <p class="hero-location">Chicago, <span>Illinois</span></p>
             <div class="hero-tags">
-                <span class="tag">Game Design</span>
-                <span class="tag">UI/UX Design</span>
-                <span class="tag">Software Dev</span>
-                <span class="tag">Content Creation</span>
-                <span class="tag">Visual Storytelling</span>
+                <span class="tag">Technical Design</span>
+                <span class="tag">AI &amp; Automation</span>
+                <span class="tag">UX Systems</span>
+                <span class="tag">Content Operations</span>
+                <span class="tag">QA &amp; Testing</span>
             </div>
         </div>
     </div>
@@ -238,11 +244,10 @@
         <div class="content-col">
             <p class="section-label">About Me</p>
             <div class="bio-text">
-                <p>I'm a multidisciplinary designer specializing in <strong>visual storytelling</strong>. My general specialties include designing, writing, and user testing interactive and multimedia projects.</p>
-                <p>In 2014, I graduated from <strong>Columbia College Chicago</strong> with a degree in Game Design, but spent nearly the next decade in educational publishing, specializing in digital asset management and design.</p>
-                <p>In 2022, I made a career change and worked as a <strong>QA Analyst at Netherrealm Studios</strong>, primarily contributing to the production of <strong>Mortal Kombat 1</strong>, which was released in 2023.</p>
-                <p>I developed an interest in UX design to complement my technical and creative skills and have been working towards specializing in <strong>interaction design for games</strong>.</p>
-                <p>I am now seeking new opportunities in the game development industry, while also remaining open to the broader tech industry and adjacent avenues to apply and grow my skill set.</p>
+                <p>I'm a <strong>Technical Designer</strong> with a background spanning AAA game production, enterprise content systems, and applied AI tooling. My work sits at the intersection of design thinking and systems logic — I identify where processes break down and build tools to close the gap.</p>
+                <p>I spent nearly a decade at <strong>Cricket Media</strong> managing large-scale digital asset libraries and contributing UX input to an educational publishing platform. In 2022, I moved into games as a <strong>QA Analyst at NetherRealm Studios</strong>, where I owned test coverage for Towers Mode across <strong>Mortal Kombat 1</strong> — designing TestRail suites, coordinating defect triage, and validating accessibility compliance across PS5 and Xbox Series X.</p>
+                <p>Outside of studio work, I build. <strong>Creationist</strong> is a Python automation bot that simulates gameplay inputs for structured regression testing, wired into a GitHub Actions CI pipeline. <strong>Selenite</strong> brings Selenium browser automation to non-technical users through a no-code GUI. <strong>TradeSage</strong> is a desktop AI trading application with a self-improving LLM signal loop, live market data integration, and paper trade execution via Alpaca.</p>
+                <p>I'm focused on roles where <strong>design fluency, automation thinking, and AI tooling</strong> overlap — in SaaS, content operations, or technical coordination environments where that combination creates real leverage.</p>
             </div>
         </div>
 
@@ -255,15 +260,26 @@
                     <div>
                         <div class="timeline-year">2022 — 2025</div>
                         <div class="timeline-title">QA Analyst</div>
-                        <div class="timeline-sub">Netherrealm Studios / WB Studios</div>
+                        <div class="timeline-sub">NetherRealm Studios / WB Games</div>
+                        <div class="timeline-desc">Owned Towers Mode test coverage for Mortal Kombat 1. Designed TestRail regression suites, coordinated defect triage with engineering and design teams, and validated accessibility compliance across PS5 and Xbox Series X.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <div class="timeline-year">May — Sep 2024</div>
+                        <div class="timeline-title">Digital Content Analyst</div>
+                        <div class="timeline-sub">Hilton International (via Allied Vaughn)</div>
+                        <div class="timeline-desc">Audited and restructured digital assets across 80+ international websites. Enforced metadata and taxonomy standards across a large enterprise CMS, reducing inbound update requests by 80%.</div>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div>
                         <div class="timeline-year">2014 — 2024</div>
-                        <div class="timeline-title">Digital Asset Management & Design</div>
+                        <div class="timeline-title">Licensing &amp; DAM Coordinator</div>
                         <div class="timeline-sub">Cricket Media</div>
+                        <div class="timeline-desc">Managed tens of thousands of digital assets for B2B licensing and publishing delivery. Provided UX input for a social learning platform and documented workflows to support cross-functional production teams.</div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -279,31 +295,53 @@
             <p class="section-label" style="margin-top: 2rem;">Skills</p>
             <div class="skills-grid">
                 <div>
-                    <p class="skill-group-label">Design</p>
+                    <p class="skill-group-label">Design &amp; UX</p>
                     <div class="skill-tags">
-                        <span class="skill-tag">UI/UX Design</span>
-                        <span class="skill-tag">Interaction Design</span>
-                        <span class="skill-tag">Visual Design</span>
+                        <span class="skill-tag">UX / Interaction Design</span>
+                        <span class="skill-tag">Wireframing</span>
                         <span class="skill-tag">Prototyping</span>
-                        <span class="skill-tag">User Testing</span>
-                    </div>
-                </div>
-                <div>
-                    <p class="skill-group-label">Development</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag">HTML / CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Game Design</span>
-                        <span class="skill-tag">QA Testing</span>
-                    </div>
-                </div>
-                <div>
-                    <p class="skill-group-label">Tools</p>
-                    <div class="skill-tags">
+                        <span class="skill-tag">Usability Testing</span>
+                        <span class="skill-tag">Accessibility (WCAG 2.1)</span>
+                        <span class="skill-tag">Information Architecture</span>
                         <span class="skill-tag">Figma</span>
                         <span class="skill-tag">Adobe Suite</span>
-                        <span class="skill-tag">Unreal Engine</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="skill-group-label">Technical &amp; Automation</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript / TypeScript</span>
+                        <span class="skill-tag">HTML / CSS</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Selenium</span>
+                        <span class="skill-tag">GitHub Actions (CI/CD)</span>
+                        <span class="skill-tag">Bash</span>
+                        <span class="skill-tag">Unreal Engine 5</span>
                         <span class="skill-tag">Unity</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="skill-group-label">AI &amp; LLM Tooling</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Ollama (Local LLM)</span>
+                        <span class="skill-tag">Anthropic API</span>
+                        <span class="skill-tag">OpenAI API</span>
+                        <span class="skill-tag">Prompt Engineering</span>
+                        <span class="skill-tag">LLM Pipeline Design</span>
+                        <span class="skill-tag">AI-Assisted QA</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="skill-group-label">Workflow &amp; Ops</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Jira</span>
+                        <span class="skill-tag">Confluence</span>
+                        <span class="skill-tag">TestRail</span>
+                        <span class="skill-tag">CMS / DAM Platforms</span>
+                        <span class="skill-tag">Agile / Scrum</span>
+                        <span class="skill-tag">Technical Documentation</span>
+                        <span class="skill-tag">Metadata Architecture</span>
                     </div>
                 </div>
             </div>
@@ -314,9 +352,13 @@
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                     wewiley.com
                 </a>
-                <a href="https://www.linkedin.com/in/wewiley" target="_blank" rel="noopener" class="contact-item">
+                <a href="https://www.linkedin.com/in/william-wiley-chi" target="_blank" rel="noopener" class="contact-item">
                     <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                    linkedin.com/in/wewiley
+                    linkedin.com/in/william-wiley-chi
+                </a>
+                <a href="https://github.com/wewiley001" target="_blank" rel="noopener" class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                    github.com/wewiley001
                 </a>
             </div>
         </div>
