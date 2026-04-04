@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Undercity — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">The Undercity</h1>
+
+            <p>This is an old draft of a work-in-progress novelette that tries to combine the hard-boiled detective genre with dark fantasy. The story centers on a lawman, known for his moral ambiguity, seeking out his idea of justice while navigating through the social, fantastical, and political nuances of the world around him.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+                <p>It was dark and damp in the Undercity, and the smell left much to be desired.</p>
+                <p>Every intersection I passed was identical to the last, and I soon realized I had no clear idea of where I was going. Only the criminals and vagabonds who lived down here knew the ways in and out of Bridgeport&rsquo;s sewer systems. They knew the many walkways and tunnels to navigate through it all and evade even the most tenacious of city guards. I was in their world now, their lion&rsquo;s den. My need to get topside became even direr.</p>
+                <p>Distant yells and barks of orders began to echo from a distance. With every chamber I passed, I could hear footsteps from atop the catwalks at every junction trailing me, trying their best to remain hidden. I turned a corner onto a new passage trying to lose them. A barrage of quarrels shot at me rebounded off the stone walls, missing me by inches. The bastards had caught up and were closer than I would have liked. I took a few more twists and turns to keep out of the line of sight of the archers, not fully knowing where I was going. I ran and hurried my pace, trying to widen the gap as best I could with the poison doing its best to kill me. I was trained to resist toxins, and it was a skill that had saved my life more times than I could count. But even as my legs began to get sluggish and my vision became more strained, I knew I couldn&rsquo;t keep this up forever.</p>
+                <p>After turning into a long passage, I ducked into an alcove and crouched in the shadows. Hatchet in hand, I waited for my pursuers to catch up and move on in their search. The ambient sounds of the sewers were loud enough to mask my attempts at catching my breath, but even so, I did my best to hide my presence. A minute passed, and then several more followed while I was hunched down in filth and grime. I realized that I couldn&rsquo;t hear boots pursuing me or yells from my would-be hunters. Did they break pursuit? Did they take a wrong turn? Both possibilities seemed unlikely. They were probably lying in wait like me, setting up for the big, fat kill. I&rsquo;d have preferred a waiting game. In my experience, people who wanted me dead didn&rsquo;t have the patience to wait me out. But as I wiped the fever sweat from my forehead, it was clear I didn&rsquo;t have that kind of time.</p>
+                <p>Carefully, I peeked out of the alcove to check my surroundings. I looked down and around the tunnel, the sound of rushing water and the nauseating smell offending my senses. But I stood alone. I stepped out of the shadows and pushed on down the passage. Slowly, I moved around every corner, wary of any surprise ambushes along the way. It didn&rsquo;t take long to realize that I was more lost in this underground maze than before. The walls and passageways looked the same no matter where you turned. There were faded expressions of signs having once been bolted to the walls at every junction, possibly taken down by rogues to throw off lawful pursuers. And it was working.</p>
+                <p>I turned a corner and found myself staring down a narrow tunnel, longer and darker than any other I came across before. At its end was an open passage, bright enough that I couldn&rsquo;t make out what was beyond the threshold. As I shuffled down the passage, there were several sealed passageways on the side closed off by something like a portcullis gate, and I suddenly felt like a lamb being led to slaughter. But I couldn&rsquo;t turn back, as lost as I was. There are very few worse feelings in the world that compare to knowingly walking to your possible death.</p>
+                <p>I crossed the threshold, and my eyes took a moment to readjust to the sudden light. When I could see again a few seconds later, I stood at the edge of a cistern. It was a giant chamber, filled with emerald green water and half a dozen pillar arches. A handful of boats were moored to the support posts of a makeshift walkway made of varying lengths of wood. They were loaded with crates of goods, carried out and around the chamber by men and women with sketchy and rough looks, but I recognized some of them.</p>
+                <p>They were Coterie, every last one of them, and I had just stumbled onto their smuggling operation.</p>
+                <p>&ldquo;Quick!&rdquo; a voice yelled out at the opposite end of the chamber. Half-Penny Pat stood in an entryway, panting and breathless, and pointed at me from afar. The eyes of every thug and cutthroat in the cistern turned from their work and fell on me. Metal clinging and the rustling of chains echoed behind me. I turned my head to see a portcullis gate like the ones I&rsquo;d seen before descend over the entrance I just came through. I didn&rsquo;t know if it was my own dismay or the poison, but I literally could feel my heart sink into my gut.</p>
+                <p>I was trapped. A lamb led to slaughter.</p>
+                <p>I wasn&rsquo;t willing to give up. Not now, and not here of all places. So, I ran, making my way over barrels and crates as best as I could. The smugglers all reached out and tried to grab me, but even in my state, I was too quick for them. There was only one way out I could see, the only exit that wasn&rsquo;t cut off to keep me trapped. And it was where Half-Penny Pat stood, barking out orders to have me captured. If I were to survive all this, that meant I had to go through him.</p>
+                <p>I tightened the grip on my hatchet at the thought.</p>
+                <p>I sprinted across the makeshift dock to reach the other side of the cistern. The harbor was narrow, barely wide enough to fit two grown men side by side. The boards felt loose and rickety under my feet, feeling as if they could give way at any moment. Halfway across, a group of thugs came charging at me from the other side, their steps shaking the docks and making it difficult to hold my footing. Over my shoulder, I laid eyes on my pursuers behind me. We all stood there motionless, like the calm before the storm. The looks on the Coterie rogues&rsquo; faces were like looking at wild dogs licking their chops at a side of beef. And I was the beef, standing there trapped, flanked on both sides.</p>
+                <p>Then the first of them attacked.</p>
+                <p>A fist flew towards my face, barely brushing my cheek. I stepped aside and twisted the man&rsquo;s momentum into a throw, and he went diving into the murky waters of the cistern below. My stamina was mostly shot, and I was in no shape for a drawn-out fight. So, I kept my footing light, and my movements slight. I had to control the space around me, just long enough to get off that damned harbor.</p>
+                <p>The other cutthroats came with knives and clubs, and I moved around their attacks with the swing of my own hatchet, attacking their vitals and using their own weapons against them. Blood flew from my strikes and bone broke from my attacks. I moved like water; formless, crashing and reshaping with the slightest effort. It was dance-like in a way, an old practice of martial skill drilled into me since childhood. No matter how hard the thugs tried, once I was in that stride, I couldn&rsquo;t be stopped.</p>
+                <p>A loud bang rang out in the chamber like thunder, and something small and quick whizzed through the air, past the thugs and me. Everyone, including me, broke from the fight and instantly ducked in reflex at the sound of gunfire.</p>
+                <p>&ldquo;You bloody daft!?&rdquo; Half-Penny yelled out. &ldquo;Not around the goods! You&rsquo;d kill us all, you twit!&rdquo;</p>
+                <p>I threw down the empty rifle and surrendered to the watchmen.</p>
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/the-undercity-hero.png" alt="The Undercity Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

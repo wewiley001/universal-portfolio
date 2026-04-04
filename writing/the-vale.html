@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vale — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">The Vale</h1>
+
+            <p>&ldquo;The Vale&rdquo; was a quick exercise in horror fiction, as I&rsquo;ve never exclusively delved into the genre before. Though I call it horror, the supernatural themes I brought into it pushes the entire piece closer to dark fantasy than actual horror.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+                <p>Cassandra walked across the ashen grounds of the valley, lamenting her need to travel through these ancient lands stained with old blood, cursed by the gods of war and ill fortune.</p>
+                <p>The Calming Vale it was called. She thought it was some long-dead poet being a dick, using apparent irony as the means to compensate for their lack of artistic talent. The reality of its name was far different, however. The sky was a dingy grey with the distant sounds of thunder roaring loudly. The mountains and hills of the valley rose high into the air, its sheer rock face too steep to climb out of. Nothing grew here in the Vale. Barren trees and dead shrubs were the only signs that life once lived here. Maybe it was beautiful once, Cassandra thought to herself as she wearily trekked through its darkened paths.</p>
+                <p>Cassandra had no choice but to walk this path. The lands were at war. The highways were full of soldiers and bandits who weren&rsquo;t above robbing and raping a young girl traveling alone and leaving her for dead. If the missive from her father hadn&rsquo;t been so dire, she would have never left the safety of the walled city she came from, and the only way to avoid the war was through the Vale which everyone avoided.</p>
+                <p>Mist and fog had now grown thick, and Cassandra could barely see past her own nose. A feeling of dread began to fill her entire being. There was a reason why no one traveled through the Calming Vale. Thousands of years ago, it was once populated by elves who delved into dark and blasphemous rituals. Then the Church raised an army to cleanse the taint of the valley. A bloody and horrendous battle ensued, one so great, that the gods chose to wash the entire Vale themselves. They killed both sides and forbade their souls the right to an afterlife. Now, within this feared valley, the souls of the elves and soldiers forever wage war in an eternal battle that can never be won.</p>
+                <p>Cassandra pushed on through the fog. She was too far to turn back. Too fearful of losing her way in the attempt. All she knew is that she had to push north. Soon, she&rsquo;d come up to the Great Forest, and then it would be a straight shot to her father&rsquo;s house. &ldquo;These are our valleys, humans,&rdquo; came a distant voice that shivered the very air. The hairs on her neck stood on the back of her neck. She didn&rsquo;t want to be here. All she wanted was to be back home. Why oh why did I take this path? The distant sound of battle could be heard singing through the eerie air. The clash of steel, the songs of magic, the cries of battle, and the pains of hell ebbed in the wind as she pushed forward.</p>
+                <p>Soon the fog began to clear, and she started to see what she wished she didn&rsquo;t. She stood in the midst of a battle. A great and bloody struggle long since passed. The stories were true&hellip; The holy warriors and the forsaken elves were locked in combat. Their bodies were transparent as if they weren&rsquo;t really there. They were the souls condemned by the gods. Cassandra walked through the battle, weary of what was happening around her. She could feel the pain of the warriors as they died. The sorrow of the elves that were losing their home, and now forever undead, doomed to repeat a losing battle.</p>
+                <p>Hot tears began to fall from Cassandra&rsquo;s eyes as she shivered as if winter had taken hold of her body. She didn&rsquo;t want to be here. She wanted to go home. She wanted to see her father. She wished she hadn&rsquo;t taken this path and took her chances on the highway with the bandits. She could feel that she didn&rsquo;t belong here. She could feel that the spirits of the dead knew the same.</p>
+                <p>&ldquo;Hold the bitch&hellip;&rdquo; their voices cried.</p>
+                <p>&ldquo;Capture the human&hellip;&rdquo; their voices yelled.</p>
+                <p>&ldquo;Sacrifice&hellip;&rdquo; their voices screamed.</p>
+                <p>Ethereal hands gripped Cassandra on her wrists. She was taken by surprise and struggled against the icy grip of the dead warriors. Both Holy Warriors and Elves held her against her will, and she fought as hard as she could. They carried her to a stone dais where five stone pillars stood. On the ground was a pentagram written with sanguine ink where they locked her in chains.</p>
+                <p>&ldquo;Let me go!&rdquo; Cassandra cried, but to no avail.</p>
+                <p>The undead warriors and soldiers began to chant in a strange language she could not understand. The sky had darkened, and fog returned as it ebbed across the ground. A single elven shaman walked up to Cassandra as she was tied to the ground. The shaman wasn&rsquo;t transparent like the others. He kneeled down to her and brushed his hand across her face. She felt the warmth of life from his touch, and then she knew that he wasn&rsquo;t one of the undead.</p>
+                <p>&ldquo;And your life shall release my brothers from bondage, and give them the peace they so righteously deserve.&rdquo; The shaman then raised his other hand above Cassandra, and in its grasp was a knife. Her eyes went wide with fear, and she screamed out in terror as the blade came rushing down to her heart.</p>
+                <p>And then everything grew silent. And one by one, the ghosts of the elves and holy warriors disappeared. The fog became thinner and thinner until it disappeared entirely. Then the dreary sky cleared and the sun shone upon the Vale for the first time in centuries. Nothing was left of the eternal battle that haunted the valley, neither elves nor any warriors.</p>
+                <p>Just a lone skeleton on a blood-soaked dais.</p>
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/the-vale-hero.png" alt="The Vale Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

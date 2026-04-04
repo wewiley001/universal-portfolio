@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Witches in the Brush — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-label { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .5rem; padding: .9rem .35rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #f81562; background: #000; border: none; z-index: 1; user-select: none; pointer-events: none; flex-shrink: 0; }
+        .image-panel-label span { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+        .image-panel-label svg { width: 14px; height: 18px; flex-shrink: 0; color: #f81562; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Witches in the Brush</h1>
+            <p>This excerpt is from a WORK-IN-PROGRESS dark fantasy novelette, Wanting Dreaming, which is an updated and more revamped version of an old draft featuring an earlier version of the same character. We see the main character Raven race toward a ritual being performed by witches in the heart of an ancient forest. BE MINDFUL – This hasn’t been fully proofread.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+
+                <p>Raven left the village behind, trying to pick up the lone scent lingering away from it and into the thicket of the canyon forest. He made his way deeper into the trees, covering the distance with incredible grace, moving with speed and agility unlike that of an ordinary man. After covering a little more than a league, he then slowed his pace to a silent jog as the scent got stronger with every step.</p>
+
+                <p>Before he knew it, Raven was walking on familiar ground. He stared into the distance through the trees and laid eyes on the elvenhedge he first saw when he descended into the canyon a fortnight ago. And the girl&rsquo;s scent was leading towards the standing stones there. He focused his strange eyes through the darkness of the night and could see lights and figures in cloaks moving about in the distance. He scanned the area and soon laid eyes upon a lone girl in her nightgown roaming towards the scene.</p>
+
+                <p>Carefully and silently, Raven moved closer to the elvenhedge to get a better look. He pulled out his castergun and held it at the ready as he crept through the underbrush and shadows of the woods. He hid behind one of the standing stones and looked down at what was transpiring before him.</p>
+
+                <p>The elvenhedge was made of broken columns of white stone and the remnants of seats, long worn by the elements, dropping down into the earth in descending levels into a dirt floor. At its heart was a magic circle, drawn in fire with a seven-pointed star within. Seven stone braziers rested at each point of the star, each burning with colored flames. Seven shrouded figures stood at each brazier within the circle, six in black robes and one in white.</p>
+
+                <p>Raven instantly recognized the setup for a summoning ritual. The kind that breached the walls between worlds to contact something on the other side, and that never heralded anything good.</p>
+
+                <p>His attention was drawn to the village girl he pursued. She shuffled down to the center of the ritual circle, still dressed in her nightgown with bare feet caked in mud and dirt, with a vacant look on her face. It was clear that she was under the influence of a charm. But it was strange to Raven, who remembered Fiona saying that her trance was broken the moment she set foot there. So why was this girl still enchanted?</p>
+
+                <p>&ldquo;Sisters!&rdquo; yelled out one of the cloaked figures dressed in a white robe below. &ldquo;We have gathered to honor our bargain with our Matron. The one who set us on this path to our greatness. Let us rejoice at the return of a lost empire. Let us rejoice at the advent of She Who Weaves!&rdquo;</p>
+
+                <p>&ldquo;Praise be,&rdquo; the other figures cried out into the night.</p>
+
+                <p>As if on cue, the wind suddenly howled through the night and the trees rustled under its might. With a deafening roar, a portal appeared above the elvenhedge, bending the space around its horizon with blinding light. It was surrounded by an aura of black and red that danced around like monstrous tendrils stemming from its source. No warmth could be felt from the brightness. Just a deathly chill reaching out to everyone and everything in its light. And that malevolent void grew by the second as the horrible sounds of screams and howls coming from it grew louder.</p>
+
+                <p>&ldquo;MY, MY&hellip;&rdquo; came a feminine and sultry voice that shuddered the air. &ldquo;YOU ALL SEEM TO BE A FORTNIGHT TOO LATE&hellip;&rdquo;</p>
+
+                <p>Raven didn&rsquo;t like it. He started to reach for the sword at his back and took hold of its pommel.</p>
+
+                <p>&ldquo;Apologies my Lady!&rdquo; yelled the white-robed witch. &ldquo;Our last offering eluded us. She was charmed, but this place&hellip; it deemed her unworthy, and the magic upon her was broken, and she ran. The slaves under our guise were killed by a traveler and failed to recapture her!&rdquo;</p>
+
+                <p>&ldquo;DO NOT MAKE EXCUSES FOR YOUR FAILINGS TO ME, CHILD!&rdquo;</p>
+
+                <p>The hooded witches shuddered at the sound of the entity&rsquo;s displeasure. Between the howls and screams and blowing of the unholy wind, an uncomfortable silence fell over the circle. Raven could see the witches were disheartened by it. He could see them growing fearful.</p>
+
+                <p>The entity let off a low mumble of annoyance. &ldquo;RAVEN&hellip;&rdquo;</p>
+
+                <p>Raven froze, and his blood ran cold when the entity said his name with what sounded heavy with disdain. Were they expecting him, he asked himself. How could they? A distant thought began to plague him at the edge of his mind, with the realization that the voice seemed so familiar.</p>
+
+                <p>&ldquo;Mistress&hellip;&rdquo; The white witch&rsquo;s tone grew nervous. &ldquo;Is he the one you warned us about? The Red Reaper? You told us stories of him and yourself. Even were he to set foot in this hedge, the wards would keep him from using magic of any kind!&rdquo;</p>
+
+                <p>&ldquo;THE RED REAPER DEFIES ALL LOGIC AND REASONING,&rdquo; the entity yelled out. &ldquo;QUICKLY! BEFORE HE COMES. YOUR OFFERING!&rdquo;</p>
+
+                <p>The witches shuffled the young village girl into the center of the seven-pointed star beneath the blinding portal. The wind grew even more restless and the howls more feral, and then something reached out from within that mass of light. Black tendrils stretched out from within, and slowly descended upon the circle where the girl stood with her mouth agape. Like snakes, they reached her body and constricted around her into a solid grasp. And before his eyes, the girl began to age. Years were starting to pass her like seconds. The tendrils bulged and pulsated with each passing moment.</p>
+
+                <p>They were taking her life force, Raven realized. He needed to disrupt the spell fast. He scanned the summoning circle over once more and took another look at the braziers. They were positioned at every end of the seven-pointed star within the enclosing loop. That was when he realized that they were more than decorations &mdash; they were anchor points, and the odd colored fire a focus for the power moving through the air.</p>
+
+                <p>Raven thumbed a switch on the side of his castergun, and the barrels spun on their axis and locked into a new position. A quickening of power ebbed around the newly positioned top barrel, and its runes shimmered for a moment with a hazy white glow. He aimed the pistol down to the center of the ritual and squeezed the trigger. From the barrel, a thick white mass of light shot into the air, howling like a storm. One of the plinths was hit by the blast and in a flash of light, its flames were extinguished, replaced by thick ice and snow. The witches were startled by the spell as Raven took the opportunity to charge down into the elvenhedge, letting loose ice spell after ice spell upon the braziers with his castergun in his left hand and his sword in his right.</p>
+
+                <p>By the time he reached the center floor, all but two of the braziers had been frozen over. The witches began conjuring fireballs and lightning in their hands to stave off this aggressive attacker. The portal was faltering but still stable. The kidnapped girl was looking more and more like the living dead as her life drained through the black tendrils.</p>
+
+                <p>Black tendrils. The sight of them leaped out at Raven, filling him with feelings of hate and disdain, for he had seen them before. He knew the girl wouldn&rsquo;t last much longer.</p>
+
+                <p>&ldquo;SO, YOU HAVE FINALLY COME, MY REAPER&hellip;&rdquo; The entity&rsquo;s voice took on a sly and malevolent tone.</p>
+
+                <p>&ldquo;Where are you?!&rdquo; Raven yelled his question angrily back at the entity.</p>
+
+                <p>The entity made what sounded like a snicker, one loud and horrible enough to shudder the ground and rend the very sky.</p>
+
+                <p>&ldquo;Why, my dear Reaper&hellip; It almost seems you aren&rsquo;t happy to see me.&rdquo;</p>
+
+                <p>&ldquo;You killed my master!&rdquo; he screamed back.</p>
+
+                <p>&ldquo;Not alone I didn&rsquo;t,&rdquo; the entity replied.</p>
+
+                <p>Raven seethed in anger, losing his focus to his purpose here. The memories started to return that kept pushing him onward without abandon. A yellow-eyed beauty having her way with his younger self, enthralling him in her magics under the guise of ecstasy and euphoria. Flashes and broken fragments of memories of a fight along a shore of black sands. His hands covered in blood. Kaito lying dead at his feet. The memories were vivid. Terrible. Unforgettable.</p>
+
+                <p>Raven shook his head as if to do away with the angering thoughts. He needed to recall his sense of discipline and steel himself from his emotions. This valley had been playing havoc with his mind since he first set foot here, enhancing his moods and empowering his own magics. He had to remember to center himself. Regain his focus. Remember his purpose. He took a deep breath in and slowly exhaled. He could feel the anger subsiding and his sense of control returning to him.</p>
+
+                <p>Raven stared up at the portal above the hedge with a defiant look. &ldquo;You will not succeed, witch,&rdquo; he said, his grip tightening on his castergun.</p>
+
+                <p>A moment of silence followed, and the witches stood ready to carry out their mistress&rsquo;s commands.</p>
+
+                <p>&ldquo;KILL HIM!&rdquo; the entity said, and her servants obeyed.</p>
+
+                <p>Raven let loose another magic bolt from his castergun at the sixth brazier, and it froze over in a flash. He made a turn to aim at the final one, only to find a single witch standing in front of it. Then the other witches regained their wits and circled him, hands filled with swirling flames, and all let loose their streams of magic fire towards their invader. The hellish inferno consumed Raven and swallowed him whole.</p>
+
+                <p>The air was sucked from his lungs as the flames swirled around him. It wasn&rsquo;t long before Raven was gasping for his next breath. Over the roaring of the fire, he could hear the witches laugh in victory. He needed an out. A way to fight off the spell. The Shadowbane weren&rsquo;t mages of any kind, but they had tricks that could rival magic &mdash; an art form practiced at the dawn of this world.</p>
+
+                <p>It took all of Raven&rsquo;s focus and concentration to cut himself off from the pain. He retreated into the deepest depths of his mind and descended into a trance. His attention turned inward as his outward senses grew numb to his surroundings. The fire. The witches. The elvenhedge. All of it, one by one, faded from his awareness. Within himself, he could feel the ebb of power pulsing &mdash; a wellspring of energy emanating from his very soul. A jumble of words came to his mind, words of an ancient tongue, each with its own meaning and purpose. They would give voice to his intent, and become the medium of his action. He sifted through them, weighing his meaning until he found the ones he needed. Raven set his focus outward, and everything came back into conscious mind. The pain from the flames, the witch laughing. All of it. He shaped his own willpower and defined his intent. He brought the words of an ancient tongue to the forefront of his mind, repeating them over and over within like a mantra. A prayer. It was what Kaito taught him so long ago. What the Shadowbane called a Dirge.</p>
+
+                <p>Raven spoke words in an ancient tongue. He could feel the quivering of power rushing out of him like a sieve emptied of its water at full tilt. The sensation left him with an empty feeling, almost fatigue-like in its nature. The flames that surrounded him were sent back, flying outward towards the attacking witches, and the infernal wave knocked them all off their feet and into the dirt. For a moment, Raven was disoriented from the Dirge, but he couldn&rsquo;t relent just yet. Not missing a step, he aimed his castergun towards the last brazier with a clear line of sight. With a single squeeze, a frost spell let loose from the barrel, speeding over the heads of the downed witches, and in a flash of ice and snow, the flame was extinguished.</p>
+
+                <p>The portal above began to flicker erratically, distorting the air with chaotic gusts blowing from all directions. The dark tendrils around the girl dissolved and she dropped to the ground unconscious. The howls and winds hit a crescendo before they started to dwindle. And with each passing second, the light from the portal grew dimmer.</p>
+
+                <p>&ldquo;THIS WAS A SMALL VICTORY, MY PRECIOUS RED REAPER&hellip;&rdquo; said the entity, its voice sounding as if it came from further and further away with each passing second. &ldquo;BUT NIPPING AT MY HEELS WILL ONLY GET YOU SO FAR&hellip;&rdquo; The portal then imploded on itself and disappeared. The wind grew still, and the feral howls stopped, and the once bright light was replaced by the darkness of the quiet night. He was left standing in the magic circle as its drawn-out flames began to burn out.</p>
+
+                <p>&ldquo;What kind of magic was that?!&rdquo; screamed one of the hooded witches. &ldquo;You shouldn&rsquo;t be able to use it here!&rdquo;</p>
+
+                <p>Raven was pulled out of his own thoughts and back to the matter before him. The young girl from the village lay at his feet unconscious. Most of the witches were beginning to stir from the force of power he used to knock them down.</p>
+
+                <p>&ldquo;Don&rsquo;t you listen,&rdquo; Raven said in a mocking tone. &ldquo;Logic and reasoning don&rsquo;t quite agree with me.&rdquo;</p>
+
+                <p>&ldquo;You will pay for this, Reaper!&rdquo; The witch began weaving magic in her fingertips for a final assault. &ldquo;Our Lady shall have her vengeance&mdash;&rdquo; Raven threw his dark sword at the angry witch like a spear, and it plunged into her heart with enough force to knock her off her feet and down into the cold hard ground. Her limbs twitched for a moment, and she gasped for air only for a second before she became lifeless and still. The witches who had regained enough of their wits looked on and found a new sense of fear of the crimson-haired man that stood before them.</p>
+
+                <p>&ldquo;I am a ranger of the Shadowbane,&rdquo; Raven spoke with an air of intensity, and the witches looked on as if their very blood had been frozen in their veins. &ldquo;A monster-slayer, a witch-hunter, a curse-breaker. Offer me the sister who can answer my queries, and the rest of you shall go free. But resist me any further, and I will be the last thing you see beneath these harrowing moons&hellip;&rdquo;</p>
+
+                <p>The witches looked on at Raven in silence. Then one by one, they all turned their sights to one among them, and Raven followed their gaze to the white witch.</p>
+
+                <p>&ldquo;Leave, and never return,&rdquo; was all he said.</p>
+
+                <p>At his command, the black-robed witches began summoning some deeper power within themselves, something foul and dark. Each of their bodies gradually became shrouded in shadows that consumed their entire form, and one by one they took flight at blinding speeds into the far reaches of the night. Left behind sat the white witch, petrified with fear under Raven&rsquo;s gaze. He walked to her slowly with his castergun in hand. Closer and closer he got, and with each step he could see her fear increase tenfold. The white witch squealed in terror before she began summoning the same dark power her sisters used moments ago. Her form was enveloped entirely in shadows, and then she tried to take flight into the night sky to escape the fate that awaited her.</p>
+
+                <p>Raven repositioned the barrels of his castergun again, and the runes on the new top barrel flashed a burning red. He aimed at the fleeing witch and pulled the trigger a few times, letting loose a salvo of fireballs towards her. With the third shot, she was clipped by the magic bolt and fell right out of the sky. She landed hard on the stone stands with a heavy thud loud enough to hear from where Raven stood. He watched the white witch tumble down to the center floor like a ragdoll.</p>
+
+                <p>Raven walked over to the downed witch with his castergun still aimed at her still form. The dark shroud surrounding her began to disappear as she started desperately crawling away from him, too injured to run. &ldquo;I can&rsquo;t&hellip;&rdquo; the witch cried. &ldquo;I won&rsquo;t&hellip;&rdquo;</p>
+
+                <p>Raven nudged her body over with his foot and flipped the white witch onto her back. It was then that he finally saw her face. She was just a young girl herself, not much older than the victims she lured from Weirwood. Her hair was dark and her eyes full of fear as she looked back at him.</p>
+
+                <p>&ldquo;But how?&rdquo; she asked. &ldquo;You can&rsquo;t use magic here. She told us of the stories between you two&hellip;&rdquo;</p>
+
+                <p>&ldquo;A reaper&rsquo;s Dirge is not magic. It is a prayer for the dead. A force of nature controlled by faith. Now, why are you sacrificing girls?&rdquo; Raven aimed his castergun at her, the sight of its barrels making her quiver.</p>
+
+                <p>&ldquo;She&hellip; needed power.&rdquo;</p>
+
+                <p>&ldquo;That&rsquo;s obvious,&rdquo; he replied, &ldquo;but to what end? Why only young girls?&rdquo;</p>
+
+                <p>&ldquo;She said only virgin souls would do. It&rsquo;s why we offered them all to her from here.&rdquo;</p>
+
+                <p>Raven looked confused. &ldquo;What&rsquo;s so special about this elvenhedge?&rdquo;</p>
+
+                <p>The white witch looked back with a look of defiance. &ldquo;The elves had no gods. Only virtues. This is a place of the pious. Only those worthy of its virtue can wield magic here! Only the pure. The untouched!&rdquo;</p>
+
+                <p>A piece clicked into place in Raven&rsquo;s mind. An explanation as to why young girls were targeted. And a reason why Fiona was freed from the charm. In hindsight, it was strange if not a wicked sense of irony.</p>
+
+                <p>&ldquo;To what end?&rdquo; he asked.</p>
+
+                <p>The white witch mumbled something under her breath.</p>
+
+                <p>&ldquo;Speak up, girl!&rdquo; Raven yelled back, brandishing the castergun to remind her of her position.</p>
+
+                <p>The witch shuddered. &ldquo;Those souls exist solely for her will. The deal was struck long ago before the village was brought here. Every maiden there is hers by right.&rdquo;</p>
+
+                <p>&ldquo;I don&rsquo;t understand. What deal?&rdquo;</p>
+
+                <p>&ldquo;It&rsquo;s too late for that now&hellip;&rdquo; The witch tore open the loose shirt beneath her robe, exposing her chest to Raven. Upon it was a magic circle with arcane runes carved into the flesh. The symbols reminded him of the same brandings on the enchanted men he first encountered in the canyon. A moment later each symbol began to illuminate in blue light. Raven looked on as the white witch&rsquo;s body twitched and writhed in pain as tears welled up in her eyes. &ldquo;The Temple of Voulan. It shall all end&mdash;&rdquo;</p>
+
+                <p>A brilliant blue flash erupted from the witch&rsquo;s body, sending Raven staggering back several steps, covering his eyes to shield out the light. A sudden heat licked the air for only a moment before it disappeared altogether. When the light dimmed and his eyes readjusted to the night, he looked upon what had once been the white witch. The ground was charred black, and at its center a blackened skeleton, surrounded in azure flames and sapphire embers slowly dying out by the second.</p>
+
+                <p>The village girl stirred nearby. &ldquo;What&rsquo;s&hellip; where am I&hellip;&rdquo;</p>
+
+                <p>Raven turned his attention away from what had once been the white witch and walked over to the village girl to calm her. &ldquo;Easy, girl.&rdquo;</p>
+
+                <p>&ldquo;What&hellip; why am I here?&rdquo;</p>
+
+                <p>&ldquo;That doesn&rsquo;t matter now, child. Tell me, what&rsquo;s your name?&rdquo;</p>
+
+                <p>&ldquo;It&rsquo;s&hellip; Erika. And you&rsquo;re&hellip; Raven. Why am I here? I feel&hellip; strange.&rdquo;</p>
+
+                <p>&ldquo;Don&rsquo;t trouble yourself with the details,&rdquo; he said. &ldquo;But I need you to tell me the last thing you remember.&rdquo;</p>
+
+                <p>Erika frowned, deep in thought. &ldquo;I&hellip; was home. Asleep. Then&hellip;&rdquo; Her face frowned in frustration. &ldquo;I can&rsquo;t remember. Why am I here, ser?&rdquo;</p>
+
+                <p>Raven sighed. &ldquo;Someone will explain it to you later. For now, just know that I was sent to collect you. Can you walk?&rdquo;</p>
+
+                <p>&ldquo;Aye &mdash; I mean &mdash; yes I can.&rdquo;</p>
+
+                <p>Raven took her by the hand and helped Erika to her feet. A warm tingling sensation began to pulse in his grasp. Quickly, he turned her hand over to see a ring of pewter slipped onto one of her fingers. The design was simple and looked relatively new, but what drew Raven&rsquo;s attention was the embedded stone that looked remarkably like one he had seen once before.</p>
+
+                <p>&ldquo;Where did you get this ring?&rdquo; he asked.</p>
+
+                <p>&ldquo;I don&rsquo;t know,&rdquo; she replied. &ldquo;I found it in a box on my doorstep at dusk. My mother said that one of the boys in the village might adore me. My father looked cross when he saw it, but he let me keep it.&rdquo;</p>
+
+                <p>Another piece of the puzzle fell into place, and the once hidden truth was now more evident than before. But there were questions whose answers still eluded him. Why was the one he pursued collecting the life force of young girls? How was she tied up in this? What was her endgame?</p>
+
+                <p>Raven collected his sword from the heart of one of the witches and led Erika from the elvenhedge. It was a long walk through the night as they made their way through the forest. He didn&rsquo;t speak any words to her, nor did she ask any questions of him. Dawn was still some ways off, but he knew a reckoning was coming.</p>
+
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

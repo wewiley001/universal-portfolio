@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing — Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── Top bar ── */
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* ── Gallery grid ── */
+        .gallery {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 6px;
+            overflow: hidden;
+        }
+
+        /* col layout: full | half+half | third+third+third | full | half+half | third+third+third */
+        .card:nth-child(1)  { grid-column: 1; grid-row: 1 / 7; } /* An Oncoming Storm           — full   */
+        .card:nth-child(2)  { grid-column: 2; grid-row: 1 / 4; } /* Iron, Gunsmoke, Moonslight  — half   */
+        .card:nth-child(3)  { grid-column: 2; grid-row: 4 / 7; } /* Troubled Night              — half   */
+        .card:nth-child(4)  { grid-column: 3; grid-row: 1 / 3; } /* Portside Rhapsody           — third  */
+        .card:nth-child(5)  { grid-column: 3; grid-row: 3 / 5; } /* The Undercity               — third  */
+        .card:nth-child(6)  { grid-column: 3; grid-row: 5 / 7; } /* Welcome to the Jungle       — third  */
+        .card:nth-child(7)  { grid-column: 4; grid-row: 1 / 7; } /* The Vale                    — full   */
+        .card:nth-child(8)  { grid-column: 5; grid-row: 1 / 4; } /* Horror Encoded              — half   */
+        .card:nth-child(9)  { grid-column: 5; grid-row: 4 / 7; } /* The Man from the Mojave     — half   */
+        .card:nth-child(10) { grid-column: 6; grid-row: 1 / 3; } /* Whiskey Revolver            — third  */
+        .card:nth-child(11) { grid-column: 6; grid-row: 3 / 5; } /* Space Assault               — third  */
+        .card:nth-child(12) { grid-column: 6; grid-row: 5 / 7; } /* Witches in the Brush        — third  */
+
+        /* ── Cards ── */
+        .card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+            background: #070707;
+            border: 1px solid #f81562;
+            transition: border-color .25s;
+        }
+        .card:hover { border-color: #fdef03; z-index: 1; }
+
+        .card-thumb { position: absolute; inset: 0; overflow: hidden; }
+        .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.5; }
+
+        /* ── Hover overlay ── */
+        .card-info {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(to bottom, transparent 0%, rgba(253,239,3,.88) 100%);
+            opacity: 0;
+            transition: opacity .25s;
+        }
+        .card:hover .card-info { opacity: 1; }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            text-shadow: 0 1px 8px rgba(0,0,0,.9), 0 0 20px rgba(0,0,0,.7);
+        }
+        .card-tag {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.4);
+            border-radius: 2px;
+            padding: 2px 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            text-shadow: 0 1px 6px rgba(0,0,0,.9);
+        }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="../" class="back-link">&#8592; Portfolio</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="gallery">
+
+    <!-- ── An Oncoming Storm ── -->
+    <a href="an-oncoming-storm.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">An Oncoming Storm</span>
+            <span class="card-tag">Fantasy</span>
+        </div>
+    </a>
+
+    <!-- ── Iron, Gunsmoke, and Moonslight ── -->
+    <a href="iron-gunsmoke-and-moonslight.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Iron, Gunsmoke, and Moonslight</span>
+            <span class="card-tag">Dark Fantasy</span>
+        </div>
+    </a>
+
+    <!-- ── Troubled Night ── -->
+    <a href="troubled-night.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Troubled Night</span>
+            <span class="card-tag">Dark Fantasy</span>
+        </div>
+    </a>
+
+    <!-- ── Portside Rhapsody ── -->
+    <a href="portside-rhapsody.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Portside Rhapsody</span>
+            <span class="card-tag">Dark Fantasy</span>
+        </div>
+    </a>
+
+    <!-- ── The Undercity ── -->
+    <a href="the-undercity.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">The Undercity</span>
+            <span class="card-tag">Dark Fantasy</span>
+        </div>
+    </a>
+
+    <!-- ── Welcome to the Jungle ── -->
+    <a href="welcome-to-the-jungle.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Welcome to the Jungle</span>
+            <span class="card-tag">Cyberpunk</span>
+        </div>
+    </a>
+
+    <!-- ── The Vale ── -->
+    <a href="the-vale.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">The Vale</span>
+            <span class="card-tag">Fantasy</span>
+        </div>
+    </a>
+
+    <!-- ── Horror Encoded ── -->
+    <a href="horror-encoded.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Horror Encoded</span>
+            <span class="card-tag">Horror</span>
+        </div>
+    </a>
+
+    <!-- ── The Man from the Mojave ── -->
+    <a href="the-man-from-the-mojave.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">The Man from the Mojave</span>
+            <span class="card-tag">Western</span>
+        </div>
+    </a>
+
+    <!-- ── Whiskey Revolver ── -->
+    <a href="whiskey-revovler.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Whiskey Revolver</span>
+            <span class="card-tag">Noir</span>
+        </div>
+    </a>
+
+    <!-- ── Space Assault ── -->
+    <a href="space-assault.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Space Assault</span>
+            <span class="card-tag">Sci-Fi</span>
+        </div>
+    </a>
+
+    <!-- ── Witches in the Brush ── -->
+    <a href="witches-in-the-brush.html" class="card">
+        <div class="card-thumb">
+            <img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy">
+        </div>
+        <div class="card-info">
+            <span class="card-title">Witches in the Brush</span>
+            <span class="card-tag">Dark Fantasy</span>
+        </div>
+    </a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Oncoming Storm — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">An Oncoming Storm</h1>
+
+            <p>An Oncoming Storm is a fantasy short story that I wrote in an attempt to go against the standard trope of a &ldquo;chosen hero&rdquo; emerging to save the world and instead wrote about the rise of a villain who will destroy it.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+                <p>Thunder roared from the night sky and out on the desolate plains. From within a lone spire, flashes of lightning illuminated the great hall with its old columns and dark sculptures lining the walls. Dozens of dead bandits littered the ground as their mortally wounded leader crawled away from the slaughter that followed him. From the shadows, the sound of mailed footsteps approached, and the marauder looked back with dread. A young warrior followed, clad in armor with sword in hand. From head to toe, he was soaked and stained with blood from the bandits he&rsquo;d slaughtered. His eyes were focused and cold towards the marauder, enough to inspire fear from anyone opposite of that gaze.</p>
+                <p>&ldquo;Mercy!&rdquo; the marauder pleaded.</p>
+                <p>The young warrior didn&rsquo;t reply to the plea. <em>Finally,</em> he thought to himself. <em>Finally, she&rsquo;ll be avenged.</em></p>
+                <p>The warrior stood over his prey, brandishing his weapon, ready to put an end to everything he&rsquo;d endured thus far. He raised his sword high into the air, ready to bring it down and send the man before him to whatever hell he deserved. Suddenly, there were a series of hastened footsteps approaching from the opposite end of the hall, coming closer and closer. The young warrior stayed his final strike and readied himself for another enemy. Without giving himself away from sudden awareness of the new interloper, he listened carefully, gauging their gait and their possible intent. The footsteps were hasty and far too obvious. There was no intent to attack or malicious urgency behind them. <em>It&rsquo;s not another bandit,</em> he thought as the stranger grew closer. Each couple of steps were followed by the single sound of a wooden stave hitting the floor, and the warrior&rsquo;s eyes widened in sudden recognition.</p>
+                <p>&ldquo;I didn&rsquo;t expect you to show up here,&rdquo; he called back with his back turned. &ldquo;Don&rsquo;t try and stop me now, Agnar.&rdquo;</p>
+                <p>From the shadows and into the light stepped an aged old man in plain robes. In his hands gripped a wooden staff old beaten by time and use. His beard and hair were both long and grey in true wise man fashion, but his posture and demeanor radiated the vigor of one much younger. Agnar was his mentor. He was the first to greet him when he was taken into the Order. He was the one who trained him in its ways.</p>
+                <p><em>Not even he can stop me,</em> the young warrior thought.</p>
+                <p>&ldquo;Aldhelm,&rdquo; the old man called out to him, appalled at the carnage around him. &ldquo;What you&rsquo;ve done here&hellip;it&rsquo;s&hellip;it&rsquo;s&hellip; Why did you not return? We&rsquo;ve been trying to find you for nearly a year.&rdquo;</p>
+                <p>With a cold edge in his voice, the young warrior replied, &ldquo;He has to pay&hellip;&rdquo;</p>
+                <p>&ldquo;That isn&rsquo;t our way!&rdquo; Agnar bellowed. &ldquo;Vengeance is against the code of our Order. We taught you that. I taught you that.&rdquo;</p>
+                <p>&ldquo;Stop! Please! I&rsquo;m unarmed!&rdquo; the marauder cried, his hands up and yielding.</p>
+                <p>&ldquo;Tressa was unarmed too! That didn&rsquo;t stop you!&rdquo; yelled Aldhelm as he moved the blade of his sword up against the marauder&rsquo;s throat.</p>
+                <p>&ldquo;Aldhelm, please!&rdquo; Agnar screamed, but his words fell on deaf ears.</p>
+                <p>Tressa. This was all for her, he thought. The first person who he found that truly mattered to him. He remembered meeting her when he was first sent on his quest by the Order. They charged him with finding some relic, an ancient crown, once worn by some unholy man in eras long past as part of his initiation. He would have failed his test if it wasn&rsquo;t for Tressa. When he traveled with her, he felt awkward. He&rsquo;d been alone for so long, that he didn&rsquo;t know how to be with other people. But through his travels with her, Aldhelm grew closer to her, and his feelings for her became stronger and stronger. Soon he couldn&rsquo;t picture what it was like to be without her.</p>
+                <p>Then a band of low-lives led by the man took her away from him.</p>
+                <p>&ldquo;Please! I was only doing what I was told&hellip;&rdquo; screamed the marauder.</p>
+                <p>&ldquo;Don&rsquo;t give me your lies.&rdquo;</p>
+                <p>Aldhelm prepared to strike as the marauder threw his hands up to guard against the oncoming blow. Then a glint of silver caught the young warrior&rsquo;s eye, and his blade stayed for the second time. Looking down at the cowering man before him, he saw a sight of something familiar that he hadn&rsquo;t expected to see. Around the marauder&rsquo;s neck was a small medallion of silver engraved with strange runes. Anger flared in him again as he reached out to take the jewelry. The marauder resisted, but a mailed fist to the head dazed him. Aldhelm snatched the medallion off his neck and held it in his hand with confusion. He recognized the trinket, having one identical to it. He knew that Agnar had one as well. It was a mark worn by every brother and sister of the Order. And his seething anger boiled over.</p>
+                <p>&ldquo;WHO ELSE DID YOU KILL TO GET THIS!&rdquo; Aldhelm forced the point of his blade closer to the marauder&rsquo;s neck making the man wince. A small trickle of blood dribbled down his flesh, and he quivered in fear.</p>
+                <p><em>He hadn&rsquo;t just killed Tressa, Aldhelm thought. He murdered my brothers-in-arms as well&hellip;</em></p>
+                <p>The people of the Order were protectors and skilled warriors, dabbling in the Old Ways of mysticism. According to them, that was how they found him in the slums of some far-off city. He was a child and newly orphaned, and they said he was &ldquo;blessed by fate.&rdquo; He didn&rsquo;t believe much in its Arcane practices, but he came to believe in their cause to safeguard the people of the land. He knew that whatever fate became of his brothers that died by this man&rsquo;s hand, they didn&rsquo;t deserve it.</p>
+                <p>Aldhelm slashed quickly at the marauder&rsquo;s face with his blade. The steel bit into flesh and blood began to pour out from a fresh gash. His quarry reeled and writhed on the floor from both pain and fear, trying his best to crawl away. It wasn&rsquo;t as grave a wound as the one in the marauder&rsquo;s gut, but the bleeding wouldn&rsquo;t stop without treatment. Aldhelm wanted the man to die slow. He wanted him to feel the pain that he felt after losing Tressa. He wanted him to pray for the death that had long eluded him to this point.</p>
+                <p>Aldhelm advanced slowly on the marauder with his sword brandished and his mood grim.</p>
+                <p>&ldquo;Please, Agnar!&rdquo; the marauder suddenly cried out. &ldquo;This has gone too far!&rdquo;</p>
+                <p>The young warrior stopped in his tracks before turning back to the old man. Doubt and confusion were suddenly washing out the anger that had been flowing through him. Agnar said nothing and only looked back at him, but not out of surprise. It was a look of guilt and regret, one that spoke volumes in uneasy silence.</p>
+                <p>The lightning storm outside cracked even louder than before, drawing closer and closer. The sounds of thunder echoed throughout the hall.</p>
+                <p>&ldquo;You know this man?&rdquo; Aldhelm asked his mentor. His voice was shaky, his words unsteady. Whether this was out of frothing rage or dread-filled confusion, none could say. The old man looked back at him with a gaze he&rsquo;d never seen him wear before. It looked like sorrow personified.</p>
+                <p>Agnar hesitated a moment and let out a heavy sigh. &ldquo;Yes,&rdquo; he began, &ldquo;he&rsquo;s a brother of the Order. Same as you.&rdquo;</p>
+                <p><em>Aldhelm was stunned. This man, he thought. This murderer&hellip;is a brother of the Order?</em></p>
+                <p>&ldquo;That can&rsquo;t be,&rdquo; he whispered. He turned to face Agnar, his eyes wide and bewildered. &ldquo;That can&rsquo;t be! How is a brother of the Order leading a band of marauders? It goes against everything it stands for!&rdquo;</p>
+                <p>&ldquo;No,&rdquo; Agnar said gravely. &ldquo;He is loyal to the Order. He only does this because&hellip;because I ordered him to. For your sake.&rdquo;</p>
+                <p>&ldquo;W-what? That doesn&rsquo;t&hellip;I don&rsquo;t&hellip;&rdquo; His confusion began getting the best of him, his mouth finding it difficult to speak.</p>
+                <p>&ldquo;Everything that we did was to test you. But when we sent you after the crown&hellip;&rdquo; Agnar gestured a glance around the great hall at the carnage and corpses that littered it. &ldquo;&hellip;we didn&rsquo;t foresee this happening.&rdquo;</p>
+                <p>The crown. That damned crown, Aldhelm thought. It was the thing that started it all for him. He remembered the day he left the enclave to go hunt down and retrieve a relic from some long dead sorcerer. It was Tressa who&rsquo;d helped him find it. Whatever importance that the relic had, Aldhelm felt it was the cause of all his misfortune. The reason that the one person he cared about was dead.</p>
+                <p>&ldquo;From the moment you left the stronghold, we watched you, guided you to make the choices that best exampled the teachings of our order. When you found the crown, we rejoiced and expected your return. And when the girl was killed&mdash;&rdquo;</p>
+                <p>&ldquo;TRESSA!&rdquo; Aldhelm snapped at the old man. &ldquo;HER NAME WAS TRESSA. AND THIS MAN KILLED HER!&rdquo;</p>
+                <p>&ldquo;That man,&rdquo; Agnar began with a firm and staunch voice, &ldquo;was ordered to present obstacles on your journey.&rdquo;</p>
+                <p>&ldquo;This man killed someone I cared about. I watched her die. This man&hellip;&rdquo; The anger began to boil beneath his skin again. He tightened his grip on his sword right as he moved to grab the downed man before him. The marauder struggled, but he couldn&rsquo;t resist Aldhelm&rsquo;s strength and was helplessly grabbed by the scruff of his neck. &ldquo;I watched her die, and she was EVERYTHING to me! Your test&hellip; Your plans&hellip; It changes nothing!&rdquo;</p>
+                <p>&ldquo;Yes, it does,&rdquo; came a fourth voice from the recesses of the hall.</p>
+                <p>From behind one of the tall columns, came a lone figure. They strode across the hall and past the corpses to his mentor&rsquo;s side. Once in the light, Aldhelm laid eyes on a woman, slender and reserved. She was dressed in boiled leather jackets and pants, her long frizzled red hair flowing down to her shoulder, her alabaster skin bright even in the darkness of the great hall.</p>
+                <p>The storm grew louder and flashed brighter than before, with every crack of thunder and lightning.</p>
+                <p>&ldquo;Tressa?&rdquo; Aldhelm spoke. &ldquo;It&rsquo;s not possible. You died. I saw you die. You had no pulse&hellip;&rdquo;</p>
+                <p>The night skies had no moon, just a void of darkness hanging above the land. Blood-soaked and devoid of all feeling, Aldhelm traveled west across the vast nothingness of the wasteland. At his back were the distant rumbles of thunder trailing in his wake. Another storm was approaching. It was time for him to return home and greet the brothers and sisters he&rsquo;d not seen for so long.</p>
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

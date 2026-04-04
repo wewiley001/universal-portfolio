@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubled Night — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Troubled Night</h1>
+
+            <p>This was an older draft of a novella called &ldquo;the Red Reaper&rdquo; that centered on an inhuman mercenary hired by a nobleman to kill witches. The story, as well as the characters, have either been revamped or rewritten by this point. This excerpt was meant to establish the inhuman nature of the main character, and allude to the conflict of him being the most human character in the story.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+                <p>Reynault awoke in his rented bed in a cold sweat, breathing heavily as he looked up at the ceiling from his back. His head was pounding with every heartbeat, and the world seemed to be swaying in all directions like a hanged man. He pushed himself up and sat at the edge of his bed, his hands cradling his head as he tried to slow his breathing. His thoughts went back to the vision he just witnessed. True dreams were rare for him, his mind plagued by dark acts committed under cover of night. It was a curse of clairvoyance, a price paid for power long ago. It kept him from ever actually enjoying a good night&rsquo;s sleep, but the things he&rsquo;d witnessed ever rarely surprised him.</p>
+                <p><em>What I saw,</em> he thought, <em>looked familiar from earlier&mdash;</em></p>
+                <p>And then it hit him. The thick, stale smell of blood lingering in the air. He pulled his hands back from his face and saw them covered with slick dark ichor. He checked his bare chest and saw the same on his body. His head felt heavy, and the world swayed more than it should as if he were fresh from a drunken stupor. <em>I AM fresh from a drunken stupor,</em> he thought. But the hangover hit him harder than he expected.</p>
+                <p>Reynault stumbled as he pushed himself up from the bed to look around his rented room at the inn, and laid eyes on the scene before him. It was very much typical of what any inn&rsquo;s room would look like: a bed, a dresser, a table, and a desk. It was all small and quaint. Then he cast his sight over to the corpses. Women. Three of them, still mostly dressed. Each in a pool of their own blood. Their flesh barely pale, signs that they died only hours ago.</p>
+                <p>Three dead courtesans on the floor and a hangover were the last things he needed this late at night.</p>
+                <p>&ldquo;&hellip;Damn,&rdquo; he said silently, as he turned and walked his way across the floorboards and took a box of matches and grabbed a lantern, made of old iron and copper, from off of a nearby dresser.</p>
+                <p>Reynault threw open the windows as soon as he had gotten his bearings. The witching hour was upon the forest town, the night air was brisk, and the sky partly clouded. Up above hung the full twin moons; one large and red and the other small and pale. The moons&rsquo; light shined down upon the darkness of Weirwood&rsquo;s streets, all devoid of life save for the occasional pair of militia guards with gas torches. The scent of the pines carried in the air flooded into the room to fight out the smells of carnage, filling his nose.</p>
+                <p>He placed the lantern on the window sill and lit the candle inside the foggy glass. The wick flickered on and burned with a bright reddish-orange glow before changing into a dark purplish hue. The beacon was lit. The summons sent. It was only a matter of time before he&rsquo;d received his visitor.</p>
+                <p>He walked into the privy in nothing but his pants, bare-footed and hunched over a basin washing his face of both filth and blood. He had little memory of what happened, but it didn&rsquo;t surprise him what transpired. In the corner of his room were his clothes and weapons, neatly folded and untouched. His swords showed no signs of leaving their scabbards, let alone being covered in blood. His castergun showed no signs of ever being fired within the last several hours. The blood he found on his hands and chest suggested he killed them unarmed, an even more unsettling notion to mull over as he cleaned himself.</p>
+                <p>He spent the next half-hour cleaning himself when a knock came at the door.</p>
+                <p>Reynault&rsquo;s ears perked up at the sound. He only hoped it was who he was expecting. The last thing he needed was for the Innkeeper to be at his door, which would inevitably bring the guard. After that, it would only be a matter of time till they figured out who he really was. He approached the door in silence, his footsteps eerily quiet as he walked over the old floorboards that&rsquo;d creak and whine under the slightest shift in weight.</p>
+                <p>&ldquo;What calls at this hour?&rdquo; he asked through the door.</p>
+                <p>&ldquo;A Nightingale, milord,&rdquo; replied the gruff voice of a young woman from the other side.</p>
+                <p>Reynault opened the door and in its way stood a young lady clad in boiled leathers and a hood over her head. She was much shorter than him, about five-and-four compared to his six-foot-even. The nightingale stepped into the room and past him, her light footsteps barely making any noise, and stopped just short of the litter of corpses laid on the floor.</p>
+                <p>&ldquo;No need to ask what you need of me&hellip;&rdquo;</p>
+                <p>&ldquo;Good. That makes this easy&hellip;&rdquo; He turned to his equipment in the corner and moved to redress himself. In cases like this, he&rsquo;d make it a point to know what the criminal underbelly of any place he&rsquo;d visited was like beforehand. There was an active Thieves&rsquo; Guild in this province, calling itself the Band of the Nightingale. Reynault made sure to get in contact with the right people weeks ago and grease enough palms to deal with sticky situations such as this. They were the ones who gave him the lantern.</p>
+                <p>&ldquo;Getting three corpses out of here isn&rsquo;t going to be easy. Even in the middle of the night,&rdquo; said the Nightingale.</p>
+                <p>&ldquo;There&rsquo;s a secret road behind the Inn that leads out of town and into the forest.&rdquo; Reynault had just put on his brigantine vest and duster coat that draped down to his knees. &ldquo;It&rsquo;s used for deliveries, and it isn&rsquo;t guarded by the local militia.&rdquo;</p>
+                <p>&ldquo;Be that as it may, we need to find a place to bury the bodies,&rdquo; said the Nightingale as she knelt to inspect the corpses up close.</p>
+                <p>&ldquo;They can&rsquo;t be buried. They need to be burned with magefire.&rdquo;</p>
+                <p>The Nightingale looked up at him from within her hood, and he came face to face with what was a pair of high cheekbones and large emerald eyes staring back at him in annoyance through ash-blonde bangs.</p>
+                <p>&ldquo;The bloody hell do you mean &lsquo;with magefire&rsquo;?&rdquo;</p>
+                <p>&ldquo;Burying them in the ground won&rsquo;t solve the problem, only exacerbate it. They need to be completely eradicated by magical flame.&rdquo;</p>
+                <p>&ldquo;But they&rsquo;re just whores&hellip;&rdquo;</p>
+                <p>Reynault sneered at the notion. &ldquo;It shouldn&rsquo;t be too hard to get a mage from the local guild chapter to do it. Bribe them with this.&rdquo; He tossed a small coin purse to the Nightingale who caught it and proceeded to open it. It was filled with Imperial Sigils, the official currency of the Empire. They were filled with platinum crowns and golden half-crowns, each engraved with the coat of arms of Grand Nobles and Kings from across the continent. It was by no means any small amount of coin.</p>
+                <p>&ldquo;The thieves&rsquo; guild in these parts owes me several favors, and I need this one handled no questions asked.&rdquo; Reynault had strapped on a pair of swords of different lengths in their scabbards to his back and hip. His whole appearance looked unquestionably formidable. His arms and legs were covered in dark leather armor, endless satchels and flasks hung from various straps on the belt tied around his waist, and his whole demeanor made him seem dangerous.</p>
+                <p>&ldquo;Who are you, really?&rdquo; the nightingale asked, as he placed his castergun in the holster on his leg. He turned on his heel and made his way towards the door. Reynault turned to the elven woman, and she locked her eyes with his pale yellow gaze, and it made her feel uneasy.</p>
+                <p>With an odd smile, he replied, &ldquo;Someone best forgotten.&rdquo; He left out of the door without another word, leaving the young elf by herself.</p>
+                <p>The Nightingale sighed as she turned her attention back towards the cold bodies on the floor. And then she noticed something odd she hadn&rsquo;t seen before. She was no stranger to corpses and the like. Sometimes business had to be handled in a way where messages were more valuable than coin. She looked closer at the bodies, wondering who they were as well as the identity of the man who&rsquo;d just left. She touched one of the pools of blood and rubbed the sanguine liquid between her fingers. It was much thicker than it should have been. Its color lot darker than human blood as if it was some sort of ichor.</p>
+                <p>Who were these women, she thought to herself. And then her thoughts turned back towards the man with the odd colored eyes and inhuman features she hadn&rsquo;t noticed before. He asked her to burn the bodies in magefire as if to get rid of more than a pair of whores. She turned the head of one of the women towards her and saw what she couldn&rsquo;t explain. Then she checked the rest and found the exact same thing. Two puncture wounds were on each of the courtesans&rsquo; necks. Then the Nightingale remembered Reynault&rsquo;s smile before he left. She thought it was her mind playing tricks, but she could have sworn she had seen fangs.</p>
+                <p><em>If these women weren&rsquo;t human, then what was he?</em></p>
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

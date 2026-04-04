@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Jungle — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color .2s; }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span { font-size: 0.74rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
+        .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body { padding: .5rem .7rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag { font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(248,21,98,.3); border-radius: 2px; padding: 1px 5px; white-space: nowrap; flex-shrink: 0; }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active { border-color: var(--accent); background: rgba(248,21,98,.06); pointer-events: none; cursor: default; }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Welcome to the Jungle</h1>
+
+            <p>This is an old draft I wrote back in 2018. I&rsquo;d wanted to write a cyberpunk story for so long, but was never particularly inspired to do so until Cyberpunk 2077 unveiled their first gameplay trailer at E3.</p>
+            <p>My story centers on two clippers (guns-for-hire) in a midwestern megacity, hired to retrieve a dubious package, who soon find themselves caught in a conspiracy involving corporate interests and underworld intrigue. This excerpt is from the first two scenes of the story, where we see the two main characters receive the aforementioned job, and on their way to it, the job itself.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+                <p>Electric chimes went off inside Rook&rsquo;s head, but it might as well have sounded like gunshots up close. His face skewed in a frown as he yawned and stretched his limbs about in bed, moving the servos of the ones made of anodized metal. His eyes were still closed, but the heads-up display in his visual cortex flashed notifications of several missed messages within the last hour. Reluctantly Rook forced his eyes open, sliding from under a pair of passed-out and nude bodies with shapely physiques, and swung his legs out of bed. He sat there rubbing his eyes as the augments refocused and auto-adjusted his vision.</p>
+                <p>The apartment painted in off-colored white was simple with a total lack of any right angles, from its layout to the shape of the tiles on the floor. There were holopanels of different sizes mounted on every other vertical and horizontal surface displaying different readouts for different variables. One of the panels read a quarter to six in neon colors, way too early to be dealing with any sort of bullshit that early in the day. He was at the end of a three-day bender of booze and chems and sex, and the feeling of a massive hangover was beginning to set in. At his feet were discarded clothes and empty liquor bottles and used chem vapers that told the tale of it.</p>
+                <p>A widget swiped open in his vision and the chiming returned in his head, this time constant and steady. The sudden sound made Rook clutch his head and cringe. He was receiving a call on the N-LINK hardwired in his head, and that same widget displayed the caller ID as Eddie Sykes in bold neon letters.</p>
+                <p>&ldquo;Shit&hellip;&rdquo; he grunted to himself, accepting the call. The widget expanded in his field of vision, this time filled with static and blurred pixels shimmering before an image appeared. A live feed of a young man with obvious signs of chromework from the way his eyes glimmered and the epidermal impressions in his skin. Beyond that, Rook thought he&rsquo;d looked like a clown with all the jewelry he wore and his dated haircut.</p>
+                <p>&ldquo;Jesus, Rook,&rdquo; Eddie&rsquo;s voice rang inside his head. &ldquo;I&rsquo;ve been trying to get you on the link for the last hour!&rdquo;</p>
+                <p>Rook groaned. &ldquo;What do you want, Eddie?&rdquo;</p>
+                <p>Eddie&rsquo;s image wagged his eyebrows and smiled. &ldquo;You and Al blowing your load after that biz in the North Metro?&rdquo;</p>
+                <p>&ldquo;Couldn&rsquo;t do much else with it. After paying the cost for prep work and tools, we barely had enough to get floated,&rdquo; Rook growled back.</p>
+                <p>Eddie threw his hands up defensively on video. &ldquo;I know, I know. It was a bum job. I got stiffed on the creds just like you by the client. That&rsquo;s why I&rsquo;m offering you two a new job before any other clippers. Guaranteed good pay.&rdquo;</p>
+                <p>&ldquo;How good?&rdquo;</p>
+                <p>Eddie&rsquo;s image gave an enigmatic smile. &ldquo;Fifty megs. Twenty up front, thirty on completion. For each of you. But I need this done today.&rdquo;</p>
+                <p>Rook stroked his chin at the proposition. The results he and Al had gotten from working for Eddie Sykes were mixed at best. He was a clipper, a gun for hire. In this city, every two-bit dreg with a gun was looking to be on the uptake. And EVERYONE had a gun here in the Jungle, from the gutter squibs on the street to the corporate nutjobs and glitterfolk in their ivory towers shitting gold from on high. To make it big, he needed an in. And somebody like Eddie always had work. For someone like Rook, it was just a matter of waiting for someone else more connected with more money to take notice. But one-hundred thousand credits, fifty a piece, for a job was nothing to sneeze at.</p>
+                <p>&ldquo;Send me the details.&rdquo; Rook didn&rsquo;t wait for Eddie to say anything else before he closed the widget on his HUD and ended the call. He sat there on the edge of the bed, rubbing his neck to work the last kinks out of his muscles.</p>
+                <p>The bathroom door opposite of the flat slid open on quiet rotors, and a real meathead of a jock stumbled out, his private bits out in full. He lazily picked up whatever clothes were his from the floor and dressed on his way out of the door. Then Al ambled out, yawning and eyes half closed, and leaned against the door frame in nothing but her panties. She had a slender build from her arm and waist and breasts&mdash;but she was even more chromed than the two bodies behind Rook on the bed.</p>
+                <p>&ldquo;I think you took one too many vapes to be chin-wagging with yourself?&rdquo; she lazily said in her accent that clearly didn&rsquo;t come from the Jungle. &ldquo;I could hear you with the door closed. Even over that bloke&rsquo;s snoring.&rdquo;</p>
+                <p>&ldquo;Nah,&rdquo; he yawned. &ldquo;We just got one-hundred thousand reasons to put in work.&rdquo;</p>
+                <p>Al&rsquo;s eyes opened wide like the fatigue wore off like magic. &ldquo;A job? From who?&rdquo;</p>
+                <p>Rook narrowed his eyes and shot her a look.</p>
+                <p>A moment later, she stared back wide-eyed in realization. &ldquo;Eddie? That shite?&rdquo;</p>
+                <p>He shrugged.</p>
+                <p>Al groaned, making her way into the kitchen and started fumbling through the fridge. A notification appeared over Rook&rsquo;s HUD &mdash; MESSAGE RECEIVED &mdash; it said. He activated the file, his own securityware running sweeps over the data before opening it. It was the info Eddie promised with a navpoint to a designated location. Another notice pinged into view soon after &mdash; DEPOSIT RECEIVED: 20000 CREDITS. He was taken back, but still skeptical. So far it seemed that everything Eddie promised was on the level.</p>
+                <p>The bodies on the bed stirred and moaned their way to consciousness. The dolls sat up, rubbing their eyes and yawning&mdash;one curvy and buxom, the other slender and androgynous.</p>
+                <p>&ldquo;I don&rsquo;t suppose you have a stim on you?&rdquo; asked the curvy doll.</p>
+                <p>&ldquo;No,&rdquo; said Rook, getting up from the bed. &ldquo;Just as well. The party&rsquo;s dead, and I have to put in work.&rdquo;</p>
+                <p>The dolls crawled out of bed and gathered their clothes from the pile on the floor as Rook led them out of the flat. &ldquo;Call me for another rager, Rook,&rdquo; the androgynous doll said, winking at him as the door slid shut behind them.</p>
+                <p>Al returned from the kitchen with a bowl of cereal, her mouth half full. &ldquo;You got the biz yet?&rdquo;</p>
+                <p>Rook tapped the temple. &ldquo;Got &rsquo;em right here.&rdquo;</p>
+                <p>&ldquo;Good,&rdquo; she said, shoveling a spoonful of generic breakfast sugar. &ldquo;So, who&rsquo;s driving?&rdquo;</p>
+
+                <div class="scene-header">II</div>
+
+                <p>The sun rose in the orange morning sky with the silhouettes of a dozen arcologies on Lake Michigan&rsquo;s horizon. Rook sat in the driver seat while Al rode shotgun, jetting down Lake Shore Drive in a sportscar with relatively little traffic heading south. The steering wheel twitched side to side on automated servos with retracted handles as he fumbled and checked the array of gun parts in his lap. The display on the windshield was illuminated with readouts of the car&rsquo;s speed and fuel usage while giving an estimate of their time of arrival.</p>
+                <p>&ldquo;Sykes calling us like this is hardly a bloody good sign.&rdquo; Al sat with her knees tucked into her chest, looking off at the sprawl of glass and concrete that was the Jungle. &ldquo;Though&hellip;twenty thousand quid falling in my purse didn&rsquo;t hurt either.&rdquo;</p>
+                <p>&ldquo;I know,&rdquo; Rook grunted. &ldquo;And coming off that bender didn&rsquo;t exactly leave much in my account. We got lucky.&rdquo;</p>
+                <p>Al smiled. &ldquo;Well, at least it was a good three days.&rdquo;</p>
+                <p>&ldquo;I wouldn&rsquo;t know,&rdquo; he answered, shrugging. &ldquo;I can barely remember any of it.&rdquo;</p>
+                <p>&ldquo;Sounds like it was money well spent.&rdquo;</p>
+                <p>Eddie&rsquo;s job had them heading to East Chicago, a relic of an industrial district on the southeast shore. The job was simple: meet the contact, pick up the package, and deliver it. But they both knew the whole gig seemed off. It was too simple for what was being offered on pay. But it was good pay, and that was hard to ignore.</p>
+                <p>The onboard VI chimed. &ldquo;Three minutes until autodrive disengages.&rdquo;</p>
+                <p>&ldquo;So, what&rsquo;s our plan?&rdquo;</p>
+                <p>Rook reassembled the final piece of his handgun and aimed down the sights to get its feel. &ldquo;Meet the mark. Take what he has. Get the 30K.&rdquo;</p>
+                <p>&ldquo;I mean in case we&rsquo;re as lucky as usual.&rdquo;</p>
+                <p>Rook loaded a magazine and holstered the piece. &ldquo;Let&rsquo;s play it cool and keep our eyes open. No sense going in guns blazing.&rdquo;</p>
+                <p>The handles of the steering wheel extended as a warning sign projected on the display screen.</p>
+                <p>&ldquo;Releasing Autodrive&hellip;In five&hellip;four&hellip;three&hellip;&rdquo; Rook took hold of the wheel and rested a foot over a pedal as the car steered itself on to an offramp. &ldquo;&hellip;two&hellip;one&hellip;&rdquo;</p>
+                <p>The VI chimed one last time before the servos gave way and the wheel jerked in his hands as he steered the car along the path off the ramp. The windshield display showed the AR path to the navpoint, reading it as less than one-hundred meters away. Leaving behind the expressway, the two rode into a clutter of dingy warehouses and factories, most abandoned and tagged with graffiti. Tweakers lurked in the alleys and dark lots looking for their next fix of whatever their vice was. Scavvers digging through tech dumps and scrap piles glared at them wide-eyed and wanting as their sportscar passed.</p>
+                <p>Rook frowned and gritted his teeth at the passing dismal scenery, &ldquo;I think this is Boomer territory.&rdquo;</p>
+                <p>Al sighed. &ldquo;Oh, joy&hellip;&rdquo;</p>
+                <p>Calling the Boomers a gang would be like calling a lion a housecat. They were far-left extremists dead set on giving the finger to &ldquo;the establishment&rdquo;. But here in the Jungle&mdash;the Greater Chicago-Lake Michigan Megaregion&mdash; the Stars and Stripes had no clout and the Corps reigned supreme. So, instead, any &ldquo;three-piece&rdquo; meal was a target for them. And they often voiced their displeasure with military-grade ordinance.</p>
+                <p>&ldquo;I&rsquo;ve got a new plan,&rdquo; Al began, &ldquo;we each palm iron and if things go tits up, we leave none alive.&rdquo;</p>
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

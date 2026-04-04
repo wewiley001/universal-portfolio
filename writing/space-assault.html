@@ -1,0 +1,598 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Assault — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+        .script-action { font-size: .9rem; line-height: 1.8; color: rgba(255,255,255,.6); }
+        .script-char { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-top: .65rem; }
+        .script-dial { padding-left: 1.5rem; font-size: .88rem; line-height: 1.7; color: rgba(255,255,255,.5); }
+        .script-paren { color: rgba(255,255,255,.3); font-style: italic; text-transform: none; letter-spacing: 0; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-label { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .5rem; padding: .9rem .35rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #f81562; background: #000; border: none; z-index: 1; user-select: none; pointer-events: none; flex-shrink: 0; }
+        .image-panel-label span { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+        .image-panel-label svg { width: 14px; height: 18px; flex-shrink: 0; color: #f81562; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">Space Assault</h1>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+
+                <div class="scene-header">EXT. Starbase Excelsior &mdash; Orbit of Planet Aris</div>
+                <p class="script-action">The GUNMARE, a large one-person Starfighter, is attacking the massive space station Excelsior, leaving it heavily damaged with hull breaches and flames covering most of it. The station&rsquo;s weapons hopelessly fire at it, unable to catch it.</p>
+
+                <div class="scene-header">INT. Command Deck: Starbase Excelsior &mdash; Space</div>
+                <p class="script-action">Red lights are flashing and alarms are going off as command officers frantically work at their various stations. General Kamad sits in his command chair.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">How the HELL did this happen!!!</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">They just dropped out of hyperspace and began firing on the station. They&rsquo;ve targeted our primary engines and shield generator.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">How many ships?</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">One, Sir.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">One ship! Are you telling me that the most powerful military station in Valinor Space is being defeated by one ship?</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">It looks like a fighter but matches no known ships in the Ascendancy. I don&rsquo;t detect any life signs onboard. It might be running an automated attack program.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">If no one&rsquo;s onboard, why can&rsquo;t we shoot them down?</p>
+
+                <p class="script-char">Tactical Officer</p>
+                <p class="script-dial">Sir, I can&rsquo;t get a lock on them. Something is disrupting our sensor array. Someone&rsquo;s using it as a distraction, most likely.</p>
+
+                <p class="script-char">Communications Officer</p>
+                <p class="script-dial">Sir, we&rsquo;re being hailed. It&rsquo;s a holo feed.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Display.</p>
+
+                <p class="script-action">A holodais in front of the bridge projects a hologram of the Archangel in body armor covered with a heavy cloak and full helm.</p>
+
+                <p class="script-char">Archangel <span class="script-paren">(Hologram)</span></p>
+                <p class="script-dial">General Kamad, I presume.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Are you responsible for this? I will have your head on a platter when I get my hands&mdash;</p>
+
+                <p class="script-char">Archangel <span class="script-paren">(Hologram)</span></p>
+                <p class="script-dial">You rule over your Valinor Dominion quite poorly. Usually, I try not to interfere with the political struggles of other galactic sovereignties, but that business on New Charon changed all that.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">The rebels who opposed me were operating in that world. I had every right to kill them.</p>
+
+                <p class="script-char">Archangel <span class="script-paren">(Hologram)</span></p>
+                <p class="script-dial">By ordering an orbital bombardment on the planet, with nuclear warheads, no less. You could have killed millions of lives in that world with plasma cannons or a Nova Bomb. But no &mdash; you use an outdated weapon to not only destroy the lives of the innocents there but to kill the planet with radiation as a message.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">I don&rsquo;t have to explain myself to you. I will see you die for what you&rsquo;ve done on this day.</p>
+
+                <p class="script-char">Archangel <span class="script-paren">(Hologram)</span></p>
+                <p class="script-dial">No, you won&rsquo;t.</p>
+
+                <p class="script-char">Communications Officer</p>
+                <p class="script-dial"><span class="script-paren">(to Kamad)</span> Sir, this transmission is coming from somewhere in the station.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Trace it. <span class="script-paren">(to Archangel)</span> I have more than a thousand Marines on this station. You have no hope of escaping.</p>
+
+                <p class="script-char">Archangel <span class="script-paren">(Hologram)</span></p>
+                <p class="script-dial">I&rsquo;m coming for you, General. If you have a god, look to the horizon and pray to him now. Dawn is breaking.</p>
+
+                <p class="script-action">The transmission cuts off and the holo image of the Archangel disappears.</p>
+
+                <p class="script-char">Communications Officer</p>
+                <p class="script-dial">Sir, I&rsquo;ve found the source of the transmission. It&rsquo;s coming from a COM terminal in the lower part of the central cluster. He&rsquo;s right below us, sir.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Send an attachment of Marines to his location. I want him alive.</p>
+
+                <p class="script-char">Tactical Officer</p>
+                <p class="script-dial">Yes sir.</p>
+
+                <div class="scene-header">INT. Command Access: Starbase Excelsior &mdash; Space</div>
+                <p class="script-action">The scene is chaotic as Royal Marines mobilize into a defensive position around a bulkhead, aiming their blasters down the corridor. Archangel walks toward them from the opposite end with two heavy blasters.</p>
+
+                <p class="script-char">Marine Captain</p>
+                <p class="script-dial">Fire!!!</p>
+
+                <p class="script-action">The Marines fire, but the plasma bolts refract around Archangel via a transparent shield, leaving him unharmed. He doesn&rsquo;t stop his approach.</p>
+
+                <p class="script-char">Marine #1</p>
+                <p class="script-dial">The shots aren&rsquo;t even touching him.</p>
+
+                <p class="script-char">Marine #2</p>
+                <p class="script-dial">This isn&rsquo;t even possible! How can he be doing this?</p>
+
+                <p class="script-char">Marine Captain</p>
+                <p class="script-dial">Don&rsquo;t let up. He has to break sometime.</p>
+
+                <p class="script-action">Archangel charges, dodging bolts and attacking with a flurry of punches and kicks before releasing a shockwave that sends men flying in all directions. He then unleashes a chain of lightning that electrocutes several Marines to death. More than half the group is killed.</p>
+
+                <p class="script-char">Marine Captain</p>
+                <p class="script-dial">Shit, he&rsquo;s a Void User. Fall Back!</p>
+
+                <div class="scene-header">INT. Command Deck: Starbase Excelsior &mdash; Space</div>
+                <p class="script-action">On the command deck, alarms continue and explosions shake the station. The Operations Officer combs through holographic records on her console until she finds a match for the GUNMARE.</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">Sir, you&rsquo;ll want to know about this.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">What?!</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">It&rsquo;s about that starfighter. I widened the search parameters to find a match. That ship was seen twenty years ago during the Raider Wars in the Andromeda Galaxy. It&rsquo;s also appeared in several isolated incidents throughout the Ascendency for the past eighty years. And they all had one thing in common.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Which was?</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">The Archangel.</p>
+
+                <p class="script-action">Everyone on the bridge freezes at the mention of his name, a look of dread falling over them all.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">&ldquo;The immortal warrior who slays armies with sword and spell.&rdquo; Cheap tricks. False legends&hellip;</p>
+
+                <p class="script-char">Science Officer</p>
+                <p class="script-dial">I&rsquo;ve heard stories of him being able to create electrical storms from his fingertips.</p>
+
+                <p class="script-char">Communications Officer</p>
+                <p class="script-dial">I heard he can pull starships out of the sky with his mind.</p>
+
+                <p class="script-char">Operations Officer</p>
+                <p class="script-dial">If he is even a fifth of what the stories say of him, how can we stop a person like that?</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Enough. I will not have your minds disturbed by some myth.</p>
+
+                <p class="script-char">Tactical Officer</p>
+                <p class="script-dial">I fought in the Raider Wars, sir. They called him the Swordsman of Death. I may not have fought by his side, but the results of what he&rsquo;s done with the power he possesses are all too real. The Kinkari Crusaders have been hunting him for centuries. If this man is truly him, then you would be a fool to&mdash;</p>
+
+                <p class="script-action">General Kamad draws his blaster and fires a plasma bolt into the Tactical Officer&rsquo;s chest, killing him. Everyone freezes at the sight.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">He is but one man! And any man can die. I will make you see this. And if I hear talk of these foolish stories anymore, you will go the way of our late tactical officer over there. Do I make myself clear?!</p>
+
+                <div class="scene-header">INT. Command Access: Starbase Excelsior &mdash; Space</div>
+                <p class="script-action">The Marines scramble back from the passageway. The Captain moves to a control panel and seals the bulkhead. Before it fully shuts, he tosses a thermal charge through the gap. The resulting blast reverberates through the sealed door.</p>
+
+                <p class="script-char">Marine #3</p>
+                <p class="script-dial">Is he dead?</p>
+
+                <p class="script-char">Marine #4</p>
+                <p class="script-dial">He has to be. That was a thermal charge. No one can survive inside the blast radius, let alone one that blows up in your face.</p>
+
+                <p class="script-action">The Marine Captain&rsquo;s headset activates. He opens the holographic computer on his wrist and answers the call from General Kamad.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Captain. Status report.</p>
+
+                <p class="script-char">Marine Captain</p>
+                <p class="script-dial">Yes, Your Excellency. I&rsquo;ve lost nearly all of my Marines. This man &mdash; he was a Will-User. We stopped the Archangel in the main corridor with a thermal charge, but we are unable to confirm his death at this time.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Don&rsquo;t bother. Your stunt managed to rupture that part of the deck. He was probably either killed in the explosions or vented into space.</p>
+
+                <p class="script-char">Marine Captain</p>
+                <p class="script-dial">I&rsquo;m sorry for the damage, Sir &mdash;</p>
+
+                <p class="script-action">A massive force slams against the closed bulkhead, startling everyone.</p>
+
+                <p class="script-char">Marine #1</p>
+                <p class="script-dial">That&rsquo;s not possible.</p>
+
+                <p class="script-action">The door gradually begins to glow red and yellow from the heat.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Captain? What is happening? Answer me!</p>
+
+                <p class="script-action">A massive beam of blue energy tears through the door, enveloping all the Marines.</p>
+
+                <div class="scene-header">INT. Command Deck: Starbase Excelsior &mdash; Space</div>
+                <p class="script-action">General Kamad and the rest of the bridge crew hear the Marines&rsquo; screams &mdash; then sudden silence.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Captain? What happened? Captain!?!</p>
+
+                <p class="script-char">Communications Officer</p>
+                <p class="script-dial">Sir, sensors detected that eleven life signs in the Command Access have just disappeared. Only one remains.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">I want to see a security vid of what just happened!</p>
+
+                <p class="script-action">On the massive viewscreen, a recording plays: a grenade is thrown at Archangel&rsquo;s feet through a closing bulkhead door. He throws up his hand as it explodes. When the image clears, everything in the room is damaged &mdash; but Archangel stands alive, surrounded by a transparent shield. He takes a martial stance, focuses energy into his hand, and releases a destructive beam toward the door. The last image shows the Marines being enveloped in light before the feed cuts out.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">That&rsquo;s not possible. That&rsquo;s&hellip;not&hellip;POSSIBLE!</p>
+
+                <p class="script-action">The door to the bridge is blasted open with an explosion, knocking several security guards out. The Archangel steps through. General Kamad raises his sidearm, but Archangel waves it away telekinetically, sending it skidding across the bridge. He approaches as the officers stand frozen.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">If this man is worth dying for, then stay and fight me. Otherwise, evacuate the station. Now.</p>
+
+                <p class="script-action">The bridge officers exchange weary glances &mdash; then turn and flee.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">Wait! I am your general! Your Ruler! Come back, you cowards!</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">A general can be measured by the quality of his enemies. But a leader can be defined by the loyalty of his followers. And you are a poor leader indeed.</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">And what about the lives of the people you killed on this starbase? So many innocents were slain in battle just to get to me. You are to blame for that.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">Don&rsquo;t you DARE lecture me on the nature of war!</p>
+
+                <p class="script-action">The Archangel seizes General Kamad by the scruff of his neck and hurls him across the bridge into a workstation panel. Kamad crumples to the floor as sparks fly.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">I have fought and shed blood long before your rise to power over the Dominion. Long before the rise of the Dominion itself! Your actions at New Charon brought all I&rsquo;ve wrought upon your head!</p>
+
+                <p class="script-char">General Kamad</p>
+                <p class="script-dial">I don&rsquo;t care what the stories say about you. I have friends. I have allies. Immortal or not, you will answer for what you&rsquo;ve done here.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">As will you.</p>
+
+                <p class="script-action">The Archangel lifts General Kamad telekinetically and crushes his torso, splattering blood across the bridge. He drops the corpse and walks to the console, hacking into the system.</p>
+
+                <p class="script-char">Station Computer <span class="script-paren">(over ship coms)</span></p>
+                <p class="script-dial">Auto Self-Destruct Protocols initiated. T-Minus 2 standard minutes and counting.</p>
+
+                <p class="script-action">Archangel opens his Hop-COM &mdash; a holographic wrist-mounted computer &mdash; and inputs a sequence of commands.</p>
+
+                <div class="scene-header">EXT. Starbase Excelsior &mdash; Orbit of Planet Aris</div>
+                <p class="script-action">The GUNMARE breaks off its assault and crosses to the far side of the starbase, hovering before the bridge viewport. It fires a plasma blast, shattering the glass with an explosion. Archangel is sucked into the vacuum of space, floats to the GUNMARE &mdash; and dematerializes.</p>
+
+                <div class="scene-header">INT. Gunmare: Cockpit &mdash; Space</div>
+                <p class="script-action">The Archangel materializes inside the cockpit, drops into the pilot&rsquo;s chair, and grips the controls.</p>
+
+                <div class="scene-header">EXT. Starbase Excelsior &mdash; Orbit of Planet Aris</div>
+                <p class="script-action">The GUNMARE moves away from the station and leaps into hyperspace as the starbase explodes behind it.</p>
+
+                <div class="scene-header">INT. Gunmare: Cockpit &mdash; Hyperspace</div>
+                <p class="script-action">The Archangel removes his helmet, revealing a young man who appears to be in his late twenties, with oddly luminescent blue eyes. He opens a channel on the communications array and waits.</p>
+
+                <p class="script-char">Shanks <span class="script-paren">(over com)</span></p>
+                <p class="script-dial">This is the Midsummer Night&rsquo;s Dream. Identify yourself.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">As dreary as always, Shanks.</p>
+
+                <p class="script-char">Diana <span class="script-paren">(over com)</span></p>
+                <p class="script-dial">Oh, Archangel. You&rsquo;re not dead?</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">That&rsquo;s you, Thiana? You sound disappointed.</p>
+
+                <p class="script-char">Diana <span class="script-paren">(over com)</span></p>
+                <p class="script-dial">I had a pool going that you wouldn&rsquo;t come back.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">You bet against me?</p>
+
+                <p class="script-char">Diana <span class="script-paren">(over com)</span></p>
+                <p class="script-dial">Of course not. I know you better than that&hellip;Commander.</p>
+
+                <p class="script-char">Archangel</p>
+                <p class="script-dial">Anyway, I&rsquo;m heading to the rendezvous point now. ETA seven minutes.</p>
+
+                <p class="script-char">Diana <span class="script-paren">(over com)</span></p>
+                <p class="script-dial">Very well. We&rsquo;ll be ready. Don&rsquo;t keep us waiting.</p>
+
+                <div class="scene-header">EXT. The Midsummer Night&rsquo;s Dream &mdash; Orbit of Lambda Hyper Gate</div>
+                <p class="script-action">The GUNMARE exits hyperspace and flies toward a bronze light cruiser &mdash; the Midsummer Night&rsquo;s Dream. The docking bay shields drop and the GUNMARE lands inside.</p>
+
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/space-assault-hero.jpg" alt="Space Assault Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

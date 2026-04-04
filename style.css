@@ -212,6 +212,24 @@ html, body {
         repeating-linear-gradient(135deg, rgba(0, 180, 255, 0.05) 0px, transparent 1px, transparent 30px);
 }
 
+#sec-writing .section-bg {
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 28px,
+            rgba(248, 21, 98, 0.08) 29px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(248, 21, 98, 0.04) 0px,
+            transparent 1px,
+            transparent 60px
+        ),
+        radial-gradient(ellipse at 30% 60%, rgba(248, 21, 98, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 40%, #1a0008 0%, #050001 70%);
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    HOVER GRADIENT OVERLAY
    top: 50% opacity → bottom: fully transparent

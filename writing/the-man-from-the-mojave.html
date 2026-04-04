@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Man From the Mojave — Content</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            height: var(--bar-h);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: #000;
+        }
+        .back-link {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color .2s;
+        }
+        .back-link:hover { color: var(--hover); }
+        .topbar-brand { display: flex; align-items: center; gap: .5rem; }
+        .topbar-brand svg { fill: var(--accent); width: 20px; height: 20px; }
+        .topbar-brand span {
+            font-size: 0.74rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .layout { display: flex; flex: 1; overflow: hidden; }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            overflow-y: auto;
+            padding: .9rem 0 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .sidebar-label {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            padding: 0 1rem .55rem;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 .7rem .6rem;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #070707;
+            transition: border-color .2s, transform .18s, box-shadow .2s;
+        }
+        .card:hover {
+            border-color: rgba(248,21,98,.55);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248,21,98,.14);
+        }
+        .card-thumb { display: block; line-height: 0; }
+        .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
+        .card-body {
+            padding: .5rem .7rem .55rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .4rem;
+        }
+        .card-title { font-size: .8rem; font-weight: 500; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .card-tag {
+            font-size: .56rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 1px 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .card:hover .card-tag { color: var(--hover); border-color: rgba(93,246,254,.3); }
+        .card--active {
+            border-color: var(--accent);
+            background: rgba(248,21,98,.06);
+            pointer-events: none;
+            cursor: default;
+        }
+        .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
+
+        .main { flex: 1; display: flex; overflow: hidden; }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 2rem 2.5rem;
+            gap: 1.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #fff;
+            padding-bottom: .85rem;
+            border-bottom: 1px solid rgba(248,21,98,.35);
+            flex-shrink: 0;
+        }
+
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-row {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-row:last-child { border-right: none; }
+        .info-label {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: .55rem .75rem;
+            background: rgba(248,21,98,.055);
+            border-right: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .info-value {
+            padding: .55rem .75rem;
+            font-size: .82rem;
+            color: rgba(255,255,255,.45);
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+        .scene-header { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); padding: .65rem .9rem; border-left: 2px solid var(--accent); background: rgba(248,21,98,.04); margin-bottom: .25rem; }
+        .scene-header + .scene-header { margin-top: -.75rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-label { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .5rem; padding: .9rem .35rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #f81562; background: #000; border: none; z-index: 1; user-select: none; pointer-events: none; flex-shrink: 0; }
+        .image-panel-label span { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+        .image-panel-label svg { width: 14px; height: 18px; flex-shrink: 0; color: #f81562; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
+        #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
+        #lightbox-close:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-link">&#8592; Writing</a>
+    <div class="topbar-brand">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h3v1.5H8V10z"/>
+        </svg>
+        <span>Writing</span>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <p class="sidebar-label">Projects</p>
+        <a href="an-oncoming-storm.html" class="card">
+            <div class="card-thumb"><img src="img/hero/an-oncoming-storm-hero.jpg" alt="An Oncoming Storm" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">An Oncoming Storm</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="iron-gunsmoke-and-moonslight.html" class="card">
+            <div class="card-thumb"><img src="img/hero/iron-gunsmoke-and-moonslight-hero.png" alt="Iron, Gunsmoke, and Moonslight" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Iron, Gunsmoke, and Moonslight</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="troubled-night.html" class="card">
+            <div class="card-thumb"><img src="img/hero/troubled-night-hero.jpg" alt="Troubled Night" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Troubled Night</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="portside-rhapsody.html" class="card">
+            <div class="card-thumb"><img src="img/hero/portside-rhapsody-hero.jpg" alt="Portside Rhapsody" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Portside Rhapsody</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="the-undercity.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-undercity-hero.jpg" alt="The Undercity" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Undercity</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+        <a href="welcome-to-the-jungle.html" class="card">
+            <div class="card-thumb"><img src="img/hero/welcome-to-the-jungle-hero.webp" alt="Welcome to the Jungle" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Welcome to the Jungle</span><span class="card-tag">Cyberpunk</span></div>
+        </a>
+        <a href="the-vale.html" class="card">
+            <div class="card-thumb"><img src="img/hero/the-vale-hero.jpg" alt="The Vale" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Vale</span><span class="card-tag">Fantasy</span></div>
+        </a>
+        <a href="horror-encoded.html" class="card">
+            <div class="card-thumb"><img src="img/hero/horror-encoded-hero.jpg" alt="Horror Encoded" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Horror Encoded</span><span class="card-tag">Horror</span></div>
+        </a>
+        <a href="the-man-from-the-mojave.html" class="card card--active">
+            <div class="card-thumb"><img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man from the Mojave" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">The Man from the Mojave</span><span class="card-tag">Western</span></div>
+        </a>
+        <a href="whiskey-revovler.html" class="card">
+            <div class="card-thumb"><img src="img/hero/whiskey-revolver-hero.png" alt="Whiskey Revolver" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Whiskey Revolver</span><span class="card-tag">Noir</span></div>
+        </a>
+        <a href="space-assault.html" class="card">
+            <div class="card-thumb"><img src="img/hero/space-assault-hero.jpg" alt="Space Assault" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Space Assault</span><span class="card-tag">Sci-Fi</span></div>
+        </a>
+        <a href="witches-in-the-brush.html" class="card">
+            <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
+            <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Dark Fantasy</span></div>
+        </a>
+    </aside>
+
+    <main class="main">
+        <div class="main-content">
+            <h1 class="page-title">The Man From the Mojave</h1>
+            <p>This is an excerpt from a novella I’ve been working on for a while – a weird west fantasy story. This narrative takes place in an alternate history 19th century America, where the end of British rule is still fresh on the minds of the colonies and land West of the Mississippi is more brutal than ever. This particular excerpt centers on a mysterious gunslinger entering a town to capture a set of bounties.</p>
+
+            <div class="info-bar">
+                <div class="info-row">
+                    <span class="info-label">Written By</span>
+                    <span class="info-value">W.E. Wiley</span>
+                </div>
+            </div>
+
+            <div class="prose">
+
+                <p>The Town of Santa Blanca was a place accustomed to violence, more so than those other towns in the near-lawlessness Frontier. It sat in the heart of the unclaimed Mojave, the battleground for a cold war between three nations looking to make it their own. The Mexican Empire freed themselves from Spain and ruled the south. The Anansi Nation was founded by former slaves who escaped to the north. Lastly, the Blackhawk Clans formed from dozens of native tribes on the plains looking to reclaim what was initially theirs. One need only look to the town&rsquo;s center where a bone-dry fountain stood, where the flags of each faction hung during times of truce. The Commonwealths east of the Mississippi &mdash; Americans they called themselves &mdash; fought off their English rulers, and many feared that soon they would make their way West to stake their own claim.</p>
+
+                <p>So when a stranger shows up from the desert, rumors waste no time flying like buzzards.</p>
+
+                <p>No one knew where he came from when he rode into town on a grey colt with little more than a pair of pistols strangely hanging from the same hip. He was young and couldn&rsquo;t be little more than twenty, dressed in black save the purple mantle the Mexicans called a rebozo wrapped around his shoulders. Part of his face was burned with an X, and three lines following like a branding iron had been put to his dark flesh. He had a steely look, one used to the sight of death. Some thought he was an Anansi scout because of his dark skin. Others feared that he was from the east spying for the Commonwealths. Anyone who could brave the Mojave was someone not to be trifled with. Whatever he was, all the folk agreed: he looked like a stone-cold killer.</p>
+
+                <p>The stranger rode his colt to the Honky Tonk at the center of town, music blaring and drunks stumbling in and out of the saloon. He hitched his horse on a post and walked through its swinging doors, suddenly hit with the sounds of a mean piano tune. The smell of hard liquor and cigarillo smoke lingered heavy in the air. The saloon was in full swing, but the mood shifted with sly glances in his direction. Accustomed to general mistrust, he ignored them all and took a seat at the bar, setting his wide-brim hat aside.</p>
+
+                <p>&ldquo;What&rsquo;ll &rsquo;ya have?&rdquo; the barkeep asked as he cleaned out a glass mug.</p>
+
+                <p>&ldquo;Sarsaparilla for now,&rdquo; he replied in a raspy voice, &ldquo;but keep the good stuff handy.&rdquo; It took only a moment for the bartender to set that glass of dark liquid in front of him.</p>
+
+                <p>One of the working girls in the saloon moseyed over to him as he was about to take a swing. She was a petite thing, dolled up in makeup and pretty enough to play the part of a rich man&rsquo;s mistress. Right as she opened her mouth to speak, the stranger held up a hand before she could get her words out.</p>
+
+                <p>&ldquo;Not now, hun,&rdquo; he said, sipping the drink. &ldquo;Business before pleasure.&rdquo;</p>
+
+                <p>A pock-faced man, practically a walking twig with black scruff sat at the table not far from the bar looked at the stranger with disgust and ill-will in his hateful eyes. He got up from the table and made his way over to him. His two companions stood up nearby, hands hovering above the handles of their pistols.</p>
+
+                <p>&ldquo;Hey, cabr&oacute;n, you&rsquo;re not wanted here,&rdquo; the man shouted out right next to the stranger. &ldquo;Leave now.&rdquo;</p>
+
+                <p>&ldquo;I ain&rsquo;t done with my drink.&rdquo;</p>
+
+                <p>The pock-faced man grabbed the glass from the stranger&rsquo;s hand and threw it to the ground, shattering into a million pieces. The conversations and the music suddenly died off, and silence fell on the saloon. The tension was in the air, and a few patrons closest to the door edged their way out as subtly as possible.</p>
+
+                <p>&ldquo;You Anansi were always stupid, eh?&rdquo; One of the man&rsquo;s companions shouted. &ldquo;Fucking cotton pickers&hellip;&rdquo;</p>
+
+                <p>The other companion laughed. &ldquo;Maybe we drag his culo to the other side of the river in pieces. I hear the Americanos love dark meat.&rdquo;</p>
+
+                <p>The three men laughed, and the patrons were all silent watching the spectacle. The bartender nervously cleaned one of his mugs with his dirtied rag, trying his best to ignore what went on in front of him.</p>
+
+                <p>&ldquo;Do you see what this maricon is wearing?&rdquo; the pock-faced man mocked, pointing at the man&rsquo;s purple trappings. &ldquo;You know that rebozo you wear is worn by our women?&rdquo;</p>
+
+                <p>The stranger motioned the bartender for another drink. &ldquo;Don&rsquo;t catch a problem you can&rsquo;t solve&hellip; hombre.&rdquo;</p>
+
+                <p>The three&rsquo;s laughs suddenly died, and the room grew quiet, and more tension filled the air than before.</p>
+
+                <p>&ldquo;You know,&rdquo; the stranger said, turning to the man with a smile creeping his face, &ldquo;they were right about you three&hellip;&rdquo;</p>
+
+                <p>The pock-faced glared harder at him. &ldquo;Who?&rdquo;</p>
+
+                <p>&ldquo;The Rangers. They told me you three fine gentle-types were inbred trash not fit for a cell. Told me I should shoot you dead.&rdquo;</p>
+
+                <p>The pock-faced man gazed harder at the man&rsquo;s strange brand, and his eyes opened in surprise. &ldquo;That brand on your face. You&rsquo;re&mdash;&rdquo;</p>
+
+                <p>Before the man could finish, the stranger spun and thrust his hand into the pock-faced man&rsquo;s throat. The man&rsquo;s eyes bulged as he gasped for air, stumbling backward and tripping over a stool. The two companions made to pull their revolvers, but the stranger didn&rsquo;t miss a step. He cross-pulled one of the pistols on his hip, a black revolver with a medium barrel and a doubled-barrel shaft beneath it. One of the men had their barrel up and let off a shot. The bullet blared past the stranger&rsquo;s head just close enough to graze his cheek. The stranger winced only for a moment before he squeezed the trigger and more thunder rang out. Silence settled once more, and the two men &mdash; wide-eyed and speechless &mdash; fell to their knees and bled out on the floor. The patrons shuddered at the duel, so quickly did it happen that they barely noticed.</p>
+
+                <p>The pock-faced man on the ground, having gotten his wits, tried to pull his weapon. The stranger then turned the black gun on him and gave him pause.</p>
+
+                <p>&ldquo;Now, that would be a highly unintelligent thing to do, Gabriel,&rdquo; he bellowed, wiping the stream of blood pouring from his wounded cheek.</p>
+
+                <p>The man looked stunned. &ldquo;You&rsquo;re just a story! You aren&rsquo;t supposed to be real!&rdquo;</p>
+
+                <p>The stranger, still aiming his gun at the downed man, reached in his pocket and pulled out a folded piece of paper and flung it open. On it were caricatures of three men, all named, each with prices under each picture. A bounty notice.</p>
+
+                <p>&ldquo;By order of the Republic of Texas, Province of the Mexican Empire: The Brothers Vasquez &mdash; Gabriel, Rafael, and Uriel. Wanted for Rape, Murder, Arson, and Robbery. Three-thousand pesos alive, twenty-five-hundred dead for each head. An extra thousand for all three on delivery.&rdquo; The stranger folded up the paper and shoved it back into his pocket, his gun still trained on the wanted man. &ldquo;Now the way I see it, your two brothers are worth five-thousand now that I&rsquo;m sure they&rsquo;ve both bled out. I&rsquo;ve left you breathing, meaning that you are worth another three. All three of you together give me another thousand, for an oh-so-spectacular grand total of nine-thousand pesos. It&rsquo;s a damned good day for arithmetic.&rdquo;</p>
+
+                <p>&ldquo;You better hope I never escape the noose, cabr&oacute;n. I&rsquo;ll kill you with my own two hands&mdash;&rdquo;</p>
+
+                <p>The stranger cocked his revolver and pointed it closer to his bounty&rsquo;s face. &ldquo;Or maybe I&rsquo;ll settle for the eighty-five hundred, here and now.&rdquo;</p>
+
+                <p>The man&rsquo;s face went pale as he made a nervous gulp. His silence said that the point was made.</p>
+
+                <p>&ldquo;Miss,&rdquo; the stranger called out to the working girl.</p>
+
+                <p>&ldquo;Y-yes,&rdquo; she answered shakily.</p>
+
+                <p>&ldquo;It seems my business is almost done. If it still behooves you, I&rsquo;m sure I can find time for pleasure.&rdquo;</p>
+
+                <p>&ldquo;Bold one, aren&rsquo;t you.&rdquo; The working girl looked the man up and down and couldn&rsquo;t help but blush.</p>
+
+                <p>&ldquo;Now if one of you folk should be so kind as to direct me to your deputy,&rdquo; he said out loud to the onlookers with a smile, &ldquo;I need to collect my due.&rdquo;</p>
+
+            </div>
+
+        </div>
+
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/hero/the-man-from-the-mojave-hero.jpg" alt="The Man From the Mojave Hero" loading="lazy">
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
+    function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+<script>
+    const _active = document.querySelector('.sidebar .card--active');
+    if (_active) {
+        const _label = document.querySelector('.sidebar .sidebar-label');
+        if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
+    }
+</script>
+</body>
+</html>

@@ -46,7 +46,7 @@
             color: var(--accent);
         }
 
-        /* ── Gallery grid — 11 cards, 6 cols × 8 rows ── */
+        /* ── Gallery grid — 8 cards, 6 cols × 8 rows ── */
         .gallery {
             flex: 1;
             display: grid;
@@ -56,17 +56,14 @@
             overflow: hidden;
         }
 
-        .card:nth-child(1)  { grid-column: 2/4; grid-row: 1 / 3; } /* Blog Archive              — wide top (2c×2r)  */
-        .card:nth-child(2)  { grid-column: 2;   grid-row: 3 / 6; } /* Editorials                — mid-left (1c×3r)  */
-        .card:nth-child(3)  { grid-column: 3;   grid-row: 3 / 5; } /* Excerpts & Drafts         — small (1c×2r)     */
-        .card:nth-child(4)  { grid-column: 3;   grid-row: 5 / 9; } /* Documentation             — tall (1c×4r)      */
-        .card:nth-child(5)  { grid-column: 6;   grid-row: 1 / 9; } /* Motion Graphics           — FULL HEIGHT (1c×8r)*/
-        .card:nth-child(6)  { grid-column: 4;   grid-row: 1 / 9; } /* Freelance Video           — FULL HEIGHT (1c×8r)*/
-        .card:nth-child(7)  { grid-column: 1;   grid-row: 1 / 9; } /* Roleplay Comedy           — FULL HEIGHT (1c×8r)*/
-        .card:nth-child(8)  { grid-column: 2;   grid-row: 6 / 9; } /* CROWNMOBB Product         — bottom-left (1c×3r)*/
-        .card:nth-child(9)  { grid-column: 5;   grid-row: 1 / 4; } /* Graphic Design Gallery    — top (1c×3r)       */
-        .card:nth-child(10) { grid-column: 5;   grid-row: 4 / 7; } /* Virtual Avatar by AI      — mid (1c×3r)       */
-        .card:nth-child(11) { grid-column: 5;   grid-row: 7 / 9; } /* Cyberpunk Apartment 3D    — bottom (1c×2r)    */
+        .card:nth-child(1)  { grid-column: 2;   grid-row: 1 / 4; } /* Motion Graphics        — 1c × 3r            */
+        .card:nth-child(2)  { grid-column: 5/7; grid-row: 5 / 9; } /* Professional Video     — 2c × 4r bottom     */
+        .card:nth-child(3)  { grid-column: 3/5; grid-row: 4 / 6; } /* Roleplay Comedy        — 2c × 2r            */
+        .card:nth-child(4)  { grid-column: 2;   grid-row: 4 / 6; } /* Commentary & Vlog      — 1c × 2r            */
+        .card:nth-child(5)  { grid-column: 3/5; grid-row: 1 / 4; } /* CROWNMOBB Product      — 2c × 3r            */
+        .card:nth-child(6)  { grid-column: 5/7; grid-row: 1 / 5; } /* Graphic Design         — 2c × 4r            */
+        .card:nth-child(7)  { grid-column: 1;   grid-row: 1 / 9; } /* Virtual Avatar         — FULL HEIGHT        */
+        .card:nth-child(8)  { grid-column: 2/5; grid-row: 6 / 9; } /* Cyberpunk Apartment 3D — 3c × 3r            */
 
         /* ── Cards ── */
         .card {
@@ -160,30 +157,6 @@
 </head>
 <body>
 
-<div class="wip-overlay">
-    <div class="wip-box">
-        <div class="wip-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        </div>
-        <p class="wip-label">Work in Progress</p>
-        <h1 class="wip-title">Content</h1>
-        <p class="wip-body">This section is still being built out. Check back soon for the full gallery.</p>
-        <a href="../" class="wip-back">&#8592; Return to Portfolio</a>
-    </div>
-</div>
-
-<div class="wip-overlay">
-    <div class="wip-box">
-        <div class="wip-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        </div>
-        <p class="wip-label">Work in Progress</p>
-        <h1 class="wip-title">Content</h1>
-        <p class="wip-body">This section is still being built out. Check back soon for the full gallery.</p>
-        <a href="../" class="wip-back">&#8592; Return to Portfolio</a>
-    </div>
-</div>
-
 <header class="topbar">
     <a href="../" class="back-link">&#8592; Portfolio</a>
     <div class="topbar-brand">
@@ -195,50 +168,6 @@
 </header>
 
 <div class="gallery">
-
-    <!-- ── Blog Archive ── -->
-    <a href="blog-archive.html" class="card">
-        <div class="card-thumb">
-            <img src="img/thumb/blog-archive_thumb.png" alt="Blog Archive" loading="lazy">
-        </div>
-        <div class="card-info">
-            <span class="card-title">Blog Archive</span>
-            <span class="card-tag">Writing</span>
-        </div>
-    </a>
-
-    <!-- ── Editorials ── -->
-    <a href="editorials.html" class="card">
-        <div class="card-thumb">
-            <img src="img/thumb/editorials_thumb.png" alt="Editorials" loading="lazy">
-        </div>
-        <div class="card-info">
-            <span class="card-title">Editorials</span>
-            <span class="card-tag">Writing</span>
-        </div>
-    </a>
-
-    <!-- ── Excerpts & Drafts ── -->
-    <a href="excerpts-drafts.html" class="card">
-        <div class="card-thumb">
-            <img src="img/thumb/excerpts-drafts_thumb.jpg" alt="Excerpts &amp; Drafts" loading="lazy">
-        </div>
-        <div class="card-info">
-            <span class="card-title">Excerpts &amp; Drafts</span>
-            <span class="card-tag">Writing</span>
-        </div>
-    </a>
-
-    <!-- ── Documentation ── -->
-    <a href="documentation.html" class="card">
-        <div class="card-thumb">
-            <img src="img/thumb/documentation_thumb.png" alt="Game Documentation" loading="lazy">
-        </div>
-        <div class="card-info">
-            <span class="card-title">Game Documentation</span>
-            <span class="card-tag">Writing</span>
-        </div>
-    </a>
 
     <!-- ── Motion Graphics ── -->
     <a href="motion-graphics.html" class="card">
@@ -329,5 +258,19 @@
     </a>
 
 </div>
+<div class="wip-overlay">
+    <div class="wip-box">
+        <div class="wip-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+        </div>
+        <p class="wip-label">Work in Progress</p>
+        <p class="wip-title">Coming Soon</p>
+        <p class="wip-body">This section is currently being updated. Check back soon.</p>
+        <a href="../" class="wip-back">&#8592; Back to Portfolio</a>
+    </div>
+</div>
+
 </body>
 </html>
