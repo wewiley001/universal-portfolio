@@ -101,22 +101,82 @@
         }
 
 
-        .content-area { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .placeholder {
-            color: rgba(255,255,255,0.2);
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            padding: 3rem 2rem;
-            border: 1px dashed rgba(255,255,255,0.1);
-            border-radius: 4px;
-            text-align: center;
+        .content-area { flex: 1; display: flex; flex-direction: column; }
+
+        /* Entry rows */
+        .entry {
+            display: grid;
+            grid-template-columns: 210px 1fr;
+            gap: 0 2rem;
+            min-height: 190px;
+            align-items: center;
+            flex-shrink: 0;
         }
-    
-        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
-        .image-panel-hero { flex: 1; overflow: hidden; }
-        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
-        .image-panel-hero img:hover { opacity: 1; }
+        .entry-label {
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+            padding: 1.25rem 0;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            padding-right: 2rem;
+        }
+        .entry-tag {
+            font-size: .58rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(248,21,98,.3);
+            border-radius: 2px;
+            padding: 2px 7px;
+            align-self: flex-start;
+        }
+        .entry-title {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .entry-desc {
+            font-size: .72rem;
+            color: rgba(255,255,255,.45);
+            line-height: 1.55;
+        }
+        .entry-count {
+            font-size: .6rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.25);
+        }
+        .entry-gallery {
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            align-items: stretch;
+            padding: 1.25rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.07) transparent;
+        }
+        .entry-gallery img {
+            height: 150px;
+            width: auto;
+            display: block;
+            object-fit: cover;
+            flex-shrink: 0;
+            cursor: zoom-in;
+            opacity: .78;
+            transition: opacity .2s, transform .2s;
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+        .entry-gallery img:hover { opacity: 1; transform: scale(1.02); border-color: rgba(248,21,98,.45); }
+
+        .partition { border: none; border-top: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; margin: 0; }
+
+        /* Lightbox */
+        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.93); z-index: 999; align-items: center; justify-content: center; }
+        #lightbox.open { display: flex; }
+        #lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border: 1px solid rgba(255,255,255,0.1); }
+        #lb-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.45); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .2s; }
+        #lb-close:hover { color: var(--hover); }
     </style>
 </head>
 <body>
@@ -174,16 +234,110 @@
             <h1 class="page-title">Graphic Design Gallery</h1>
 
             <div class="content-area">
-                <p class="placeholder">Content coming soon</p>
-            </div>
-        </div>
-    
-        <div class="image-panel">
-            <div class="image-panel-hero">
-                <img src="img/thumb/graphic-design_thumb.jpg" alt="Graphic Design Gallery" loading="lazy">
+
+                <!-- 1. Logo Design -->
+                <div class="entry">
+                    <div class="entry-label">
+                        <span class="entry-tag">Branding</span>
+                        <h2 class="entry-title">Logo Design</h2>
+                        <p class="entry-desc">Original logo and brand identity work across personal and client projects.</p>
+                        <span class="entry-count">16 images</span>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/graphic-design/logo-design/Echo%20FourV1.jpg" alt="Echo Four Logo" loading="lazy">
+                        <img src="img/graphic-design/logo-design/GC.png" alt="GC Logo" loading="lazy">
+                        <img src="img/graphic-design/logo-design/TheMadEmpireBanner.png" alt="The Mad Empire Banner" loading="lazy">
+                        <img src="img/graphic-design/logo-design/0552f0fd-c348-43d4-afd2-be04d04e28db_rw_1920.png" alt="Logo Design 1" loading="lazy">
+                        <img src="img/graphic-design/logo-design/09db0060-ee4d-4a6d-9a6b-6f4f4ff8a64f_rw_1200.png" alt="Logo Design 2" loading="lazy">
+                        <img src="img/graphic-design/logo-design/1d8251f7-1eeb-4a9d-a646-c9a0bfa02131_rw_1200.png" alt="Logo Design 3" loading="lazy">
+                        <img src="img/graphic-design/logo-design/215546cd-8731-4768-828a-965abbacc020_rw_1920.png" alt="Logo Design 4" loading="lazy">
+                        <img src="img/graphic-design/logo-design/21a8e9c3-0c84-4ee2-b783-cc01e543f6ef_rw_1920.png" alt="Logo Design 5" loading="lazy">
+                        <img src="img/graphic-design/logo-design/3889b3b0-1d11-4124-b908-3e108c61d1e0_rw_1920.png" alt="Logo Design 6" loading="lazy">
+                        <img src="img/graphic-design/logo-design/439ecf97-03b1-4e62-aa6f-8bd7a13eec27_rw_1200.png" alt="Logo Design 7" loading="lazy">
+                        <img src="img/graphic-design/logo-design/58293482-b4d1-4c54-a18b-fd210918613f_rw_1920.png" alt="Logo Design 8" loading="lazy">
+                        <img src="img/graphic-design/logo-design/9a8bb6fc-0149-498b-a13c-bbe67eac6221_rw_1920.png" alt="Logo Design 9" loading="lazy">
+                        <img src="img/graphic-design/logo-design/9c1e9621-021e-46db-8e72-607ee1f526cc_rw_1200.png" alt="Logo Design 10" loading="lazy">
+                        <img src="img/graphic-design/logo-design/db94d1f6-6eb1-4ff8-9cf6-8a6e47cabe05_rw_1920.png" alt="Logo Design 11" loading="lazy">
+                        <img src="img/graphic-design/logo-design/ec98874c-c7c9-4bfc-9815-7f9e053aca30_rw_3840.png" alt="Logo Design 12" loading="lazy">
+                        <img src="img/graphic-design/logo-design/ee3eb0eb-fea5-402e-9cb2-29792c84c2ff_rw_1200.png" alt="Logo Design 13" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- 3. Urban Photography -->
+                <div class="entry">
+                    <div class="entry-label">
+                        <span class="entry-tag">Photography</span>
+                        <h2 class="entry-title">Urban Photography</h2>
+                        <p class="entry-desc">Street-level compositions capturing city life and architecture.</p>
+                        <span class="entry-count">4 images</span>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/graphic-design/urban-photography/00IMG_1336-2.jpg" alt="Urban 1" loading="lazy">
+                        <img src="img/graphic-design/urban-photography/00IMG_1388.jpg" alt="Urban 2" loading="lazy">
+                        <img src="img/graphic-design/urban-photography/IMG_1756-2.jpg" alt="Urban 3" loading="lazy">
+                        <img src="img/graphic-design/urban-photography/IMG_1767.jpg" alt="Urban 4" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- 4. Vaporwave Series -->
+                <div class="entry">
+                    <div class="entry-label">
+                        <span class="entry-tag">Digital Art</span>
+                        <h2 class="entry-title">Vaporwave Series</h2>
+                        <p class="entry-desc">Aesthetic digital compositions blending retro-futurism and neon palette.</p>
+                        <span class="entry-count">6 images</span>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/graphic-design/vaporwave-series/pexels-aleksandar-pasaric-1134166.jpg" alt="Vaporwave 1" loading="lazy">
+                        <img src="img/graphic-design/vaporwave-series/pexels-gustav-lundborg-3142740.jpg" alt="Vaporwave 2" loading="lazy">
+                        <img src="img/graphic-design/vaporwave-series/pexels-hygor-sakai-2311713.jpg" alt="Vaporwave 3" loading="lazy">
+                        <img src="img/graphic-design/vaporwave-series/pexels-matheus-bertelli-573299.jpg" alt="Vaporwave 4" loading="lazy">
+                        <img src="img/graphic-design/vaporwave-series/pexels-yulianto-poitier-835517.jpg" alt="Vaporwave 5" loading="lazy">
+                        <img src="img/graphic-design/vaporwave-series/pexels-yuting-gao-1089194.jpg" alt="Vaporwave 6" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- 5. YouTube Thumbnails -->
+                <div class="entry">
+                    <div class="entry-label">
+                        <span class="entry-tag">YouTube</span>
+                        <h2 class="entry-title">YouTube Thumbnails</h2>
+                        <p class="entry-desc">Custom thumbnail designs for YouTube content across various channels and series.</p>
+                        <span class="entry-count">15 images</span>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/graphic-design/youtube-thumbnails/0e5927de-a8e9-4fac-934c-4adeae5730bb_rw_1920.jpg" alt="Thumbnail 1" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/2c041b69-480e-4089-9293-8466a2dd212e_rw_1920.jpg" alt="Thumbnail 2" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/47279781-a77b-48fd-a2e6-1c2268847e8b_rw_1920.jpg" alt="Thumbnail 3" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/4fa1a6f5-44f8-4fe5-9a73-ba855e9b2830_rw_1920.jpg" alt="Thumbnail 4" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/65b4a1bb-aa55-4f31-a2b3-f838776dfed2_rw_1920.jpg" alt="Thumbnail 5" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/6dc666da-cdd7-4595-a4f9-515b06828283_rw_1920.jpg" alt="Thumbnail 6" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/6e2509e0-a353-4bbe-aa57-2466033ea2e8_rw_1920.png" alt="Thumbnail 7" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/99fa793e-ea0b-473f-82bf-791d9e5902d6_rw_1920.jpg" alt="Thumbnail 8" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/a8019eef-aa05-4afc-a2db-d46a1107067b_rw_1920.jpg" alt="Thumbnail 9" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/bc9d5b89-c043-4863-8767-3ad6d308be8a_rw_1920.jpg" alt="Thumbnail 10" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/c6e18ac0-ad37-46e9-90b6-316776c447d8_rw_1920.jpg" alt="Thumbnail 11" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/cdb9dcd2-f17a-415e-8e5c-c4a3ca5ba1c2_rw_1920.png" alt="Thumbnail 12" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/e69050b6-5242-4fe7-8197-5a7c9f70e1be_rw_1920.jpg" alt="Thumbnail 13" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/eafa0e88-11af-4e31-baf1-a9d375816a1c_rw_1920.jpg" alt="Thumbnail 14" loading="lazy">
+                        <img src="img/graphic-design/youtube-thumbnails/f9f02db4-9a64-4cf9-b3e8-ae3ab314c48c_rw_1920.png" alt="Thumbnail 15" loading="lazy">
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
+
+    <div id="lightbox" role="dialog" aria-modal="true">
+        <button id="lb-close" aria-label="Close">&times;</button>
+        <img id="lb-img" src="" alt="">
+    </div>
 
 </div>
 <script>
@@ -192,6 +346,16 @@
         const _label = document.querySelector('.sidebar .sidebar-label');
         if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
     }
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    document.querySelectorAll('.entry-gallery img').forEach(img => {
+        img.addEventListener('click', () => { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('open'); });
+    });
+    document.getElementById('lb-close').addEventListener('click', () => lb.classList.remove('open'));
+    lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
 </script>
 </body>
 </html>

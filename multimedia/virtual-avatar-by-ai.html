@@ -100,20 +100,32 @@
             flex-shrink: 0;
         }
 
-        .content-area { display: flex; flex-direction: column; gap: 2rem; }
-        .two-col { display: flex; flex-direction: row; align-items: center; gap: 2rem; }
-        .two-col:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 2rem; }
-        .col-text { width: 35%; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.25rem; padding-right: 0.75rem; }
-        .col-media { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-        .intro-text { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
-        .entry { display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .entry:last-child { border-bottom: none; padding-bottom: 0; }
-        .entry-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-        .entry-type { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
-        .entry p { font-size: 0.8rem; line-height: 1.65; color: rgba(255,255,255,0.5); }
-        .entry a, .intro-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(248,21,98,0.3); transition: color .2s, border-color .2s; }
-        .entry a:hover, .intro-text a:hover { color: var(--hover); border-color: rgba(93,246,254,0.4); }
-        .col-media img { width: 100%; display: block; }
+        .content-area { display: flex; flex-direction: column; gap: 1.75rem; }
+
+        /* YouTube embed */
+        .page-embed { position: relative; width: 100%; padding-top: 56.25%; flex-shrink: 0; }
+        .page-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+        /* Inspiration — full width */
+        .section-full { display: flex; flex-direction: column; gap: .6rem; }
+        .section-label { font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: var(--accent); }
+        .section-body { font-size: .82rem; line-height: 1.7; color: rgba(255,255,255,.5); }
+
+        /* Partition */
+        .partition { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0; }
+
+        /* Image gallery strip */
+        .entry-gallery { display: flex; gap: 5px; overflow-x: auto; align-items: stretch; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .entry-gallery img { height: 180px; width: auto; display: block; object-fit: cover; flex-shrink: 0; cursor: zoom-in; opacity: .78; transition: opacity .2s, transform .2s; border: 1px solid rgba(255,255,255,0.07); }
+        .entry-gallery img:hover { opacity: 1; transform: scale(1.02); border-color: rgba(248,21,98,.45); }
+        .section-with-gallery { display: flex; flex-direction: column; gap: 1rem; }
+
+        /* AI Tool — two column */
+        .two-col { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
+        .col-text { width: 35%; flex-shrink: 0; display: flex; flex-direction: column; gap: .75rem; }
+        .col-text .section-label { color: var(--accent); }
+        .col-media { flex: 1; }
+        .col-media img { width: 100%; display: block; border: 1px solid rgba(255,255,255,0.07); }
     
         .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
         .image-panel-hero { flex: 1; overflow: hidden; }
@@ -176,37 +188,132 @@
             <h1 class="page-title">Virtual Avatar by AI</h1>
 
             <div class="content-area">
+
+                <!-- YouTube Embed -->
+                <div class="page-embed">
+                    <iframe src="https://www.youtube.com/embed/mFLQZEZlWG4" title="Virtual Avatar by AI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+
+                <!-- Intro -->
+                <div class="section-full">
+                    <p class="section-body">I&rsquo;m a seasoned online content creator with 15+ years of experience making videos and writing blogs across YouTube and other social media. A trend that emerged during the height of the pandemic was Virtual YouTubers, or &ldquo;V-Tubers.&rdquo; Having a model made professionally can be costly &mdash; so I set out to see if a V-Tuber avatar could be built using only AI.</p>
+                </div>
+
+                <hr class="partition">
+
+                <!-- Inspiration — 2x1 -->
                 <div class="two-col">
                     <div class="col-text">
-                        <p class="intro-text">I&rsquo;m a seasoned online content creator with 15+ years of experience making videos and writing blogs across YouTube and other social media. A trend that emerged during the height of the pandemic was Virtual YouTubers, or &ldquo;V-Tubers.&rdquo; Having a model made professionally can be costly &mdash; so I set out to see if a V-Tuber avatar could be built using only AI.</p>
-                        <div class="entry">
-                            <span class="entry-title">Inspiration</span>
-                            <p>The inspiration came from a cyberpunk-styled cosplay helmet purchased from Amazon a year prior. I wanted the character to have a cyberpunk theme with demonic-inspired elements.</p>
-                        </div>
-                        <div class="entry">
-                            <span class="entry-title">AI Tool</span>
-                            <p>This process uses DreamStudio by Stability.AI, powered by the SDXL 1.0 model. The tool supports multiple visual styles; for this project I chose the Anime style.</p>
-                        </div>
-                        <div class="entry">
-                            <span class="entry-title">First Iteration</span>
-                            <p>Using the helmet as a sample image, I fed it into the model with the prompt: <em>FRONT VIEW OF A MAN WITH ROBOTIC ARMS WEARING A FUTURISTIC HELMET WITH GLOWING RED HORNS. SLEEVELESS DARK RED TRENCH COAT AND A BULLETPROOF VEST. FOUR IRON CHAINS HANG FROM HIS NECK LIKE JEWELRY.</em> The result proved too sample-dependent, so I removed the image and relied on the prompt alone.</p>
-                        </div>
-                        <div class="entry">
-                            <span class="entry-title">Second Iteration</span>
-                            <p>The prompt was updated to specify ethnicity and a half-body V-Tuber composition. After several iterations, results aligned with my vision. I randomized the finalized prompt multiple times and selected the best output.</p>
-                        </div>
-                        <div class="entry">
-                            <span class="entry-title">Final Result</span>
-                            <p>After selecting the final generated image, I hired someone to rig the asset as a live avatar. After debuting the model on YouTube, feedback from the VTubers community showed they couldn&rsquo;t tell the avatar was AI-generated.</p>
-                        </div>
+                        <span class="section-label">Inspiration</span>
+                        <p class="section-body">The inspiration came from a cyberpunk-styled cosplay helmet purchased from Amazon a year prior. I wanted the character to have a cyberpunk theme with demonic-inspired elements.</p>
                     </div>
                     <div class="col-media">
-                        <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/742ce7a0-65ba-41c9-b9b1-8ddf686f9367_rw_1200.png" alt="Virtual avatar inspiration" loading="lazy">
-                        <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/01c2e714-4467-4b73-97ac-33fea60d633b_rw_1200.png" alt="First iteration" loading="lazy">
-                        <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/568bcf1e-b641-4995-b893-3f44874d7f88_rw_1200.png" alt="Second iteration" loading="lazy">
-                        <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/29221f51-3f27-413c-8e77-aabce53d630d_rw_1200.png" alt="Final avatar" loading="lazy">
+                        <img src="img/virtual-tuber-ai/29221f51-3f27-413c-8e77-aabce53d630d_rw_1200.png" alt="Cosplay helmet inspiration" loading="lazy">
                     </div>
                 </div>
+
+                <hr class="partition">
+
+                <!-- AI Tool — 2x1 -->
+                <div class="two-col">
+                    <div class="col-text">
+                        <span class="section-label">AI Tool</span>
+                        <p class="section-body">This process uses DreamStudio by Stability.AI, powered by the SDXL 1.0 model. The tool supports multiple visual styles; for this project I chose the Anime style.</p>
+                    </div>
+                    <div class="col-media">
+                        <img src="img/virtual-tuber-ai/2f0b0f7c-812a-46a9-bd91-8d2f8e9fb53a_rw_1200.png" alt="AI generated virtual avatar" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- First Iteration — text + gallery -->
+                <div class="section-with-gallery">
+                    <div class="section-full">
+                        <span class="section-label">First Iteration</span>
+                        <p class="section-body">Using the helmet as a sample image, I fed it into the model with the prompt: <em>FRONT VIEW OF A MAN WITH ROBOTIC ARMS WEARING A FUTURISTIC HELMET WITH GLOWING RED HORNS. SLEEVELESS DARK RED TRENCH COAT AND A BULLETPROOF VEST. FOUR IRON CHAINS HANG FROM HIS NECK LIKE JEWELRY.</em> The result proved too sample-dependent, so I removed the image and relied on the prompt alone.</p>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/20c448a8-bbba-42b2-b7f5-99c045569245_rw_1200.png" alt="First results 1" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/29e09af2-5db1-46cf-80a9-5fcd1a4ad8a0_rw_1200.png" alt="First results 2" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/408315b4-ccdd-487e-900d-23f3afb18ddb_rw_1200.png" alt="First results 3" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/423a1aa5-fdcf-44a0-b82a-5f919bd9f962_rw_1200.png" alt="First results 4" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/6f4b1c32-daea-459b-9921-ff249c74b2cd_rw_1200.png" alt="First results 5" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/706883dc-74e3-4b13-8d27-36cb648e0e3d_rw_1200.png" alt="First results 6" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/767ba031-3d99-47df-9f59-059006717725_rw_1200.png" alt="First results 7" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/85b24910-c732-4aff-b1f3-575969cf3686_rw_1200.png" alt="First results 8" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/caa4bed1-6208-4ea0-a6eb-1f51f6e122cd_rw_1200.png" alt="First results 9" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/first-results/fa2892fd-246c-4925-a967-0aed4504fe16_rw_1200.png" alt="First results 10" loading="lazy">
+                    </div>
+                    <p class="section-body">This result turned out poorly. Originally, I thought to just build the rest of the model around the sample-inspired images, but that proved to be difficult since the AI clung too closely to the sample. So I got rid of it and relied on the prompt to build the avatar from scratch.</p>
+                    <p class="section-body">For a V-tuber avatar, I needed a half-body shot to rig up to the software that gave it its 3D-like appearance. Using the first prompt. I ran another iteration. The results were closer to what I wanted, but a few tweaks to the character’s ethnicity needed to be made.</p>  
+                    <div class="entry-gallery">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/06bb1539-4c04-47c5-9938-fcd23bb5084b_rw_1200.png" alt="Second results 1" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/0c50a2e8-043d-4c13-9099-910b8096130a_rw_1200.png" alt="Second results 2" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/38a2087d-8410-48bd-875f-a003bcf72e21_rw_600.png" alt="Second results 3" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/3df68a3f-e647-426d-abc8-b289a6c34d90_rw_1200.png" alt="Second results 4" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/59899f65-48ee-484e-afdd-01626425fa7c_rw_1200.png" alt="Second results 5" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/5dd8004d-d505-4526-acb2-034ea97a80a4_rw_1200.png" alt="Second results 6" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/662d7a51-fc0c-4460-b68a-001f47dbc43b_rw_1200.png" alt="Second results 7" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/a32b7d59-850a-4bf6-b7c5-5097a26f552e_rw_1200.png" alt="Second results 8" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/b784d7b0-f742-4849-96db-bec10e886433_rw_1200.png" alt="Second results 9" loading="lazy">
+                        <img src="img/virtual-tuber-ai/first-iteration/second-results/eeb6853f-debc-4c5e-83ca-d8c4178a5bb4_rw_1200.png" alt="Second results 10" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- Second Iteration — 2x1 -->
+                 <div class="section-with-gallery">
+                    <div class="section-full">
+                        <span class="section-label">Second Iteration</span>
+                        <p class="section-body">The prompt was altered to suit the needs and design of the model I wanted: <em>front view of a dark-skinned man with robotic arms from the waist up wearing a futuristic helmet covering his face with glowing red horns on his head. He's wearing a sleeveless, dark red trench coat and a bulletproof vest underneath. Four iron chains hang around his neck like jewelry.</em></p>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/virtual-tuber-ai/second-iteration/06ff64cf-fdf9-4467-8b88-b9071d460851_rw_1200.png" alt="Second iteration 1" loading="lazy">
+                        <img src="img/virtual-tuber-ai/second-iteration/2fc774c2-4806-41db-8467-1dc8d03726a4_rw_1200.png" alt="Second iteration 2" loading="lazy">
+                        <img src="img/virtual-tuber-ai/second-iteration/44a85427-ab00-4443-b850-06c0bf4cbae6_rw_600.png" alt="Second iteration 3" loading="lazy">
+                        <img src="img/virtual-tuber-ai/second-iteration/7e4a837d-9f69-4fd0-87d6-df890ff4b093_rw_1200.png" alt="Second iteration 4" loading="lazy">
+                        <img src="img/virtual-tuber-ai/second-iteration/89b91aa5-6648-47aa-81d3-12a5cfd74d86_rw_1200.png" alt="Second iteration 5" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- Final Result — text + gallery -->
+                <div class="section-with-gallery">
+                    <div class="section-full">
+                        <span class="section-label">Final Result</span>
+                        <p class="section-body">These latest results were more in line with what I wanted. The prompt was good enough to keep running through it and randomizing the results with new iterations until I picked out a final set.</p>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/virtual-tuber-ai/final-iteration/07f1c14a-117d-414f-ba7e-08e11d07caeb_rw_1200.png" alt="Final result 1" loading="lazy">
+                        <img src="img/virtual-tuber-ai/final-iteration/25597fa2-bc65-49b8-86f9-cfbb5ed25cdd_rw_1200.png" alt="Final result 2" loading="lazy">
+                        <img src="img/virtual-tuber-ai/final-iteration/7020be95-afb0-4aae-8d63-16460c66d27e_rw_1200.png" alt="Final result 3" loading="lazy">
+                        <img src="img/virtual-tuber-ai/final-iteration/ba76c8fe-2e6f-472f-9c42-2b4516187ac6_rw_1200.png" alt="Final result 4" loading="lazy">
+                    </div>
+                </div>
+
+                <hr class="partition">
+
+                <!-- Post-Mortem — 1x2 + gallery -->
+                <div class="section-with-gallery">
+                    <div class="two-col">
+                        <div class="col-text">
+                            <span class="section-label">Post-Mortem</span>
+                            <p class="section-body">After selecting the final generated image, I hired someone to rig the asset as a live avatar. After debuting the model on YouTube, feedback from the VTubers community showed they couldn&rsquo;t tell the avatar was AI-generated.Coincidentally, that same person also commented on my use of AI images for the video thumbnails. Funny enough, it seems that they couldn’t tell that the avatar model I used was made with AI as well. There’s probably more I could do to push the prompt to change certain things, like the excess chains around the avatar. But as of now, I think this project and its goal were executed just fine to acceptable results. </p>
+                            
+                        </div>
+                        <div class="col-media">
+                            <img src="img/virtual-tuber-ai/post-mortem/f98ad8cb-6bac-4205-9797-87f43edfced9_rw_1200.png" alt="Post-mortem avatar" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="entry-gallery">
+                        <img src="img/virtual-tuber-ai/post-mortem/925f04fe-c2fc-4450-85fa-47ae425dd64b_rw_1200.png" alt="Post-mortem 1" loading="lazy">
+                        <img src="img/virtual-tuber-ai/post-mortem/f6001a25-7587-418f-a1df-8b0fc4a65c86_rw_1200.png" alt="Post-mortem 2" loading="lazy">
+                    </div>
+                </div>
+
             </div>
         </div>
     

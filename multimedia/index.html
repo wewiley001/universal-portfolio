@@ -124,35 +124,7 @@
             flex-shrink: 0;
         }
 
-        /* ── WIP Overlay ── */
-        .wip-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: rgba(0,0,0,0.88);
-            backdrop-filter: blur(6px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .wip-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            text-align: center;
-            max-width: 440px;
-            padding: 3rem 2.5rem;
-            border: 1px solid rgba(248,21,98,0.35);
-            border-radius: 8px;
-            background: rgba(248,21,98,0.04);
-        }
-        .wip-icon svg { width: 40px; height: 40px; fill: var(--accent); opacity: 0.7; }
-        .wip-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); }
-        .wip-title { font-size: 2.2rem; font-weight: 200; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; }
-        .wip-body { font-size: 0.82rem; line-height: 1.75; color: rgba(255,255,255,0.45); }
-        .wip-back { margin-top: 0.5rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color .2s; }
-        .wip-back:hover { color: var(--hover); }
+
     </style>
 </head>
 <body>
@@ -258,19 +230,7 @@
     </a>
 
 </div>
-<div class="wip-overlay">
-    <div class="wip-box">
-        <div class="wip-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-            </svg>
-        </div>
-        <p class="wip-label">Work in Progress</p>
-        <p class="wip-title">Coming Soon</p>
-        <p class="wip-body">This section is currently being updated. Check back soon.</p>
-        <a href="../" class="wip-back">&#8592; Back to Portfolio</a>
-    </div>
-</div>
+
 
 </body>
 </html>
