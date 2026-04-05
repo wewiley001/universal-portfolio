@@ -210,6 +210,11 @@
             display: block;
             border: none;
         }
+    
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -323,6 +328,12 @@
                     <iframe src="https://www.youtube.com/embed/RZbKOo9mTgA?si=K3CU1TxqNsUpVTIS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/lPDit6OTMdI?si=tCFlAldz7GG1xTKu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/thumb/ghost-of-yotei_thumb.jpg" alt="Ghost of Yotei" loading="lazy">
             </div>
         </div>
     </main>

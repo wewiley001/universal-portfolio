@@ -114,6 +114,11 @@
         .entry a, .intro-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(248,21,98,0.3); transition: color .2s, border-color .2s; }
         .entry a:hover, .intro-text a:hover { color: var(--hover); border-color: rgba(93,246,254,0.4); }
         .col-media img { width: 100%; display: block; }
+    
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -202,6 +207,12 @@
                         <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/29221f51-3f27-413c-8e77-aabce53d630d_rw_1200.png" alt="Final avatar" loading="lazy">
                     </div>
                 </div>
+            </div>
+        </div>
+    
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/thumb/virtual-avatar_thumb.jpg" alt="Virtual Avatar by AI" loading="lazy">
             </div>
         </div>
     </main>

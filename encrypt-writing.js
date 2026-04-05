@@ -12,7 +12,7 @@
  *
  * ─── CHANGE PASSWORD HERE ─────────────────────────────────────────────────
  */
-const PASSWORD   = 'portfolio';   // ← set your password before running
+const PASSWORD   = 'bGR#nuq83!g9G#Y3s#xe';   // ← set your password before running
 /** ───────────────────────────────────────────────────────────────────────── */
 
 const fs         = require('fs');

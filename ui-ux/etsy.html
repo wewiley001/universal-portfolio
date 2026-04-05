@@ -242,7 +242,7 @@
         .image-panel-label { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .5rem; padding: .9rem .35rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #f81562; background: #000; border: none; z-index: 1; user-select: none; pointer-events: none; flex-shrink: 0; }
         .image-panel-label span { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
         .image-panel-label svg { width: 14px; height: 18px; flex-shrink: 0; color: #f81562; }
-        .image-panel-images { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .image-panel-images { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; align-content: start; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
         .image-panel-images img { width: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
         .image-panel-images img:hover { opacity: 1; }
         .image-panel-images img { cursor: zoom-in; }
@@ -502,22 +502,24 @@
 
         <div class="image-panel">
             <div class="image-panel-label"><span>Gallery</span><svg viewBox="0 0 10 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="1" width="6" height="9" rx="3"/><line x1="5" y1="3.5" x2="5" y2="5.5"/><polyline points="3,11.5 5,13.5 7,11.5"/></svg></div>
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Discover Page.png" alt="Discover Page" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/ImageFeed.png" alt="Image Feed" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/SearchPage.png" alt="Search Page" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Preference Page.png" alt="Preference Page" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page.png" alt="Product Page" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page - Add to Cart.png" alt="Product Page — Add to Cart" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page - Comments.png" alt="Product Page — Comments" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/SellerPage.png" alt="Seller Page" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Cart & Delivery.png" alt="Checkout — Cart &amp; Delivery" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Payment Type.png" alt="Checkout — Payment Type" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Confirmations.png" alt="Checkout — Confirmation" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Confirmed.png" alt="Order Tracking — Confirmed" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Shipped.png" alt="Order Tracking — Shipped" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Chat.png" alt="Order Tracking — Chat" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Recieved.png" alt="Order Tracking — Received" loading="lazy">
-            <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Delivered.png" alt="Order Tracking — Delivered" loading="lazy">
+            <div class="image-panel-images">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Discover Page.png" alt="Discover Page" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/ImageFeed.png" alt="Image Feed" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/SearchPage.png" alt="Search Page" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Preference Page.png" alt="Preference Page" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page.png" alt="Product Page" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page - Add to Cart.png" alt="Product Page — Add to Cart" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Product Page - Comments.png" alt="Product Page — Comments" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/SellerPage.png" alt="Seller Page" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Cart & Delivery.png" alt="Checkout — Cart &amp; Delivery" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Payment Type.png" alt="Checkout — Payment Type" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/Checkout - Confirmations.png" alt="Checkout — Confirmation" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Confirmed.png" alt="Order Tracking — Confirmed" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Shipped.png" alt="Order Tracking — Shipped" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Chat.png" alt="Order Tracking — Chat" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Recieved.png" alt="Order Tracking — Received" loading="lazy">
+                <img src="img/pages/etsy-mobil-ai-redesign/gallery-final/OrderTracking-Delivered.png" alt="Order Tracking — Delivered" loading="lazy">
+            </div>
         </div>
     </main>
 

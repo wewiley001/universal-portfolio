@@ -114,6 +114,11 @@
         .entry a, .intro-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(248,21,98,0.3); transition: color .2s, border-color .2s; }
         .entry a:hover, .intro-text a:hover { color: var(--hover); border-color: rgba(93,246,254,0.4); }
         .col-media > iframe { width: 100%; aspect-ratio: 16 / 9; display: block; border: none; flex-shrink: 0; }
+    
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -219,6 +224,12 @@
                         <iframe src="https://www.youtube.com/embed/b1ROC_MOQV4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
                     </div>
                 </div>
+            </div>
+        </div>
+    
+        <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/thumb/motion-graphics_thumb.jpg" alt="VFX Motion Graphics" loading="lazy">
             </div>
         </div>
     </main>
