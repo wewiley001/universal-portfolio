@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commentary & Vlog Videos — Content</title>
+    <title>Graphic Design Gallery — Multimedia</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
@@ -100,20 +100,18 @@
             flex-shrink: 0;
         }
 
-        .content-area { display: flex; flex-direction: column; gap: 2rem; }
-        .two-col { display: flex; flex-direction: row; align-items: center; gap: 2rem; }
-        .two-col:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 2rem; }
-        .col-text { width: 35%; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.25rem; padding-right: 0.75rem; }
-        .col-media { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-        .intro-text { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
-        .entry { display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .entry:last-child { border-bottom: none; padding-bottom: 0; }
-        .entry-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-        .entry-type { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
-        .entry p { font-size: 0.8rem; line-height: 1.65; color: rgba(255,255,255,0.5); }
-        .entry a, .intro-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(248,21,98,0.3); transition: color .2s, border-color .2s; }
-        .entry a:hover, .intro-text a:hover { color: var(--hover); border-color: rgba(93,246,254,0.4); }
-        .col-media > iframe { width: 100%; aspect-ratio: 16 / 9; display: block; border: none; flex-shrink: 0; }
+
+        .content-area { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .placeholder {
+            color: rgba(255,255,255,0.2);
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 3rem 2rem;
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 4px;
+            text-align: center;
+        }
     
         .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
         .image-panel-hero { flex: 1; overflow: hidden; }
@@ -124,12 +122,12 @@
 <body>
 
 <header class="topbar">
-    <a href="index.html" class="back-link">&#8592; Content</a>
+    <a href="index.html" class="back-link">&#8592; Multimedia</a>
     <div class="topbar-brand">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
         </svg>
-        <span>Content</span>
+        <span>Multimedia</span>
     </div>
 </header>
 
@@ -149,7 +147,7 @@
             <div class="card-thumb"><img src="img/thumb/roleplay-comedy_thumb.webp" alt="Roleplay Comedy Videos" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Roleplay Comedy Videos</span><span class="card-tag">Video</span></div>
         </a>
-        <a href="commentary-vlog-videos.html" class="card card--active">
+        <a href="commentary-vlog-videos.html" class="card">
             <div class="card-thumb"><img src="img/thumb/commentary-vlog_thumb.jpg" alt="Commentary &amp; Vlog Videos" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Commentary &amp; Vlog Videos</span><span class="card-tag">Video</span></div>
         </a>
@@ -157,7 +155,7 @@
             <div class="card-thumb"><img src="img/thumb/crownmobb_thumb.jpg" alt="CROWNMOBB Product Graphics" loading="lazy"></div>
             <div class="card-body"><span class="card-title">CROWNMOBB Product Graphics</span><span class="card-tag">Graphics</span></div>
         </a>
-        <a href="graphic-design-gallery.html" class="card">
+        <a href="graphic-design-gallery.html" class="card card--active">
             <div class="card-thumb"><img src="img/thumb/graphic-design_thumb.jpg" alt="Graphic Design Gallery" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Graphic Design Gallery</span><span class="card-tag">Graphics</span></div>
         </a>
@@ -173,49 +171,16 @@
 
     <main class="main">
         <div class="main-content">
-            <h1 class="page-title">Commentary & Vlog Videos</h1>
+            <h1 class="page-title">Graphic Design Gallery</h1>
+
             <div class="content-area">
-                        <p class="intro-text">With nearly 15 years of experience in online content creation, this collection features game-related content centered around role-playing &mdash; showcasing storytelling, video editing, and gameplay-capturing skills. All footage captured with Elgato hardware and/or OBS. Edited in Adobe Premiere, DaVinci Resolve, and/or CapCut.</p>
-                <div class="two-col">
-                    <div class="col-text">
-                         <div class="entry">
-                            <span class="entry-title">Documentary-type Vlog</span>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="col-media">
-                        <iframe src="https://www.youtube.com/embed/0uR3ThLGC5Q" title="Documentary-type Vlog" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                    </div>
-                </div>
-                <div class="two-col">
-                    <div class="col-text">
-                        <div class="entry">
-                            <span class="entry-title">Comedy Review Video</span>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="col-media">
-                        <iframe src="https://www.youtube.com/embed/Tj2rv2-r-cI" title="Comedy Review Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                      
-                    </div>
-                </div>
-                <div class="two-col">
-                    <div class="col-text">
-                        <div class="entry">
-                            <span class="entry-title">Mock-Vlogging Comedy Skit</span>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="col-media">
-                        <iframe src="https://www.youtube.com/embed/6cXF_RXLNt0" title="Mock-Vlogging Comedy Skit" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-                    </div>
-                </div>
+                <p class="placeholder">Content coming soon</p>
             </div>
         </div>
     
         <div class="image-panel">
             <div class="image-panel-hero">
-                <img src="img/thumb/commentary-vlog_thumb.jpg" alt="Commentary & Vlog Videos" loading="lazy">
+                <img src="img/thumb/graphic-design_thumb.jpg" alt="Graphic Design Gallery" loading="lazy">
             </div>
         </div>
     </main>
