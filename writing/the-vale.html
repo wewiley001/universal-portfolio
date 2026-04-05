@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>The Vale — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,38 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">The Vale</h1>
-
-            <p>&ldquo;The Vale&rdquo; was a quick exercise in horror fiction, as I&rsquo;ve never exclusively delved into the genre before. Though I call it horror, the supernatural themes I brought into it pushes the entire piece closer to dark fantasy than actual horror.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <p>Cassandra walked across the ashen grounds of the valley, lamenting her need to travel through these ancient lands stained with old blood, cursed by the gods of war and ill fortune.</p>
-                <p>The Calming Vale it was called. She thought it was some long-dead poet being a dick, using apparent irony as the means to compensate for their lack of artistic talent. The reality of its name was far different, however. The sky was a dingy grey with the distant sounds of thunder roaring loudly. The mountains and hills of the valley rose high into the air, its sheer rock face too steep to climb out of. Nothing grew here in the Vale. Barren trees and dead shrubs were the only signs that life once lived here. Maybe it was beautiful once, Cassandra thought to herself as she wearily trekked through its darkened paths.</p>
-                <p>Cassandra had no choice but to walk this path. The lands were at war. The highways were full of soldiers and bandits who weren&rsquo;t above robbing and raping a young girl traveling alone and leaving her for dead. If the missive from her father hadn&rsquo;t been so dire, she would have never left the safety of the walled city she came from, and the only way to avoid the war was through the Vale which everyone avoided.</p>
-                <p>Mist and fog had now grown thick, and Cassandra could barely see past her own nose. A feeling of dread began to fill her entire being. There was a reason why no one traveled through the Calming Vale. Thousands of years ago, it was once populated by elves who delved into dark and blasphemous rituals. Then the Church raised an army to cleanse the taint of the valley. A bloody and horrendous battle ensued, one so great, that the gods chose to wash the entire Vale themselves. They killed both sides and forbade their souls the right to an afterlife. Now, within this feared valley, the souls of the elves and soldiers forever wage war in an eternal battle that can never be won.</p>
-                <p>Cassandra pushed on through the fog. She was too far to turn back. Too fearful of losing her way in the attempt. All she knew is that she had to push north. Soon, she&rsquo;d come up to the Great Forest, and then it would be a straight shot to her father&rsquo;s house. &ldquo;These are our valleys, humans,&rdquo; came a distant voice that shivered the very air. The hairs on her neck stood on the back of her neck. She didn&rsquo;t want to be here. All she wanted was to be back home. Why oh why did I take this path? The distant sound of battle could be heard singing through the eerie air. The clash of steel, the songs of magic, the cries of battle, and the pains of hell ebbed in the wind as she pushed forward.</p>
-                <p>Soon the fog began to clear, and she started to see what she wished she didn&rsquo;t. She stood in the midst of a battle. A great and bloody struggle long since passed. The stories were true&hellip; The holy warriors and the forsaken elves were locked in combat. Their bodies were transparent as if they weren&rsquo;t really there. They were the souls condemned by the gods. Cassandra walked through the battle, weary of what was happening around her. She could feel the pain of the warriors as they died. The sorrow of the elves that were losing their home, and now forever undead, doomed to repeat a losing battle.</p>
-                <p>Hot tears began to fall from Cassandra&rsquo;s eyes as she shivered as if winter had taken hold of her body. She didn&rsquo;t want to be here. She wanted to go home. She wanted to see her father. She wished she hadn&rsquo;t taken this path and took her chances on the highway with the bandits. She could feel that she didn&rsquo;t belong here. She could feel that the spirits of the dead knew the same.</p>
-                <p>&ldquo;Hold the bitch&hellip;&rdquo; their voices cried.</p>
-                <p>&ldquo;Capture the human&hellip;&rdquo; their voices yelled.</p>
-                <p>&ldquo;Sacrifice&hellip;&rdquo; their voices screamed.</p>
-                <p>Ethereal hands gripped Cassandra on her wrists. She was taken by surprise and struggled against the icy grip of the dead warriors. Both Holy Warriors and Elves held her against her will, and she fought as hard as she could. They carried her to a stone dais where five stone pillars stood. On the ground was a pentagram written with sanguine ink where they locked her in chains.</p>
-                <p>&ldquo;Let me go!&rdquo; Cassandra cried, but to no avail.</p>
-                <p>The undead warriors and soldiers began to chant in a strange language she could not understand. The sky had darkened, and fog returned as it ebbed across the ground. A single elven shaman walked up to Cassandra as she was tied to the ground. The shaman wasn&rsquo;t transparent like the others. He kneeled down to her and brushed his hand across her face. She felt the warmth of life from his touch, and then she knew that he wasn&rsquo;t one of the undead.</p>
-                <p>&ldquo;And your life shall release my brothers from bondage, and give them the peace they so righteously deserve.&rdquo; The shaman then raised his other hand above Cassandra, and in its grasp was a knife. Her eyes went wide with fear, and she screamed out in terror as the blade came rushing down to her heart.</p>
-                <p>And then everything grew silent. And one by one, the ghosts of the elves and holy warriors disappeared. The fog became thinner and thinner until it disappeared entirely. Then the dreary sky cleared and the sun shone upon the Vale for the first time in centuries. Nothing was left of the eternal battle that haunted the valley, neither elves nor any warriors.</p>
-                <p>Just a lone skeleton on a blood-soaked dais.</p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"IhWrL3p6cue3edsMp5lwtA==","iv":"v97Jsyd6yVfLQMT8","ct":"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","tag":"RityDCAcX9Z6XYAdA+RjWg=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -197,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

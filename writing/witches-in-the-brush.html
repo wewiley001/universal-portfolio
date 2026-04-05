@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>Witches in the Brush — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -194,6 +195,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -263,182 +280,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Witches in the Brush</h1>
-            <p>This excerpt is from a WORK-IN-PROGRESS dark fantasy novelette, Wanting Dreaming, which is an updated and more revamped version of an old draft featuring an earlier version of the same character. We see the main character Raven race toward a ritual being performed by witches in the heart of an ancient forest. BE MINDFUL – This hasn’t been fully proofread.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-
-                <p>Raven left the village behind, trying to pick up the lone scent lingering away from it and into the thicket of the canyon forest. He made his way deeper into the trees, covering the distance with incredible grace, moving with speed and agility unlike that of an ordinary man. After covering a little more than a league, he then slowed his pace to a silent jog as the scent got stronger with every step.</p>
-
-                <p>Before he knew it, Raven was walking on familiar ground. He stared into the distance through the trees and laid eyes on the elvenhedge he first saw when he descended into the canyon a fortnight ago. And the girl&rsquo;s scent was leading towards the standing stones there. He focused his strange eyes through the darkness of the night and could see lights and figures in cloaks moving about in the distance. He scanned the area and soon laid eyes upon a lone girl in her nightgown roaming towards the scene.</p>
-
-                <p>Carefully and silently, Raven moved closer to the elvenhedge to get a better look. He pulled out his castergun and held it at the ready as he crept through the underbrush and shadows of the woods. He hid behind one of the standing stones and looked down at what was transpiring before him.</p>
-
-                <p>The elvenhedge was made of broken columns of white stone and the remnants of seats, long worn by the elements, dropping down into the earth in descending levels into a dirt floor. At its heart was a magic circle, drawn in fire with a seven-pointed star within. Seven stone braziers rested at each point of the star, each burning with colored flames. Seven shrouded figures stood at each brazier within the circle, six in black robes and one in white.</p>
-
-                <p>Raven instantly recognized the setup for a summoning ritual. The kind that breached the walls between worlds to contact something on the other side, and that never heralded anything good.</p>
-
-                <p>His attention was drawn to the village girl he pursued. She shuffled down to the center of the ritual circle, still dressed in her nightgown with bare feet caked in mud and dirt, with a vacant look on her face. It was clear that she was under the influence of a charm. But it was strange to Raven, who remembered Fiona saying that her trance was broken the moment she set foot there. So why was this girl still enchanted?</p>
-
-                <p>&ldquo;Sisters!&rdquo; yelled out one of the cloaked figures dressed in a white robe below. &ldquo;We have gathered to honor our bargain with our Matron. The one who set us on this path to our greatness. Let us rejoice at the return of a lost empire. Let us rejoice at the advent of She Who Weaves!&rdquo;</p>
-
-                <p>&ldquo;Praise be,&rdquo; the other figures cried out into the night.</p>
-
-                <p>As if on cue, the wind suddenly howled through the night and the trees rustled under its might. With a deafening roar, a portal appeared above the elvenhedge, bending the space around its horizon with blinding light. It was surrounded by an aura of black and red that danced around like monstrous tendrils stemming from its source. No warmth could be felt from the brightness. Just a deathly chill reaching out to everyone and everything in its light. And that malevolent void grew by the second as the horrible sounds of screams and howls coming from it grew louder.</p>
-
-                <p>&ldquo;MY, MY&hellip;&rdquo; came a feminine and sultry voice that shuddered the air. &ldquo;YOU ALL SEEM TO BE A FORTNIGHT TOO LATE&hellip;&rdquo;</p>
-
-                <p>Raven didn&rsquo;t like it. He started to reach for the sword at his back and took hold of its pommel.</p>
-
-                <p>&ldquo;Apologies my Lady!&rdquo; yelled the white-robed witch. &ldquo;Our last offering eluded us. She was charmed, but this place&hellip; it deemed her unworthy, and the magic upon her was broken, and she ran. The slaves under our guise were killed by a traveler and failed to recapture her!&rdquo;</p>
-
-                <p>&ldquo;DO NOT MAKE EXCUSES FOR YOUR FAILINGS TO ME, CHILD!&rdquo;</p>
-
-                <p>The hooded witches shuddered at the sound of the entity&rsquo;s displeasure. Between the howls and screams and blowing of the unholy wind, an uncomfortable silence fell over the circle. Raven could see the witches were disheartened by it. He could see them growing fearful.</p>
-
-                <p>The entity let off a low mumble of annoyance. &ldquo;RAVEN&hellip;&rdquo;</p>
-
-                <p>Raven froze, and his blood ran cold when the entity said his name with what sounded heavy with disdain. Were they expecting him, he asked himself. How could they? A distant thought began to plague him at the edge of his mind, with the realization that the voice seemed so familiar.</p>
-
-                <p>&ldquo;Mistress&hellip;&rdquo; The white witch&rsquo;s tone grew nervous. &ldquo;Is he the one you warned us about? The Red Reaper? You told us stories of him and yourself. Even were he to set foot in this hedge, the wards would keep him from using magic of any kind!&rdquo;</p>
-
-                <p>&ldquo;THE RED REAPER DEFIES ALL LOGIC AND REASONING,&rdquo; the entity yelled out. &ldquo;QUICKLY! BEFORE HE COMES. YOUR OFFERING!&rdquo;</p>
-
-                <p>The witches shuffled the young village girl into the center of the seven-pointed star beneath the blinding portal. The wind grew even more restless and the howls more feral, and then something reached out from within that mass of light. Black tendrils stretched out from within, and slowly descended upon the circle where the girl stood with her mouth agape. Like snakes, they reached her body and constricted around her into a solid grasp. And before his eyes, the girl began to age. Years were starting to pass her like seconds. The tendrils bulged and pulsated with each passing moment.</p>
-
-                <p>They were taking her life force, Raven realized. He needed to disrupt the spell fast. He scanned the summoning circle over once more and took another look at the braziers. They were positioned at every end of the seven-pointed star within the enclosing loop. That was when he realized that they were more than decorations &mdash; they were anchor points, and the odd colored fire a focus for the power moving through the air.</p>
-
-                <p>Raven thumbed a switch on the side of his castergun, and the barrels spun on their axis and locked into a new position. A quickening of power ebbed around the newly positioned top barrel, and its runes shimmered for a moment with a hazy white glow. He aimed the pistol down to the center of the ritual and squeezed the trigger. From the barrel, a thick white mass of light shot into the air, howling like a storm. One of the plinths was hit by the blast and in a flash of light, its flames were extinguished, replaced by thick ice and snow. The witches were startled by the spell as Raven took the opportunity to charge down into the elvenhedge, letting loose ice spell after ice spell upon the braziers with his castergun in his left hand and his sword in his right.</p>
-
-                <p>By the time he reached the center floor, all but two of the braziers had been frozen over. The witches began conjuring fireballs and lightning in their hands to stave off this aggressive attacker. The portal was faltering but still stable. The kidnapped girl was looking more and more like the living dead as her life drained through the black tendrils.</p>
-
-                <p>Black tendrils. The sight of them leaped out at Raven, filling him with feelings of hate and disdain, for he had seen them before. He knew the girl wouldn&rsquo;t last much longer.</p>
-
-                <p>&ldquo;SO, YOU HAVE FINALLY COME, MY REAPER&hellip;&rdquo; The entity&rsquo;s voice took on a sly and malevolent tone.</p>
-
-                <p>&ldquo;Where are you?!&rdquo; Raven yelled his question angrily back at the entity.</p>
-
-                <p>The entity made what sounded like a snicker, one loud and horrible enough to shudder the ground and rend the very sky.</p>
-
-                <p>&ldquo;Why, my dear Reaper&hellip; It almost seems you aren&rsquo;t happy to see me.&rdquo;</p>
-
-                <p>&ldquo;You killed my master!&rdquo; he screamed back.</p>
-
-                <p>&ldquo;Not alone I didn&rsquo;t,&rdquo; the entity replied.</p>
-
-                <p>Raven seethed in anger, losing his focus to his purpose here. The memories started to return that kept pushing him onward without abandon. A yellow-eyed beauty having her way with his younger self, enthralling him in her magics under the guise of ecstasy and euphoria. Flashes and broken fragments of memories of a fight along a shore of black sands. His hands covered in blood. Kaito lying dead at his feet. The memories were vivid. Terrible. Unforgettable.</p>
-
-                <p>Raven shook his head as if to do away with the angering thoughts. He needed to recall his sense of discipline and steel himself from his emotions. This valley had been playing havoc with his mind since he first set foot here, enhancing his moods and empowering his own magics. He had to remember to center himself. Regain his focus. Remember his purpose. He took a deep breath in and slowly exhaled. He could feel the anger subsiding and his sense of control returning to him.</p>
-
-                <p>Raven stared up at the portal above the hedge with a defiant look. &ldquo;You will not succeed, witch,&rdquo; he said, his grip tightening on his castergun.</p>
-
-                <p>A moment of silence followed, and the witches stood ready to carry out their mistress&rsquo;s commands.</p>
-
-                <p>&ldquo;KILL HIM!&rdquo; the entity said, and her servants obeyed.</p>
-
-                <p>Raven let loose another magic bolt from his castergun at the sixth brazier, and it froze over in a flash. He made a turn to aim at the final one, only to find a single witch standing in front of it. Then the other witches regained their wits and circled him, hands filled with swirling flames, and all let loose their streams of magic fire towards their invader. The hellish inferno consumed Raven and swallowed him whole.</p>
-
-                <p>The air was sucked from his lungs as the flames swirled around him. It wasn&rsquo;t long before Raven was gasping for his next breath. Over the roaring of the fire, he could hear the witches laugh in victory. He needed an out. A way to fight off the spell. The Shadowbane weren&rsquo;t mages of any kind, but they had tricks that could rival magic &mdash; an art form practiced at the dawn of this world.</p>
-
-                <p>It took all of Raven&rsquo;s focus and concentration to cut himself off from the pain. He retreated into the deepest depths of his mind and descended into a trance. His attention turned inward as his outward senses grew numb to his surroundings. The fire. The witches. The elvenhedge. All of it, one by one, faded from his awareness. Within himself, he could feel the ebb of power pulsing &mdash; a wellspring of energy emanating from his very soul. A jumble of words came to his mind, words of an ancient tongue, each with its own meaning and purpose. They would give voice to his intent, and become the medium of his action. He sifted through them, weighing his meaning until he found the ones he needed. Raven set his focus outward, and everything came back into conscious mind. The pain from the flames, the witch laughing. All of it. He shaped his own willpower and defined his intent. He brought the words of an ancient tongue to the forefront of his mind, repeating them over and over within like a mantra. A prayer. It was what Kaito taught him so long ago. What the Shadowbane called a Dirge.</p>
-
-                <p>Raven spoke words in an ancient tongue. He could feel the quivering of power rushing out of him like a sieve emptied of its water at full tilt. The sensation left him with an empty feeling, almost fatigue-like in its nature. The flames that surrounded him were sent back, flying outward towards the attacking witches, and the infernal wave knocked them all off their feet and into the dirt. For a moment, Raven was disoriented from the Dirge, but he couldn&rsquo;t relent just yet. Not missing a step, he aimed his castergun towards the last brazier with a clear line of sight. With a single squeeze, a frost spell let loose from the barrel, speeding over the heads of the downed witches, and in a flash of ice and snow, the flame was extinguished.</p>
-
-                <p>The portal above began to flicker erratically, distorting the air with chaotic gusts blowing from all directions. The dark tendrils around the girl dissolved and she dropped to the ground unconscious. The howls and winds hit a crescendo before they started to dwindle. And with each passing second, the light from the portal grew dimmer.</p>
-
-                <p>&ldquo;THIS WAS A SMALL VICTORY, MY PRECIOUS RED REAPER&hellip;&rdquo; said the entity, its voice sounding as if it came from further and further away with each passing second. &ldquo;BUT NIPPING AT MY HEELS WILL ONLY GET YOU SO FAR&hellip;&rdquo; The portal then imploded on itself and disappeared. The wind grew still, and the feral howls stopped, and the once bright light was replaced by the darkness of the quiet night. He was left standing in the magic circle as its drawn-out flames began to burn out.</p>
-
-                <p>&ldquo;What kind of magic was that?!&rdquo; screamed one of the hooded witches. &ldquo;You shouldn&rsquo;t be able to use it here!&rdquo;</p>
-
-                <p>Raven was pulled out of his own thoughts and back to the matter before him. The young girl from the village lay at his feet unconscious. Most of the witches were beginning to stir from the force of power he used to knock them down.</p>
-
-                <p>&ldquo;Don&rsquo;t you listen,&rdquo; Raven said in a mocking tone. &ldquo;Logic and reasoning don&rsquo;t quite agree with me.&rdquo;</p>
-
-                <p>&ldquo;You will pay for this, Reaper!&rdquo; The witch began weaving magic in her fingertips for a final assault. &ldquo;Our Lady shall have her vengeance&mdash;&rdquo; Raven threw his dark sword at the angry witch like a spear, and it plunged into her heart with enough force to knock her off her feet and down into the cold hard ground. Her limbs twitched for a moment, and she gasped for air only for a second before she became lifeless and still. The witches who had regained enough of their wits looked on and found a new sense of fear of the crimson-haired man that stood before them.</p>
-
-                <p>&ldquo;I am a ranger of the Shadowbane,&rdquo; Raven spoke with an air of intensity, and the witches looked on as if their very blood had been frozen in their veins. &ldquo;A monster-slayer, a witch-hunter, a curse-breaker. Offer me the sister who can answer my queries, and the rest of you shall go free. But resist me any further, and I will be the last thing you see beneath these harrowing moons&hellip;&rdquo;</p>
-
-                <p>The witches looked on at Raven in silence. Then one by one, they all turned their sights to one among them, and Raven followed their gaze to the white witch.</p>
-
-                <p>&ldquo;Leave, and never return,&rdquo; was all he said.</p>
-
-                <p>At his command, the black-robed witches began summoning some deeper power within themselves, something foul and dark. Each of their bodies gradually became shrouded in shadows that consumed their entire form, and one by one they took flight at blinding speeds into the far reaches of the night. Left behind sat the white witch, petrified with fear under Raven&rsquo;s gaze. He walked to her slowly with his castergun in hand. Closer and closer he got, and with each step he could see her fear increase tenfold. The white witch squealed in terror before she began summoning the same dark power her sisters used moments ago. Her form was enveloped entirely in shadows, and then she tried to take flight into the night sky to escape the fate that awaited her.</p>
-
-                <p>Raven repositioned the barrels of his castergun again, and the runes on the new top barrel flashed a burning red. He aimed at the fleeing witch and pulled the trigger a few times, letting loose a salvo of fireballs towards her. With the third shot, she was clipped by the magic bolt and fell right out of the sky. She landed hard on the stone stands with a heavy thud loud enough to hear from where Raven stood. He watched the white witch tumble down to the center floor like a ragdoll.</p>
-
-                <p>Raven walked over to the downed witch with his castergun still aimed at her still form. The dark shroud surrounding her began to disappear as she started desperately crawling away from him, too injured to run. &ldquo;I can&rsquo;t&hellip;&rdquo; the witch cried. &ldquo;I won&rsquo;t&hellip;&rdquo;</p>
-
-                <p>Raven nudged her body over with his foot and flipped the white witch onto her back. It was then that he finally saw her face. She was just a young girl herself, not much older than the victims she lured from Weirwood. Her hair was dark and her eyes full of fear as she looked back at him.</p>
-
-                <p>&ldquo;But how?&rdquo; she asked. &ldquo;You can&rsquo;t use magic here. She told us of the stories between you two&hellip;&rdquo;</p>
-
-                <p>&ldquo;A reaper&rsquo;s Dirge is not magic. It is a prayer for the dead. A force of nature controlled by faith. Now, why are you sacrificing girls?&rdquo; Raven aimed his castergun at her, the sight of its barrels making her quiver.</p>
-
-                <p>&ldquo;She&hellip; needed power.&rdquo;</p>
-
-                <p>&ldquo;That&rsquo;s obvious,&rdquo; he replied, &ldquo;but to what end? Why only young girls?&rdquo;</p>
-
-                <p>&ldquo;She said only virgin souls would do. It&rsquo;s why we offered them all to her from here.&rdquo;</p>
-
-                <p>Raven looked confused. &ldquo;What&rsquo;s so special about this elvenhedge?&rdquo;</p>
-
-                <p>The white witch looked back with a look of defiance. &ldquo;The elves had no gods. Only virtues. This is a place of the pious. Only those worthy of its virtue can wield magic here! Only the pure. The untouched!&rdquo;</p>
-
-                <p>A piece clicked into place in Raven&rsquo;s mind. An explanation as to why young girls were targeted. And a reason why Fiona was freed from the charm. In hindsight, it was strange if not a wicked sense of irony.</p>
-
-                <p>&ldquo;To what end?&rdquo; he asked.</p>
-
-                <p>The white witch mumbled something under her breath.</p>
-
-                <p>&ldquo;Speak up, girl!&rdquo; Raven yelled back, brandishing the castergun to remind her of her position.</p>
-
-                <p>The witch shuddered. &ldquo;Those souls exist solely for her will. The deal was struck long ago before the village was brought here. Every maiden there is hers by right.&rdquo;</p>
-
-                <p>&ldquo;I don&rsquo;t understand. What deal?&rdquo;</p>
-
-                <p>&ldquo;It&rsquo;s too late for that now&hellip;&rdquo; The witch tore open the loose shirt beneath her robe, exposing her chest to Raven. Upon it was a magic circle with arcane runes carved into the flesh. The symbols reminded him of the same brandings on the enchanted men he first encountered in the canyon. A moment later each symbol began to illuminate in blue light. Raven looked on as the white witch&rsquo;s body twitched and writhed in pain as tears welled up in her eyes. &ldquo;The Temple of Voulan. It shall all end&mdash;&rdquo;</p>
-
-                <p>A brilliant blue flash erupted from the witch&rsquo;s body, sending Raven staggering back several steps, covering his eyes to shield out the light. A sudden heat licked the air for only a moment before it disappeared altogether. When the light dimmed and his eyes readjusted to the night, he looked upon what had once been the white witch. The ground was charred black, and at its center a blackened skeleton, surrounded in azure flames and sapphire embers slowly dying out by the second.</p>
-
-                <p>The village girl stirred nearby. &ldquo;What&rsquo;s&hellip; where am I&hellip;&rdquo;</p>
-
-                <p>Raven turned his attention away from what had once been the white witch and walked over to the village girl to calm her. &ldquo;Easy, girl.&rdquo;</p>
-
-                <p>&ldquo;What&hellip; why am I here?&rdquo;</p>
-
-                <p>&ldquo;That doesn&rsquo;t matter now, child. Tell me, what&rsquo;s your name?&rdquo;</p>
-
-                <p>&ldquo;It&rsquo;s&hellip; Erika. And you&rsquo;re&hellip; Raven. Why am I here? I feel&hellip; strange.&rdquo;</p>
-
-                <p>&ldquo;Don&rsquo;t trouble yourself with the details,&rdquo; he said. &ldquo;But I need you to tell me the last thing you remember.&rdquo;</p>
-
-                <p>Erika frowned, deep in thought. &ldquo;I&hellip; was home. Asleep. Then&hellip;&rdquo; Her face frowned in frustration. &ldquo;I can&rsquo;t remember. Why am I here, ser?&rdquo;</p>
-
-                <p>Raven sighed. &ldquo;Someone will explain it to you later. For now, just know that I was sent to collect you. Can you walk?&rdquo;</p>
-
-                <p>&ldquo;Aye &mdash; I mean &mdash; yes I can.&rdquo;</p>
-
-                <p>Raven took her by the hand and helped Erika to her feet. A warm tingling sensation began to pulse in his grasp. Quickly, he turned her hand over to see a ring of pewter slipped onto one of her fingers. The design was simple and looked relatively new, but what drew Raven&rsquo;s attention was the embedded stone that looked remarkably like one he had seen once before.</p>
-
-                <p>&ldquo;Where did you get this ring?&rdquo; he asked.</p>
-
-                <p>&ldquo;I don&rsquo;t know,&rdquo; she replied. &ldquo;I found it in a box on my doorstep at dusk. My mother said that one of the boys in the village might adore me. My father looked cross when he saw it, but he let me keep it.&rdquo;</p>
-
-                <p>Another piece of the puzzle fell into place, and the once hidden truth was now more evident than before. But there were questions whose answers still eluded him. Why was the one he pursued collecting the life force of young girls? How was she tied up in this? What was her endgame?</p>
-
-                <p>Raven collected his sword from the heart of one of the witches and led Erika from the elvenhedge. It was a long walk through the night as they made their way through the forest. He didn&rsquo;t speak any words to her, nor did she ask any questions of him. Dawn was still some ways off, but he knew a reckoning was coming.</p>
-
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"cjEnz++qntg3vmSj2aPfIg==","iv":"0+Mc5cEkAlPMELVG","ct":"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","tag":"GaqT2BBmwlUJSF8n/kz04g=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -448,6 +292,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

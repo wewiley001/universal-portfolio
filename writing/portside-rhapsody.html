@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>Portside Rhapsody — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,49 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Portside Rhapsody</h1>
-
-            <p>I&rsquo;m hard at work on my work-in-progress novel that combines dark fantasy and hardboiled detective fiction, for which I&rsquo;ve released previous excerpts and drafts in the past. This time the main character, an officer of the law, chases down a suspect in a murder investigation that leads up to an action sequence.</p>
-            <p>Please excuse the small mistakes as this is from my still WIP first draft.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <div class="scene-header">Flophouse &mdash; Boomtown, City Harbor &mdash; Late Afternoon</div>
-
-                <p>The flophouse smelled dank and disgusting, but this was a place where the scum too afraid of the Hollow squatted. The corridor was dark, and its walls well worn, every so often a lantern hung in place of proper gas lamps as the only source of light. From inside some of the rooms you could hear moans of ecstasy or screams of anger or a ruckus of moving furniture like a fight. Calling this place a shithole wouldn&rsquo;t have done it justice.</p>
-                <p>The caretaker of the place&mdash;and I use the term loosely&mdash;directed me to room number nine, second to last at the end of the hall. He said the occupant who Josie identified as Marko was the one who paid and escorted Kara the night she was last seen alive. &ldquo;Marco&rdquo; was the name the necromancer stupidly mentioned before he died, some light elf who worked on the docks. I needed to know where he took her.</p>
-                <p>I finally reached the door marked with the number nine. Just as I was about to raise a hand to knock, I noticed the door ajar.</p>
-                <p>&ldquo;Marko,&rdquo; I said, opening the door slowly with one hand while the other rested on my revolver. &ldquo;I&rsquo;m Wulfric Reinhardt, Senior Constable First Class from the Court of High Justice. I need a word with you&hellip;&rdquo;</p>
-                <p>After waiting a few seconds with no response, I slowly pushed the door open and went inside. Room number nine was small, dank, and completely trashed. Other than that, the place was completely empty. The room had a table and a bed, but not much else. A glance around the dark hole revealed bundles of discarded clothes laid about all over the floor and by the smell, mostly unwashed. The far-off sitting table was covered with empty glass vials and used metal syringes. Stepping through the mess, I took up one of the bottles and squinted at the writing on the label.</p>
-                <p>&ldquo;Ephemeral Bliss&hellip;&rdquo; I mumbled. An alchemical substance used as an anesthetic by healers. Too often did I come across it as a high-grade narcotic sold in back alleys alongside other illicit wares. I glanced over the empty vials scattered around, numbering just under a baker&rsquo;s dozen. This Marko was a junkie, and an extreme sort by the look of it. Bliss was hard to get hold of and expensive on the black market, and last I checked dockworkers didn&rsquo;t make nearly enough to pay for a high-end drug on this scale.</p>
-                <p>The door creaked on its hinges, followed by the sound of feet running off into the corridor. I ran through the mess and out into the hall in time to see a man in a dockworker&rsquo;s uniform round the corner and out of sight.</p>
-                <p>&ldquo;Marco!&rdquo; I called out, but he didn&rsquo;t stop. I ran after him.</p>
-                <p>I followed the sounds of Marco&rsquo;s running down the dark halls. He threw down bookcases and people into my path. As deftly as I could, I weaved my way through them, using my long legs to best advantage as I could. A rent girl ambled out of one of the rooms, her hair and makeup rough and completely strung out. We collided with one another and tumbled to the ground hard.</p>
-                <p>&ldquo;What the shite!&rdquo; she cried out as I tried to scramble back up. &ldquo;Bloody knob! Rank bastard, you are&hellip;&rdquo; More curses were flung my way, but I was already on my feet and gone.</p>
-                <p>I ran into the lobby of the flophouse looking around for Marko. The caretaker, a short and portly bald man, sat behind his counter with the news journal in his hands but stared at me wide-eyed and confused. Hesitantly, he lifted a finger pointing towards the door. I ran out the doors of the flophouse into the blinding daylight. It took a moment for my eyes to adjust before I scanned the area around Boomtown&rsquo;s Square. A distant curse down the road caught my attention. A way off was a downed man in the dirt, with Marko running from him towards the warehouses further along on the harbor, into a maze of warehouses.</p>
-                <p>I gave chase.</p>
-
-                <div class="scene-header">Western Wharf &mdash; City Harbor, Lowtown Bridgeport &mdash; Late Afternoon</div>
-
-                <p>The city harbor was vast, even for a city of Bridgeport&rsquo;s size. It was large enough to fit an armada of ships and accommodate shipping into the heartland of the Nine Realms. Lesser Maven&rsquo;s Bay emptied out into the Aidanon Sea, where distant lands like Xercarea and Alborayne imported their exotic goods, and literally dozens of warehouses existed to handle the excess of product. It was a treasure trove for enterprising thieves and smugglers who knew what to look for and who to resell it to for profit.</p>
-                <p>I found myself walking down the wharf past the warehouses as dockhands toiled away at moving crates and cargo with overhead pulleys and their own hands, and Marko was nowhere in sight. If I couldn&rsquo;t find him here, I could wait him out until he needed to get his next fix. He was a junkie, and their natures were predictable. I had an idea of how to track down any dealers who had access to high-grade alchemic drugs and could stake it out. But time was also a factor. A girl was dead, and her body was desecrated by necromancers for reasons I couldn&rsquo;t explain yet. The smuggling case was dead in the water until Hartwood returned, which was anyone&rsquo;s guess as to when at this point. I needed something to go my way, at least just once.</p>
-                <p>I spotted Marko spying on me from the broadside of a warehouse beyond its loading doors right before scurrying off. My walk turned into a sprint and I followed through the warehouse, dodging workers and moving shipping loads to the other end. Back outside, Marko was turning a corner of another warehouse, this time jogging instead of in a full-blown run, but I followed all the same.</p>
-                <p>I wasn&rsquo;t dumb. I know when I&rsquo;m being led into an ambush, and this junkie wouldn&rsquo;t be the first idiot to try it on me. Years before I became a constable, I was in the Royal Legion, stationed in remote regions to patrol the &ldquo;edge of civilization.&rdquo; Often enough, bandits would try the same tactics to get the better of me and my brothers in arms. But like my old commanding officer used to say: it&rsquo;s only a trap if it takes you by surprise.</p>
-                <p>I rounded a few more corners trailing after Marko, and eventually I came upon a lone warehouse that was devoid of any activity unlike the others thus far. The structure was large and built of wood and iron like the others, but its painted fa&ccedil;ade was cracked and peeling from the elements. Far off, I saw that junkie part the loading doors just enough to slink himself inside. And it hadn&rsquo;t escaped my notice that the entrance was purposely left ajar. This place was the ambush point. Here was where he&rsquo;d think he&rsquo;d get the best of me. Marco was so very wrong.</p>
-                <p>Instead of carrying on, I cut a left and walked the length of the warehouse&rsquo;s broadside. Up close, the fa&ccedil;ade was even more worn and weathered. A wrought iron balcony hung on its back end with the rusted staircase to match. On soft feet I made my way up each step, careful to shift my weight when I was certain not to make the whole damned thing squeal and whine. Through the dilapidated sides, I could hear voices from inside.</p>
-                <p>&ldquo;Marko, we told you not to&mdash;,&rdquo; bellowed one voice, gruff sounding and sharp to the ears.</p>
-                <p>&ldquo;W-wait,&rdquo; Marko squealed. It was the first time I heard his voice, and it sounded weaselly enough. &ldquo;Somebody&hellip;somebody&rsquo;s following me!&rdquo;</p>
-                <p>I needed to find that party and find out when and where they were having it.</p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"eFnTvoIBmApYEbcqZ+tRvQ==","iv":"wROEUmDJ9V3b1uHn","ct":"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","tag":"OsFC5iQmSIF/Mu9kEpzeQw=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -208,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

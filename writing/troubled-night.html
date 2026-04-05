@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>Troubled Night — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,53 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Troubled Night</h1>
-
-            <p>This was an older draft of a novella called &ldquo;the Red Reaper&rdquo; that centered on an inhuman mercenary hired by a nobleman to kill witches. The story, as well as the characters, have either been revamped or rewritten by this point. This excerpt was meant to establish the inhuman nature of the main character, and allude to the conflict of him being the most human character in the story.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <p>Reynault awoke in his rented bed in a cold sweat, breathing heavily as he looked up at the ceiling from his back. His head was pounding with every heartbeat, and the world seemed to be swaying in all directions like a hanged man. He pushed himself up and sat at the edge of his bed, his hands cradling his head as he tried to slow his breathing. His thoughts went back to the vision he just witnessed. True dreams were rare for him, his mind plagued by dark acts committed under cover of night. It was a curse of clairvoyance, a price paid for power long ago. It kept him from ever actually enjoying a good night&rsquo;s sleep, but the things he&rsquo;d witnessed ever rarely surprised him.</p>
-                <p><em>What I saw,</em> he thought, <em>looked familiar from earlier&mdash;</em></p>
-                <p>And then it hit him. The thick, stale smell of blood lingering in the air. He pulled his hands back from his face and saw them covered with slick dark ichor. He checked his bare chest and saw the same on his body. His head felt heavy, and the world swayed more than it should as if he were fresh from a drunken stupor. <em>I AM fresh from a drunken stupor,</em> he thought. But the hangover hit him harder than he expected.</p>
-                <p>Reynault stumbled as he pushed himself up from the bed to look around his rented room at the inn, and laid eyes on the scene before him. It was very much typical of what any inn&rsquo;s room would look like: a bed, a dresser, a table, and a desk. It was all small and quaint. Then he cast his sight over to the corpses. Women. Three of them, still mostly dressed. Each in a pool of their own blood. Their flesh barely pale, signs that they died only hours ago.</p>
-                <p>Three dead courtesans on the floor and a hangover were the last things he needed this late at night.</p>
-                <p>&ldquo;&hellip;Damn,&rdquo; he said silently, as he turned and walked his way across the floorboards and took a box of matches and grabbed a lantern, made of old iron and copper, from off of a nearby dresser.</p>
-                <p>Reynault threw open the windows as soon as he had gotten his bearings. The witching hour was upon the forest town, the night air was brisk, and the sky partly clouded. Up above hung the full twin moons; one large and red and the other small and pale. The moons&rsquo; light shined down upon the darkness of Weirwood&rsquo;s streets, all devoid of life save for the occasional pair of militia guards with gas torches. The scent of the pines carried in the air flooded into the room to fight out the smells of carnage, filling his nose.</p>
-                <p>He placed the lantern on the window sill and lit the candle inside the foggy glass. The wick flickered on and burned with a bright reddish-orange glow before changing into a dark purplish hue. The beacon was lit. The summons sent. It was only a matter of time before he&rsquo;d received his visitor.</p>
-                <p>He walked into the privy in nothing but his pants, bare-footed and hunched over a basin washing his face of both filth and blood. He had little memory of what happened, but it didn&rsquo;t surprise him what transpired. In the corner of his room were his clothes and weapons, neatly folded and untouched. His swords showed no signs of leaving their scabbards, let alone being covered in blood. His castergun showed no signs of ever being fired within the last several hours. The blood he found on his hands and chest suggested he killed them unarmed, an even more unsettling notion to mull over as he cleaned himself.</p>
-                <p>He spent the next half-hour cleaning himself when a knock came at the door.</p>
-                <p>Reynault&rsquo;s ears perked up at the sound. He only hoped it was who he was expecting. The last thing he needed was for the Innkeeper to be at his door, which would inevitably bring the guard. After that, it would only be a matter of time till they figured out who he really was. He approached the door in silence, his footsteps eerily quiet as he walked over the old floorboards that&rsquo;d creak and whine under the slightest shift in weight.</p>
-                <p>&ldquo;What calls at this hour?&rdquo; he asked through the door.</p>
-                <p>&ldquo;A Nightingale, milord,&rdquo; replied the gruff voice of a young woman from the other side.</p>
-                <p>Reynault opened the door and in its way stood a young lady clad in boiled leathers and a hood over her head. She was much shorter than him, about five-and-four compared to his six-foot-even. The nightingale stepped into the room and past him, her light footsteps barely making any noise, and stopped just short of the litter of corpses laid on the floor.</p>
-                <p>&ldquo;No need to ask what you need of me&hellip;&rdquo;</p>
-                <p>&ldquo;Good. That makes this easy&hellip;&rdquo; He turned to his equipment in the corner and moved to redress himself. In cases like this, he&rsquo;d make it a point to know what the criminal underbelly of any place he&rsquo;d visited was like beforehand. There was an active Thieves&rsquo; Guild in this province, calling itself the Band of the Nightingale. Reynault made sure to get in contact with the right people weeks ago and grease enough palms to deal with sticky situations such as this. They were the ones who gave him the lantern.</p>
-                <p>&ldquo;Getting three corpses out of here isn&rsquo;t going to be easy. Even in the middle of the night,&rdquo; said the Nightingale.</p>
-                <p>&ldquo;There&rsquo;s a secret road behind the Inn that leads out of town and into the forest.&rdquo; Reynault had just put on his brigantine vest and duster coat that draped down to his knees. &ldquo;It&rsquo;s used for deliveries, and it isn&rsquo;t guarded by the local militia.&rdquo;</p>
-                <p>&ldquo;Be that as it may, we need to find a place to bury the bodies,&rdquo; said the Nightingale as she knelt to inspect the corpses up close.</p>
-                <p>&ldquo;They can&rsquo;t be buried. They need to be burned with magefire.&rdquo;</p>
-                <p>The Nightingale looked up at him from within her hood, and he came face to face with what was a pair of high cheekbones and large emerald eyes staring back at him in annoyance through ash-blonde bangs.</p>
-                <p>&ldquo;The bloody hell do you mean &lsquo;with magefire&rsquo;?&rdquo;</p>
-                <p>&ldquo;Burying them in the ground won&rsquo;t solve the problem, only exacerbate it. They need to be completely eradicated by magical flame.&rdquo;</p>
-                <p>&ldquo;But they&rsquo;re just whores&hellip;&rdquo;</p>
-                <p>Reynault sneered at the notion. &ldquo;It shouldn&rsquo;t be too hard to get a mage from the local guild chapter to do it. Bribe them with this.&rdquo; He tossed a small coin purse to the Nightingale who caught it and proceeded to open it. It was filled with Imperial Sigils, the official currency of the Empire. They were filled with platinum crowns and golden half-crowns, each engraved with the coat of arms of Grand Nobles and Kings from across the continent. It was by no means any small amount of coin.</p>
-                <p>&ldquo;The thieves&rsquo; guild in these parts owes me several favors, and I need this one handled no questions asked.&rdquo; Reynault had strapped on a pair of swords of different lengths in their scabbards to his back and hip. His whole appearance looked unquestionably formidable. His arms and legs were covered in dark leather armor, endless satchels and flasks hung from various straps on the belt tied around his waist, and his whole demeanor made him seem dangerous.</p>
-                <p>&ldquo;Who are you, really?&rdquo; the nightingale asked, as he placed his castergun in the holster on his leg. He turned on his heel and made his way towards the door. Reynault turned to the elven woman, and she locked her eyes with his pale yellow gaze, and it made her feel uneasy.</p>
-                <p>With an odd smile, he replied, &ldquo;Someone best forgotten.&rdquo; He left out of the door without another word, leaving the young elf by herself.</p>
-                <p>The Nightingale sighed as she turned her attention back towards the cold bodies on the floor. And then she noticed something odd she hadn&rsquo;t seen before. She was no stranger to corpses and the like. Sometimes business had to be handled in a way where messages were more valuable than coin. She looked closer at the bodies, wondering who they were as well as the identity of the man who&rsquo;d just left. She touched one of the pools of blood and rubbed the sanguine liquid between her fingers. It was much thicker than it should have been. Its color lot darker than human blood as if it was some sort of ichor.</p>
-                <p>Who were these women, she thought to herself. And then her thoughts turned back towards the man with the odd colored eyes and inhuman features she hadn&rsquo;t noticed before. He asked her to burn the bodies in magefire as if to get rid of more than a pair of whores. She turned the head of one of the women towards her and saw what she couldn&rsquo;t explain. Then she checked the rest and found the exact same thing. Two puncture wounds were on each of the courtesans&rsquo; necks. Then the Nightingale remembered Reynault&rsquo;s smile before he left. She thought it was her mind playing tricks, but she could have sworn she had seen fangs.</p>
-                <p><em>If these women weren&rsquo;t human, then what was he?</em></p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"BHCXVcXijc/vlkJ94psLBQ==","iv":"rT8ocT2acxt0B/jN","ct":"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","tag":"2ZHe7CdYW2p3rGSN9PS+gA=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -212,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>Blog Archive — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,6 +118,22 @@
         .link-list li a { font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); text-decoration: none; transition: color .2s; }
         .link-list li a:hover { color: var(--hover); }
         .col-media img { width: 100%; display: block; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -186,27 +203,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Blog Archive</h1>
-
-            <div class="content-area">
-                <div class="two-col">
-                    <div class="col-text">
-                        <p class="intro-text">I used to run a network of blogs that would post news, reviews, and editorials based around pop culture — namely, anime, gaming, and comics. Each of the sites is no longer active, and various posts only exist on the Wayback Machine, which archives internet posts. Below is a selection of archived posts.</p>
-                        <ul class="link-list">
-                            <li><a href="https://web.archive.org/web/20140429015019/http:/www.themadempire.com/2014/04/son-batman-review/" target="_blank" rel="noopener">Son of Batman Review</a></li>
-                            <li><a href="http://web.archive.org/web/20140919065905/http://www.themadempire.com/2014/08/guardians-of-the-galaxy-review/" target="_blank" rel="noopener">Guardians of the Galaxy Review</a></li>
-                            <li><a href="http://web.archive.org/web/20140909221034/http://www.themadempire.com/2014/06/e3-2014-highlights/" target="_blank" rel="noopener">E3 2014 Highlights</a></li>
-                            <li><a href="http://web.archive.org/web/20141223104152/http://www.themadempire.com/2014/11/think-marvel-making-illuminati-movie-heres/" target="_blank" rel="noopener">Marvel &ldquo;Illuminati Movie&rdquo; Speculation</a></li>
-                            <li><a href="http://web.archive.org/web/20141223104118/http://www.themadempire.com/2014/11/assassins-creed-unity-review/" target="_blank" rel="noopener">Assassin&rsquo;s Creed Unity Review</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-media">
-                        <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/57303322-6691-43ec-8c88-a10428633a31_rw_1200.png" alt="Blog Archive" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"DtdzDAIhPHySs1efNyfp+w==","iv":"TJW2tZyKdPmXVGYL","ct":"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","tag":"JjNM+IRMnKToZZ8gNTtlIQ=="}</script>
+</div>
     </main>
 
 </div>
@@ -217,5 +216,103 @@
         if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
     }
 </script>
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
+
 </body>
 </html>

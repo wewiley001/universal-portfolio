@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>The Undercity — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,41 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">The Undercity</h1>
-
-            <p>This is an old draft of a work-in-progress novelette that tries to combine the hard-boiled detective genre with dark fantasy. The story centers on a lawman, known for his moral ambiguity, seeking out his idea of justice while navigating through the social, fantastical, and political nuances of the world around him.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <p>It was dark and damp in the Undercity, and the smell left much to be desired.</p>
-                <p>Every intersection I passed was identical to the last, and I soon realized I had no clear idea of where I was going. Only the criminals and vagabonds who lived down here knew the ways in and out of Bridgeport&rsquo;s sewer systems. They knew the many walkways and tunnels to navigate through it all and evade even the most tenacious of city guards. I was in their world now, their lion&rsquo;s den. My need to get topside became even direr.</p>
-                <p>Distant yells and barks of orders began to echo from a distance. With every chamber I passed, I could hear footsteps from atop the catwalks at every junction trailing me, trying their best to remain hidden. I turned a corner onto a new passage trying to lose them. A barrage of quarrels shot at me rebounded off the stone walls, missing me by inches. The bastards had caught up and were closer than I would have liked. I took a few more twists and turns to keep out of the line of sight of the archers, not fully knowing where I was going. I ran and hurried my pace, trying to widen the gap as best I could with the poison doing its best to kill me. I was trained to resist toxins, and it was a skill that had saved my life more times than I could count. But even as my legs began to get sluggish and my vision became more strained, I knew I couldn&rsquo;t keep this up forever.</p>
-                <p>After turning into a long passage, I ducked into an alcove and crouched in the shadows. Hatchet in hand, I waited for my pursuers to catch up and move on in their search. The ambient sounds of the sewers were loud enough to mask my attempts at catching my breath, but even so, I did my best to hide my presence. A minute passed, and then several more followed while I was hunched down in filth and grime. I realized that I couldn&rsquo;t hear boots pursuing me or yells from my would-be hunters. Did they break pursuit? Did they take a wrong turn? Both possibilities seemed unlikely. They were probably lying in wait like me, setting up for the big, fat kill. I&rsquo;d have preferred a waiting game. In my experience, people who wanted me dead didn&rsquo;t have the patience to wait me out. But as I wiped the fever sweat from my forehead, it was clear I didn&rsquo;t have that kind of time.</p>
-                <p>Carefully, I peeked out of the alcove to check my surroundings. I looked down and around the tunnel, the sound of rushing water and the nauseating smell offending my senses. But I stood alone. I stepped out of the shadows and pushed on down the passage. Slowly, I moved around every corner, wary of any surprise ambushes along the way. It didn&rsquo;t take long to realize that I was more lost in this underground maze than before. The walls and passageways looked the same no matter where you turned. There were faded expressions of signs having once been bolted to the walls at every junction, possibly taken down by rogues to throw off lawful pursuers. And it was working.</p>
-                <p>I turned a corner and found myself staring down a narrow tunnel, longer and darker than any other I came across before. At its end was an open passage, bright enough that I couldn&rsquo;t make out what was beyond the threshold. As I shuffled down the passage, there were several sealed passageways on the side closed off by something like a portcullis gate, and I suddenly felt like a lamb being led to slaughter. But I couldn&rsquo;t turn back, as lost as I was. There are very few worse feelings in the world that compare to knowingly walking to your possible death.</p>
-                <p>I crossed the threshold, and my eyes took a moment to readjust to the sudden light. When I could see again a few seconds later, I stood at the edge of a cistern. It was a giant chamber, filled with emerald green water and half a dozen pillar arches. A handful of boats were moored to the support posts of a makeshift walkway made of varying lengths of wood. They were loaded with crates of goods, carried out and around the chamber by men and women with sketchy and rough looks, but I recognized some of them.</p>
-                <p>They were Coterie, every last one of them, and I had just stumbled onto their smuggling operation.</p>
-                <p>&ldquo;Quick!&rdquo; a voice yelled out at the opposite end of the chamber. Half-Penny Pat stood in an entryway, panting and breathless, and pointed at me from afar. The eyes of every thug and cutthroat in the cistern turned from their work and fell on me. Metal clinging and the rustling of chains echoed behind me. I turned my head to see a portcullis gate like the ones I&rsquo;d seen before descend over the entrance I just came through. I didn&rsquo;t know if it was my own dismay or the poison, but I literally could feel my heart sink into my gut.</p>
-                <p>I was trapped. A lamb led to slaughter.</p>
-                <p>I wasn&rsquo;t willing to give up. Not now, and not here of all places. So, I ran, making my way over barrels and crates as best as I could. The smugglers all reached out and tried to grab me, but even in my state, I was too quick for them. There was only one way out I could see, the only exit that wasn&rsquo;t cut off to keep me trapped. And it was where Half-Penny Pat stood, barking out orders to have me captured. If I were to survive all this, that meant I had to go through him.</p>
-                <p>I tightened the grip on my hatchet at the thought.</p>
-                <p>I sprinted across the makeshift dock to reach the other side of the cistern. The harbor was narrow, barely wide enough to fit two grown men side by side. The boards felt loose and rickety under my feet, feeling as if they could give way at any moment. Halfway across, a group of thugs came charging at me from the other side, their steps shaking the docks and making it difficult to hold my footing. Over my shoulder, I laid eyes on my pursuers behind me. We all stood there motionless, like the calm before the storm. The looks on the Coterie rogues&rsquo; faces were like looking at wild dogs licking their chops at a side of beef. And I was the beef, standing there trapped, flanked on both sides.</p>
-                <p>Then the first of them attacked.</p>
-                <p>A fist flew towards my face, barely brushing my cheek. I stepped aside and twisted the man&rsquo;s momentum into a throw, and he went diving into the murky waters of the cistern below. My stamina was mostly shot, and I was in no shape for a drawn-out fight. So, I kept my footing light, and my movements slight. I had to control the space around me, just long enough to get off that damned harbor.</p>
-                <p>The other cutthroats came with knives and clubs, and I moved around their attacks with the swing of my own hatchet, attacking their vitals and using their own weapons against them. Blood flew from my strikes and bone broke from my attacks. I moved like water; formless, crashing and reshaping with the slightest effort. It was dance-like in a way, an old practice of martial skill drilled into me since childhood. No matter how hard the thugs tried, once I was in that stride, I couldn&rsquo;t be stopped.</p>
-                <p>A loud bang rang out in the chamber like thunder, and something small and quick whizzed through the air, past the thugs and me. Everyone, including me, broke from the fight and instantly ducked in reflex at the sound of gunfire.</p>
-                <p>&ldquo;You bloody daft!?&rdquo; Half-Penny yelled out. &ldquo;Not around the goods! You&rsquo;d kill us all, you twit!&rdquo;</p>
-                <p>I threw down the empty rifle and surrendered to the watchmen.</p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"ODuMm829BBS7j+HGY2igSQ==","iv":"s1KHxcQtsQE6yBZX","ct":"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","tag":"sDUtG3DD6ilUIJyH+6FwDA=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -200,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

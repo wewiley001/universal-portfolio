@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>An Oncoming Storm — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,65 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">An Oncoming Storm</h1>
-
-            <p>An Oncoming Storm is a fantasy short story that I wrote in an attempt to go against the standard trope of a &ldquo;chosen hero&rdquo; emerging to save the world and instead wrote about the rise of a villain who will destroy it.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <p>Thunder roared from the night sky and out on the desolate plains. From within a lone spire, flashes of lightning illuminated the great hall with its old columns and dark sculptures lining the walls. Dozens of dead bandits littered the ground as their mortally wounded leader crawled away from the slaughter that followed him. From the shadows, the sound of mailed footsteps approached, and the marauder looked back with dread. A young warrior followed, clad in armor with sword in hand. From head to toe, he was soaked and stained with blood from the bandits he&rsquo;d slaughtered. His eyes were focused and cold towards the marauder, enough to inspire fear from anyone opposite of that gaze.</p>
-                <p>&ldquo;Mercy!&rdquo; the marauder pleaded.</p>
-                <p>The young warrior didn&rsquo;t reply to the plea. <em>Finally,</em> he thought to himself. <em>Finally, she&rsquo;ll be avenged.</em></p>
-                <p>The warrior stood over his prey, brandishing his weapon, ready to put an end to everything he&rsquo;d endured thus far. He raised his sword high into the air, ready to bring it down and send the man before him to whatever hell he deserved. Suddenly, there were a series of hastened footsteps approaching from the opposite end of the hall, coming closer and closer. The young warrior stayed his final strike and readied himself for another enemy. Without giving himself away from sudden awareness of the new interloper, he listened carefully, gauging their gait and their possible intent. The footsteps were hasty and far too obvious. There was no intent to attack or malicious urgency behind them. <em>It&rsquo;s not another bandit,</em> he thought as the stranger grew closer. Each couple of steps were followed by the single sound of a wooden stave hitting the floor, and the warrior&rsquo;s eyes widened in sudden recognition.</p>
-                <p>&ldquo;I didn&rsquo;t expect you to show up here,&rdquo; he called back with his back turned. &ldquo;Don&rsquo;t try and stop me now, Agnar.&rdquo;</p>
-                <p>From the shadows and into the light stepped an aged old man in plain robes. In his hands gripped a wooden staff old beaten by time and use. His beard and hair were both long and grey in true wise man fashion, but his posture and demeanor radiated the vigor of one much younger. Agnar was his mentor. He was the first to greet him when he was taken into the Order. He was the one who trained him in its ways.</p>
-                <p><em>Not even he can stop me,</em> the young warrior thought.</p>
-                <p>&ldquo;Aldhelm,&rdquo; the old man called out to him, appalled at the carnage around him. &ldquo;What you&rsquo;ve done here&hellip;it&rsquo;s&hellip;it&rsquo;s&hellip; Why did you not return? We&rsquo;ve been trying to find you for nearly a year.&rdquo;</p>
-                <p>With a cold edge in his voice, the young warrior replied, &ldquo;He has to pay&hellip;&rdquo;</p>
-                <p>&ldquo;That isn&rsquo;t our way!&rdquo; Agnar bellowed. &ldquo;Vengeance is against the code of our Order. We taught you that. I taught you that.&rdquo;</p>
-                <p>&ldquo;Stop! Please! I&rsquo;m unarmed!&rdquo; the marauder cried, his hands up and yielding.</p>
-                <p>&ldquo;Tressa was unarmed too! That didn&rsquo;t stop you!&rdquo; yelled Aldhelm as he moved the blade of his sword up against the marauder&rsquo;s throat.</p>
-                <p>&ldquo;Aldhelm, please!&rdquo; Agnar screamed, but his words fell on deaf ears.</p>
-                <p>Tressa. This was all for her, he thought. The first person who he found that truly mattered to him. He remembered meeting her when he was first sent on his quest by the Order. They charged him with finding some relic, an ancient crown, once worn by some unholy man in eras long past as part of his initiation. He would have failed his test if it wasn&rsquo;t for Tressa. When he traveled with her, he felt awkward. He&rsquo;d been alone for so long, that he didn&rsquo;t know how to be with other people. But through his travels with her, Aldhelm grew closer to her, and his feelings for her became stronger and stronger. Soon he couldn&rsquo;t picture what it was like to be without her.</p>
-                <p>Then a band of low-lives led by the man took her away from him.</p>
-                <p>&ldquo;Please! I was only doing what I was told&hellip;&rdquo; screamed the marauder.</p>
-                <p>&ldquo;Don&rsquo;t give me your lies.&rdquo;</p>
-                <p>Aldhelm prepared to strike as the marauder threw his hands up to guard against the oncoming blow. Then a glint of silver caught the young warrior&rsquo;s eye, and his blade stayed for the second time. Looking down at the cowering man before him, he saw a sight of something familiar that he hadn&rsquo;t expected to see. Around the marauder&rsquo;s neck was a small medallion of silver engraved with strange runes. Anger flared in him again as he reached out to take the jewelry. The marauder resisted, but a mailed fist to the head dazed him. Aldhelm snatched the medallion off his neck and held it in his hand with confusion. He recognized the trinket, having one identical to it. He knew that Agnar had one as well. It was a mark worn by every brother and sister of the Order. And his seething anger boiled over.</p>
-                <p>&ldquo;WHO ELSE DID YOU KILL TO GET THIS!&rdquo; Aldhelm forced the point of his blade closer to the marauder&rsquo;s neck making the man wince. A small trickle of blood dribbled down his flesh, and he quivered in fear.</p>
-                <p><em>He hadn&rsquo;t just killed Tressa, Aldhelm thought. He murdered my brothers-in-arms as well&hellip;</em></p>
-                <p>The people of the Order were protectors and skilled warriors, dabbling in the Old Ways of mysticism. According to them, that was how they found him in the slums of some far-off city. He was a child and newly orphaned, and they said he was &ldquo;blessed by fate.&rdquo; He didn&rsquo;t believe much in its Arcane practices, but he came to believe in their cause to safeguard the people of the land. He knew that whatever fate became of his brothers that died by this man&rsquo;s hand, they didn&rsquo;t deserve it.</p>
-                <p>Aldhelm slashed quickly at the marauder&rsquo;s face with his blade. The steel bit into flesh and blood began to pour out from a fresh gash. His quarry reeled and writhed on the floor from both pain and fear, trying his best to crawl away. It wasn&rsquo;t as grave a wound as the one in the marauder&rsquo;s gut, but the bleeding wouldn&rsquo;t stop without treatment. Aldhelm wanted the man to die slow. He wanted him to feel the pain that he felt after losing Tressa. He wanted him to pray for the death that had long eluded him to this point.</p>
-                <p>Aldhelm advanced slowly on the marauder with his sword brandished and his mood grim.</p>
-                <p>&ldquo;Please, Agnar!&rdquo; the marauder suddenly cried out. &ldquo;This has gone too far!&rdquo;</p>
-                <p>The young warrior stopped in his tracks before turning back to the old man. Doubt and confusion were suddenly washing out the anger that had been flowing through him. Agnar said nothing and only looked back at him, but not out of surprise. It was a look of guilt and regret, one that spoke volumes in uneasy silence.</p>
-                <p>The lightning storm outside cracked even louder than before, drawing closer and closer. The sounds of thunder echoed throughout the hall.</p>
-                <p>&ldquo;You know this man?&rdquo; Aldhelm asked his mentor. His voice was shaky, his words unsteady. Whether this was out of frothing rage or dread-filled confusion, none could say. The old man looked back at him with a gaze he&rsquo;d never seen him wear before. It looked like sorrow personified.</p>
-                <p>Agnar hesitated a moment and let out a heavy sigh. &ldquo;Yes,&rdquo; he began, &ldquo;he&rsquo;s a brother of the Order. Same as you.&rdquo;</p>
-                <p><em>Aldhelm was stunned. This man, he thought. This murderer&hellip;is a brother of the Order?</em></p>
-                <p>&ldquo;That can&rsquo;t be,&rdquo; he whispered. He turned to face Agnar, his eyes wide and bewildered. &ldquo;That can&rsquo;t be! How is a brother of the Order leading a band of marauders? It goes against everything it stands for!&rdquo;</p>
-                <p>&ldquo;No,&rdquo; Agnar said gravely. &ldquo;He is loyal to the Order. He only does this because&hellip;because I ordered him to. For your sake.&rdquo;</p>
-                <p>&ldquo;W-what? That doesn&rsquo;t&hellip;I don&rsquo;t&hellip;&rdquo; His confusion began getting the best of him, his mouth finding it difficult to speak.</p>
-                <p>&ldquo;Everything that we did was to test you. But when we sent you after the crown&hellip;&rdquo; Agnar gestured a glance around the great hall at the carnage and corpses that littered it. &ldquo;&hellip;we didn&rsquo;t foresee this happening.&rdquo;</p>
-                <p>The crown. That damned crown, Aldhelm thought. It was the thing that started it all for him. He remembered the day he left the enclave to go hunt down and retrieve a relic from some long dead sorcerer. It was Tressa who&rsquo;d helped him find it. Whatever importance that the relic had, Aldhelm felt it was the cause of all his misfortune. The reason that the one person he cared about was dead.</p>
-                <p>&ldquo;From the moment you left the stronghold, we watched you, guided you to make the choices that best exampled the teachings of our order. When you found the crown, we rejoiced and expected your return. And when the girl was killed&mdash;&rdquo;</p>
-                <p>&ldquo;TRESSA!&rdquo; Aldhelm snapped at the old man. &ldquo;HER NAME WAS TRESSA. AND THIS MAN KILLED HER!&rdquo;</p>
-                <p>&ldquo;That man,&rdquo; Agnar began with a firm and staunch voice, &ldquo;was ordered to present obstacles on your journey.&rdquo;</p>
-                <p>&ldquo;This man killed someone I cared about. I watched her die. This man&hellip;&rdquo; The anger began to boil beneath his skin again. He tightened his grip on his sword right as he moved to grab the downed man before him. The marauder struggled, but he couldn&rsquo;t resist Aldhelm&rsquo;s strength and was helplessly grabbed by the scruff of his neck. &ldquo;I watched her die, and she was EVERYTHING to me! Your test&hellip; Your plans&hellip; It changes nothing!&rdquo;</p>
-                <p>&ldquo;Yes, it does,&rdquo; came a fourth voice from the recesses of the hall.</p>
-                <p>From behind one of the tall columns, came a lone figure. They strode across the hall and past the corpses to his mentor&rsquo;s side. Once in the light, Aldhelm laid eyes on a woman, slender and reserved. She was dressed in boiled leather jackets and pants, her long frizzled red hair flowing down to her shoulder, her alabaster skin bright even in the darkness of the great hall.</p>
-                <p>The storm grew louder and flashed brighter than before, with every crack of thunder and lightning.</p>
-                <p>&ldquo;Tressa?&rdquo; Aldhelm spoke. &ldquo;It&rsquo;s not possible. You died. I saw you die. You had no pulse&hellip;&rdquo;</p>
-                <p>The night skies had no moon, just a void of darkness hanging above the land. Blood-soaked and devoid of all feeling, Aldhelm traveled west across the vast nothingness of the wasteland. At his back were the distant rumbles of thunder trailing in his wake. Another storm was approaching. It was time for him to return home and greet the brothers and sisters he&rsquo;d not seen for so long.</p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"eJF9hlV8uO+pBcVi17CStQ==","iv":"ziBftoC0E/ptzYbD","ct":"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","tag":"QfvMwwMb2SzpQQ8sdU5WbA=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -224,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

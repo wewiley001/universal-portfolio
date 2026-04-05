@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>Welcome to the Jungle — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,73 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Welcome to the Jungle</h1>
-
-            <p>This is an old draft I wrote back in 2018. I&rsquo;d wanted to write a cyberpunk story for so long, but was never particularly inspired to do so until Cyberpunk 2077 unveiled their first gameplay trailer at E3.</p>
-            <p>My story centers on two clippers (guns-for-hire) in a midwestern megacity, hired to retrieve a dubious package, who soon find themselves caught in a conspiracy involving corporate interests and underworld intrigue. This excerpt is from the first two scenes of the story, where we see the two main characters receive the aforementioned job, and on their way to it, the job itself.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <p>Electric chimes went off inside Rook&rsquo;s head, but it might as well have sounded like gunshots up close. His face skewed in a frown as he yawned and stretched his limbs about in bed, moving the servos of the ones made of anodized metal. His eyes were still closed, but the heads-up display in his visual cortex flashed notifications of several missed messages within the last hour. Reluctantly Rook forced his eyes open, sliding from under a pair of passed-out and nude bodies with shapely physiques, and swung his legs out of bed. He sat there rubbing his eyes as the augments refocused and auto-adjusted his vision.</p>
-                <p>The apartment painted in off-colored white was simple with a total lack of any right angles, from its layout to the shape of the tiles on the floor. There were holopanels of different sizes mounted on every other vertical and horizontal surface displaying different readouts for different variables. One of the panels read a quarter to six in neon colors, way too early to be dealing with any sort of bullshit that early in the day. He was at the end of a three-day bender of booze and chems and sex, and the feeling of a massive hangover was beginning to set in. At his feet were discarded clothes and empty liquor bottles and used chem vapers that told the tale of it.</p>
-                <p>A widget swiped open in his vision and the chiming returned in his head, this time constant and steady. The sudden sound made Rook clutch his head and cringe. He was receiving a call on the N-LINK hardwired in his head, and that same widget displayed the caller ID as Eddie Sykes in bold neon letters.</p>
-                <p>&ldquo;Shit&hellip;&rdquo; he grunted to himself, accepting the call. The widget expanded in his field of vision, this time filled with static and blurred pixels shimmering before an image appeared. A live feed of a young man with obvious signs of chromework from the way his eyes glimmered and the epidermal impressions in his skin. Beyond that, Rook thought he&rsquo;d looked like a clown with all the jewelry he wore and his dated haircut.</p>
-                <p>&ldquo;Jesus, Rook,&rdquo; Eddie&rsquo;s voice rang inside his head. &ldquo;I&rsquo;ve been trying to get you on the link for the last hour!&rdquo;</p>
-                <p>Rook groaned. &ldquo;What do you want, Eddie?&rdquo;</p>
-                <p>Eddie&rsquo;s image wagged his eyebrows and smiled. &ldquo;You and Al blowing your load after that biz in the North Metro?&rdquo;</p>
-                <p>&ldquo;Couldn&rsquo;t do much else with it. After paying the cost for prep work and tools, we barely had enough to get floated,&rdquo; Rook growled back.</p>
-                <p>Eddie threw his hands up defensively on video. &ldquo;I know, I know. It was a bum job. I got stiffed on the creds just like you by the client. That&rsquo;s why I&rsquo;m offering you two a new job before any other clippers. Guaranteed good pay.&rdquo;</p>
-                <p>&ldquo;How good?&rdquo;</p>
-                <p>Eddie&rsquo;s image gave an enigmatic smile. &ldquo;Fifty megs. Twenty up front, thirty on completion. For each of you. But I need this done today.&rdquo;</p>
-                <p>Rook stroked his chin at the proposition. The results he and Al had gotten from working for Eddie Sykes were mixed at best. He was a clipper, a gun for hire. In this city, every two-bit dreg with a gun was looking to be on the uptake. And EVERYONE had a gun here in the Jungle, from the gutter squibs on the street to the corporate nutjobs and glitterfolk in their ivory towers shitting gold from on high. To make it big, he needed an in. And somebody like Eddie always had work. For someone like Rook, it was just a matter of waiting for someone else more connected with more money to take notice. But one-hundred thousand credits, fifty a piece, for a job was nothing to sneeze at.</p>
-                <p>&ldquo;Send me the details.&rdquo; Rook didn&rsquo;t wait for Eddie to say anything else before he closed the widget on his HUD and ended the call. He sat there on the edge of the bed, rubbing his neck to work the last kinks out of his muscles.</p>
-                <p>The bathroom door opposite of the flat slid open on quiet rotors, and a real meathead of a jock stumbled out, his private bits out in full. He lazily picked up whatever clothes were his from the floor and dressed on his way out of the door. Then Al ambled out, yawning and eyes half closed, and leaned against the door frame in nothing but her panties. She had a slender build from her arm and waist and breasts&mdash;but she was even more chromed than the two bodies behind Rook on the bed.</p>
-                <p>&ldquo;I think you took one too many vapes to be chin-wagging with yourself?&rdquo; she lazily said in her accent that clearly didn&rsquo;t come from the Jungle. &ldquo;I could hear you with the door closed. Even over that bloke&rsquo;s snoring.&rdquo;</p>
-                <p>&ldquo;Nah,&rdquo; he yawned. &ldquo;We just got one-hundred thousand reasons to put in work.&rdquo;</p>
-                <p>Al&rsquo;s eyes opened wide like the fatigue wore off like magic. &ldquo;A job? From who?&rdquo;</p>
-                <p>Rook narrowed his eyes and shot her a look.</p>
-                <p>A moment later, she stared back wide-eyed in realization. &ldquo;Eddie? That shite?&rdquo;</p>
-                <p>He shrugged.</p>
-                <p>Al groaned, making her way into the kitchen and started fumbling through the fridge. A notification appeared over Rook&rsquo;s HUD &mdash; MESSAGE RECEIVED &mdash; it said. He activated the file, his own securityware running sweeps over the data before opening it. It was the info Eddie promised with a navpoint to a designated location. Another notice pinged into view soon after &mdash; DEPOSIT RECEIVED: 20000 CREDITS. He was taken back, but still skeptical. So far it seemed that everything Eddie promised was on the level.</p>
-                <p>The bodies on the bed stirred and moaned their way to consciousness. The dolls sat up, rubbing their eyes and yawning&mdash;one curvy and buxom, the other slender and androgynous.</p>
-                <p>&ldquo;I don&rsquo;t suppose you have a stim on you?&rdquo; asked the curvy doll.</p>
-                <p>&ldquo;No,&rdquo; said Rook, getting up from the bed. &ldquo;Just as well. The party&rsquo;s dead, and I have to put in work.&rdquo;</p>
-                <p>The dolls crawled out of bed and gathered their clothes from the pile on the floor as Rook led them out of the flat. &ldquo;Call me for another rager, Rook,&rdquo; the androgynous doll said, winking at him as the door slid shut behind them.</p>
-                <p>Al returned from the kitchen with a bowl of cereal, her mouth half full. &ldquo;You got the biz yet?&rdquo;</p>
-                <p>Rook tapped the temple. &ldquo;Got &rsquo;em right here.&rdquo;</p>
-                <p>&ldquo;Good,&rdquo; she said, shoveling a spoonful of generic breakfast sugar. &ldquo;So, who&rsquo;s driving?&rdquo;</p>
-
-                <div class="scene-header">II</div>
-
-                <p>The sun rose in the orange morning sky with the silhouettes of a dozen arcologies on Lake Michigan&rsquo;s horizon. Rook sat in the driver seat while Al rode shotgun, jetting down Lake Shore Drive in a sportscar with relatively little traffic heading south. The steering wheel twitched side to side on automated servos with retracted handles as he fumbled and checked the array of gun parts in his lap. The display on the windshield was illuminated with readouts of the car&rsquo;s speed and fuel usage while giving an estimate of their time of arrival.</p>
-                <p>&ldquo;Sykes calling us like this is hardly a bloody good sign.&rdquo; Al sat with her knees tucked into her chest, looking off at the sprawl of glass and concrete that was the Jungle. &ldquo;Though&hellip;twenty thousand quid falling in my purse didn&rsquo;t hurt either.&rdquo;</p>
-                <p>&ldquo;I know,&rdquo; Rook grunted. &ldquo;And coming off that bender didn&rsquo;t exactly leave much in my account. We got lucky.&rdquo;</p>
-                <p>Al smiled. &ldquo;Well, at least it was a good three days.&rdquo;</p>
-                <p>&ldquo;I wouldn&rsquo;t know,&rdquo; he answered, shrugging. &ldquo;I can barely remember any of it.&rdquo;</p>
-                <p>&ldquo;Sounds like it was money well spent.&rdquo;</p>
-                <p>Eddie&rsquo;s job had them heading to East Chicago, a relic of an industrial district on the southeast shore. The job was simple: meet the contact, pick up the package, and deliver it. But they both knew the whole gig seemed off. It was too simple for what was being offered on pay. But it was good pay, and that was hard to ignore.</p>
-                <p>The onboard VI chimed. &ldquo;Three minutes until autodrive disengages.&rdquo;</p>
-                <p>&ldquo;So, what&rsquo;s our plan?&rdquo;</p>
-                <p>Rook reassembled the final piece of his handgun and aimed down the sights to get its feel. &ldquo;Meet the mark. Take what he has. Get the 30K.&rdquo;</p>
-                <p>&ldquo;I mean in case we&rsquo;re as lucky as usual.&rdquo;</p>
-                <p>Rook loaded a magazine and holstered the piece. &ldquo;Let&rsquo;s play it cool and keep our eyes open. No sense going in guns blazing.&rdquo;</p>
-                <p>The handles of the steering wheel extended as a warning sign projected on the display screen.</p>
-                <p>&ldquo;Releasing Autodrive&hellip;In five&hellip;four&hellip;three&hellip;&rdquo; Rook took hold of the wheel and rested a foot over a pedal as the car steered itself on to an offramp. &ldquo;&hellip;two&hellip;one&hellip;&rdquo;</p>
-                <p>The VI chimed one last time before the servos gave way and the wheel jerked in his hands as he steered the car along the path off the ramp. The windshield display showed the AR path to the navpoint, reading it as less than one-hundred meters away. Leaving behind the expressway, the two rode into a clutter of dingy warehouses and factories, most abandoned and tagged with graffiti. Tweakers lurked in the alleys and dark lots looking for their next fix of whatever their vice was. Scavvers digging through tech dumps and scrap piles glared at them wide-eyed and wanting as their sportscar passed.</p>
-                <p>Rook frowned and gritted his teeth at the passing dismal scenery, &ldquo;I think this is Boomer territory.&rdquo;</p>
-                <p>Al sighed. &ldquo;Oh, joy&hellip;&rdquo;</p>
-                <p>Calling the Boomers a gang would be like calling a lion a housecat. They were far-left extremists dead set on giving the finger to &ldquo;the establishment&rdquo;. But here in the Jungle&mdash;the Greater Chicago-Lake Michigan Megaregion&mdash; the Stars and Stripes had no clout and the Corps reigned supreme. So, instead, any &ldquo;three-piece&rdquo; meal was a target for them. And they often voiced their displeasure with military-grade ordinance.</p>
-                <p>&ldquo;I&rsquo;ve got a new plan,&rdquo; Al began, &ldquo;we each palm iron and if things go tits up, we leave none alive.&rdquo;</p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"LXxsfOromxQuYY7ANSpP8Q==","iv":"K82Kt297OIT4PxO9","ct":"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","tag":"fTbs/ma0xGwAVDpT+QE9VQ=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -232,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

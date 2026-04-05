@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>UI/UX — Portfolio</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -196,6 +197,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -265,149 +282,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Whiskey Revolver</h1>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-
-            </div>
-
-            <div class="prose">
-
-                <div class="scene-header">The Woodland Arrow Tavern &amp; Inn</div>
-                <div class="scene-header">Tradesmen Row, Midtown Bridgeport &mdash; Evening</div>
-
-                <p>The tavern was as dank and dimly lit as ever when I walked in. Steady traffic came in and out of the place, with patrons drowning themselves in drink to somber tunes played by the primed-up bard in the corner. The lone barmaid hustling about was a Raznik&mdash;a halfing race with beastfolk and elven blood&mdash; moving table to table with inhuman grace as her tail swayed and ear perked at every motion and sound. It had been a pretty uneventful day after meeting with Dumont. I made my usual rounds around the city, scaring away the usual hood with a flash of my revolver and avoid the nobles with noses turned so high they can smell the storms coming.</p>
-
-                <p>I shuffled over and took a seat at the bar. Before I&rsquo;d even set my hat down, a glass of whiskey was set in front of me as if appearing out of the air like magic.</p>
-
-                <p>&ldquo;Herd me coming, did you?&rdquo; I said.</p>
-
-                <p>Behind the bar stood its keeper, tall and lanky, setting down the bottle of liquor and cleaning out another mug with a well-used rag. His large, pointed ears, twitched at the comment.</p>
-
-                <p>&ldquo;Usually, I can hear virgins longing for a sensual release from two leagues away, but lately it&rsquo;s been sorry bastards wailing bout some nonsense or another. Such ugly sounds you humans make when you&rsquo;re sad&hellip;&rdquo;</p>
-
-                <p>I sneered in a jest. &ldquo;I&rsquo;ll wail all I want if coin follows it.&rdquo;</p>
-
-                <p>The even barkeep smiled. &ldquo;It&rsquo;s the one redeeming quality about you lot. That, and redheads. Elves don&rsquo;t have those, unfortunately.&rdquo;</p>
-
-                <p>Caeloryn was the owner and proprietor of the tavern, and probably the most vulgar Light Elves you&rsquo;d ever meet. He liked to tell outlandish stories that unexpectedly ended in strange and perverse ways. One story he&rsquo;d like to tell was how he got the money to start his tavern from a widowed noblewoman he had an affair with, always saying that his business success was thanks to his own sexual prowess. Case and point, the name of this place &ndash; The Woodland Arrow &ndash; had absolutely NOTHING to do with archery.</p>
-
-                <p>I downed the drink almost instantly, and Caeloryn followed it up with another pour. On the back wall of the bar behind him where the several dozen bottles of liquor were on display, a single hat rested on a hook nailed into the wall &mdash;a leather tricorn adorned with a single gryphon&rsquo;s feather&mdash;very much like my own. It was the hat of a Forrester, elite rangers from the Royal Legion stationed in the most remote regions of the continent. Their posts were so removed from society that they were rarely seen but whispered often about in hearsay and songs. Even now, while I wore my own Forrester&rsquo;s hat, people thought it was a vain attempt at me being posh.</p>
-
-                <p>Caeloryn leaned in closer, his voice dropping to a whisper. &ldquo;It might be best to soak your head for a bit.&rdquo;</p>
-
-                <p>I didn&rsquo;t react, trying my best to maintain a mask of indifference. &ldquo;And why is that?&rdquo;</p>
-
-                <p>&ldquo;A couple of men were here asking about a constable in a strange hat like the one I got hanging up. Not a lot those in this city.&rdquo;</p>
-
-                <p>I grunted in response. The news wasn&rsquo;t exactly uncommon. I&rsquo;ve pissed off enough people over the years that I could throw a stone in any direction in Bridgeport and hit someone with a grudge.</p>
-
-                <p>&ldquo;What&rsquo;d hey look like?&rdquo; I mumbled.</p>
-
-                <p>&ldquo;There were four. Hoods by the looks of it. Boots caked in grim. There was a faint smell of sewage on them.&rdquo;</p>
-
-                <p>I glanced up. &ldquo;Sewage?&rdquo;</p>
-
-                <p>Caeloryn silently nodded.</p>
-
-                <p>&ldquo;They&rsquo;re still here?&rdquo; I asked.</p>
-
-                <p>&ldquo;One of them is.&rdquo;</p>
-
-                <p>As much as Caeloryn loved theatrics and drama, I could take him at his word. He was a former brother-in-arms, so despite his own brand of eccentricities he knew how to size up a bad situation, and that wasn&rsquo;t good news. The only place in the city where someone would look and smell the way he described would have come from the Narrows or even the Undercity. And the Coterie operated down there since it was out of sight of the rest of the populous, mainly the City Watch. And with that business with Reesey Wylde under my belt, they&rsquo;d probably want blood on behalf of his old brother, Pat.</p>
-
-                <p>I shot a glance to the clock at the far wall, a contraption of brass gears and wrought iron fillings, as the shorthand rested on twelve and the long on the fifteen at the top.</p>
-
-                <p>&ldquo;Here&rsquo;s what we&rsquo;ll do&hellip;&rdquo;</p>
-
-                <p>After a quick talk, Cael started pouring me drink after drink.</p>
-
-                <p>I was knocking back mugs and glasses every other minute. The Bard in the corner started singing shanties and all the patrons joined in and danced and sung drunkenly. My head was spinning by that point, but I kept knocking back the liquor. Hours passed before the brass gears on the wall clock had finally turned the small and large hands of the clock pointing at fifteen. A mix between a chime and a gong blared through the tavern that signaled that midnight had come.</p>
-
-                <p>&ldquo;Hey! Buddy!,&rdquo; Caeloryn bellowed, coming from behind the bar and marching his way towards me. &ldquo;You&rsquo;re cutoff. Time to go.&rdquo;</p>
-
-                <p>I glared back at him, halfway through singing a song and barely standing.</p>
-
-                <p>&ldquo;Wadd&rsquo;ya mean I&rsquo;m cutoff&hellip;&rdquo; I said. Or tried too. My tongue felt numb and I couldn&rsquo;t feel my face or the tips of my extremities. The sauce will do that to you.</p>
-
-                <p>Cael grabbed me by the arm and tried to pull me to the exit.</p>
-
-                <p>&ldquo;Wait, wait wait,&rdquo; I yelled. &ldquo;Alright, alright. One more drink. Then I&hellip;I&rsquo;ll leave.&rdquo;</p>
-
-                <p>He stopped and leveled his gaze at. &ldquo;Fine.&rdquo;</p>
-
-                <p>I shambled my way back to the bar as Cael when behind it and begin pouring me a shot. I couldn&rsquo;t see what he was mixing below the counter. But to be honest, I couldn&rsquo;t see much of anything. The room was spinning, and the gas lamps were too bright for my eyes. All sure signs of how far gone I was.</p>
-
-                <p>A tin shot glass emerged from below the counter and was set down in front of me.</p>
-
-                <p>&ldquo;Drink and get out,&rdquo; he said.</p>
-
-                <p>I took up the shot with my hands barely steady. The liquid inside was a murky green color and smelled like paint thinner. Every whiff of it was enough to burn the inside of my nose, not the most reassuring observation to something you&rsquo;re about to down in one gulp. Even in my haze, I still remembered that there was a method to all this madness. Cael threatening to throw me out was all an act. Me being drunk off my ass was, unfortunately, a small price to pay for the whole show. Whoever was looking for me likely didn&rsquo;t want to send me any well wishes. Best way to weed them out was to make them think that I wouldn&rsquo;t be too much of a problem to handle. And that brought me to this foul liquid in my hands: an elixir, some sort of alchemic concoction that&rsquo;d sober up even the heaviest drinker in minutes.</p>
-
-                <p>I exhaled one last deep breath. I threw my head back to down the shot. The foul liquid burned the moment it touched my lips and didn&rsquo;t relent on the way down my gullet. Once it hit the stomach, I could feel my insides churn in ways that&rsquo;d make you toss your lunch just from hearing the description alone. It was explained to me once before about how it worked, about canceling out toxins with other toxins, which is why it&rsquo;d make you feel worse before you got better. And did it ever. I clasped my hand over my mouth to keep the contents of my stomach from spilling out on the floor.</p>
-
-                <p>&ldquo;Oi, you had your drink. Now pay your tab and get out,&rdquo; Cael bellowed.</p>
-
-                <p>I fumbled for some silver coins from my pocket and threw them on the counter. It was way more than usual because that elixir was damned expensive and was a bitch to choke down, which is why it was better to sleep off the bender than get rid of it altogether. And of course, Cael knew that and probably delighted in my misery. Bastard.</p>
-
-                <div class="scene-header" style="margin-top: .5rem;">Midtown &mdash; City of Bridgeport &mdash; Midnight</div>
-
-                <p>I stumbled down the sidewalk through Maven&rsquo;s Corridor. My legs struggling for balance and the world moved in the opposite direction. Every little while, I had to prop myself up against a lamppost and squint my eyes against the gaslights. My stomach did a summersault every time I breathed, every vein in my body running uncomfortably hot. Side effects from the concoction doing its job of purging the alcohol from my blood.</p>
-
-                <p>I struggled down the main streets where there were guards on patrol. A few looked tempted to try and haul me to the dungeons, but the glint of the badge made them leave me alone. There was no love lost between the constables and the City Watch, and to them, it was probably funnier to watch me suffer. By the time I left the district, I&rsquo;d gotten coherent enough to hear the footsteps just off in the shadows behind the buildings out of sight.</p>
-
-                <p>The Commons were as plain as ever: wooden hovels and beaten down roads. Half the lights in the windows were dark, its inhabitants resting up for another day of toiling on someone else&rsquo;s behalf. By the time I turned down my street, my sight had reduced from double to single vision, and my stomach didn&rsquo;t feel as sick as before. My balance was mostly back and my veins had mostly returned to their usual feeling. I kept the charade going a little longer, stumbling and resting every so often. Whoever was following me probably wanted me somewhere secluded and away from the main streets, so I stayed on them as long as I could to delay them. Every second delaying them was another second the elixir could finish doing its job.</p>
-
-                <p>I ambled down to the end of the cul-de-sac where a trio of buildings stood, one of which was my own place of residence. The only problem was that a group of men stood there waiting. They were dressed in dingy clothes as if they&rsquo;d been wading through filth for the better part of the night. Just then, the presence I&rsquo;d been sensing on my heels made itself known, and another group of men closed in from the direction I&rsquo;d just walked.</p>
-
-                <p>&ldquo;The Constable in the Hat,&rdquo; one of the larger men said before me. He was an ugly bastard, cross-eyed and bawls, with a fair deal of scars over his arms and face. &ldquo;Lovely stroll t&rsquo;night, ain&rsquo;t it?&rdquo;</p>
-
-                <p>I stood there, swaying back and forth and slurring my words with my best effort. &ldquo;Iz fine, I guessss.&rdquo;</p>
-
-                <p>&ldquo;The nutter&rsquo;s tossed on the drink, he is!&rdquo; another exclaimed.</p>
-
-                <p>&ldquo;Makes it easy for us, eh?&rdquo; said another, pulling out a shank from his pants pocket.</p>
-
-                <p>All three began to approach me slowly and I could sense the other guy who&rsquo;d been tailing me close in from my blind side at the same pace. I stumbled back away from them, right into the guy trying to blindside me. His arms shot out into vision and grappled around me, pinning my own arms against my torso. I struggled against his hold just enough to keep him interested and to keep him fighting me. The others approaching parted their lips in what had to have been a set of the ugliest smiles I&rsquo;d ever seen.</p>
-
-                <p>And then one of the bastards pulled a gnarled-looking shiv from their pocket.</p>
-
-                <p>That threw me off. I&rsquo;d expected them to try and drag me off, not to try and do me in right then and there out in public. And it dawned on me: they wanted me to be found. They wanted to set an example to anyone else trying to mess with the Coterie. And it was damned bold, too. I&rsquo;m a Constable, a royal officer of the High Crown. There wouldn&rsquo;t be that many people crazy enough to risk this sort of stunt outright. That meant that Half-Penny Pat really didn&rsquo;t like me killing his brother. Or he was crazy enough to just make a point. It was probably both.</p>
-
-                <p>I still bait-struggled against the other guy&rsquo;s hold right as one of the ugly-smile trio&mdash;the one with the shiv&mdash;was close enough to put it between my ribs. I sent a boot right out to one of his knees. A sharp POP filled the air and he stumbled around on one leg yelping and cursing at the pain. The other two were distracted by the sight of their comrade in agony. My muscles were tense against the other guy&rsquo;s grapple hold while I still wrestled against it.</p>
-
-                <p>&ldquo;Fucking twat!&rdquo; he yelled at my back.</p>
-
-                <p>At that moment, I relaxed every muscle in my body and stopped resisting the hold entirely. It was so unexpected that the guy stopped meeting me with force and loosed his hold on me. In the same instant I squatted down through his arms and slipped from under them. Before surprise could register, I grappled one of his grubby hands and twisted the wrist in a direction it was never meant to bend. He yelped as his entire body bent in the same direction to compensate for the pain. I forced the wristlock in a quick jerking motion, and I could feel the bones snap in my grasp as he went tumbling over and down to the cobblestone ground. He landed with a thud and a gasp, clutching his broken wrist as his hand flailed limply with every motion.</p>
-
-                <p>The other two were back on their wits. One of them went for a right haymaker to my head. I threw up my guard and stepped aside, the fist grazing my arm. I stepped back with my guard against his arm and nudged him a little off balance along with the motion of his own attack. Then I grappled the arm and spun around his back, forcing him down face first with an elbow lock. Before he could curse, I rolled forward over his back, my full weight behind his trapped arm. His shoulder shifted before he could react, and I felt the whole arm dislocate from the socket. My shoulder hit the ground and I rolled back up to the balls of my feet. I looked back, and the man was clutching his shoulder, writhing in pain.</p>
-
-                <p>The last one threw reason to the wind and charged me head-on, but before he could reach me, I reached him. I went in low and grappled with him for a split second before I twisted his momentum over my hip into a throw. He went over me and landed hard on his back, a surprised gasp escaping his mouth. Before he could recover, I sent a boot crashing down on his face. I could feel his nose crunching beneath my sole, and sure enough, blood started spilling from his nostrils.</p>
-
-                <p>Before I could catch a breath, something hot grazed my cheek and whizzed past my ear. Reflexes took over and I ducked down and sprinted to the nearest bit of cover on the street: a gas lamppost. I could hear the lever of an arcrifle being worked somewhere in the distance between every shot before it came howling my way.</p>
-
-                <p>I got behind the wrought iron lamp post right as another bullet meant for me ricocheted off its fa&ccedil;ade. I took the gun from my belt and held it at the ready, my body crouched, and shoulder pressed against the bottom of the lamppost where it had a jutting metal dress on the bottom barely wide enough to shield me. A trickling sensation on my cheek made me wipe at it with the back of my free hand. I could feel the sting on the flesh when I touched it, and when I pulled it away, the back of my hand was covered in blood.</p>
-
-                <p>Another shot ricocheted against the post, this time lower than before. I was in it in a bad way. Arcrifles didn&rsquo;t make that much noise and gave off little light when fired. It was a sniper&rsquo;s best friend, but it didn&rsquo;t have the range of a firearm like my revolver. I couldn&rsquo;t stay behind the lamppost forever. I had to find a way to locate their position. The only solution I could think of was as risky as all misery, but I didn&rsquo;t have any options. I had to bait their position myself.</p>
-
-                <p>I took a deep breath, waiting behind the post for the barrage of shots and sequence of lever pulls to pass before they had to reload. My heartbeat was going so loud and fast that I could hear the insides of my ears throb. My hands were jittery and that wouldn&rsquo;t do me any good. I calmed my breathing and tried to focus myself to find the calm within all this chaos. The anger, the annoyance, and frustration; each one of them tethers holding me back. Each one snapping from keeping me held back. And I could feel the coolness of the night air descend on me, and the goosebumps creep along my skin. My heartbeat grew steady, my senses focused more on everything around me.</p>
-
-                <p>In the distance, I could hear a cartridge eject and hit the ground.</p>
-
-                <p>I got up from behind the lamppost and ran my way across the cul-de-sac with my gun in hand, my senses clear and focus sharp and my hands steady. Another bullet whizzed past my head ascending each second it traveled, meaning the shooter was on the ground and possibly crouched. The sound of the lever being worked and the trigger being squeezed preceded another shot from the east just a few degrees north, somewhere near a dark home with its bottom window open and a small walk park filled with shrubs and bushes. I heard the lever worked to clear the chamber and load another round but no sound from the expelled shell falling out to hit any surface, because the ground was too soft for it to make a sound. Before the next shot came, I lifted my handcannon towards the dark shrubs and bushes in the sitting part and pulled the trigger. The kickback from the gun shot up through my arm and fire and light spat out from one end as thunder rang out on the street.</p>
-
-                <p>A yelp and curse of pain came from the pair of rustling shrubs in the distance, and I leveled my gun at the hip and threw back the hammer as quick as I could. Four gunshots rang out towards the shrubs and echoed up and down the street. I stood there, still deep into the calm with my attention towards the once again silent park. The bushes rustled again, and a hand emerged from behind them. Then another reached out and pulled at the grass, clawing the ground to pull themselves forward.</p>
-
-                <p>I made my way out of the street and walked toward the now emerged person crawling across the ground leaving a slick trail along the grass in their wake. I turned them over on their back with a nudge of my boot. I saw their face. A girl, probably barely a woman, her face caked in dirt and clothes stained with grime. Wounds peppered her torso, and she glared up at me with eyes filled with tears and anger. In the distance, whistles were blown in the night and shouts of commands from the city watchmen echoed. By the time they&rsquo;d arrived, the anger in the girl&rsquo;s eyes was replaced with a vacant stare into the black void overhead.</p>
-
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"LwjBEk7o+RlgEMiUTUbquQ==","iv":"hDwxKqQPIvR5KR5t","ct":"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","tag":"+2SAFK7/o7XHcKVvbuLN8Q=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -417,6 +294,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>

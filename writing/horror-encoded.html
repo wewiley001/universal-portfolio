@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <title>Horror Encoded — Content</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,6 +88,22 @@
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
         #lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,.5); font-size: 2rem; cursor: pointer; line-height: 1; transition: color .15s; padding: 0; }
         #lightbox-close:hover { color: #fff; }
+
+        /* ── password gate ──────────────────────────────────────── */
+        #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
+        #pw-gate.hidden { display: none; }
+        .pw-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 320px; }
+        .pw-lock-icon { fill: #f81562; width: 40px; height: 40px; }
+        .pw-title { font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); text-align: center; line-height: 1.6; }
+        .pw-form { display: flex; flex-direction: column; gap: .75rem; width: 100%; }
+        .pw-input { background: #080808; border: 1px solid rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .9rem; padding: .65rem .9rem; outline: none; width: 100%; letter-spacing: .08em; transition: border-color .2s; }
+        .pw-input:focus { border-color: rgba(248,21,98,.6); }
+        .pw-input.pw-shake { animation: pw-shake .35s ease; border-color: #f81562; }
+        .pw-btn { background: rgba(248,21,98,.1); border: 1px solid rgba(248,21,98,.4); color: #f81562; font-family: inherit; font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; padding: .65rem 1.2rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        .pw-btn:hover { background: rgba(248,21,98,.2); border-color: #f81562; color: #fff; }
+        .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
+        .pw-error.visible { opacity: 1; }
+        @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
     </style>
 </head>
 <body>
@@ -156,32 +173,9 @@
     </aside>
 
     <main class="main">
-        <div class="main-content">
-            <h1 class="page-title">Horror Encoded</h1>
-
-            <p>This prompt centers around the event of someone breaking inside a home with the occupant still inside. Naturally, I put a twist to it. Enjoy.</p>
-
-            <div class="info-bar">
-                <div class="info-row">
-                    <span class="info-label">Written By</span>
-                    <span class="info-value">W.E. Wiley</span>
-                </div>
-            </div>
-
-            <div class="prose">
-                <p>I was halfway ready to call it a night before the grandfather clock chimed downstairs and a loud thump quickly followed. My ears perked up at the noise midway, and the faint curse I heard down below almost made me flat-out laugh.</p>
-                <p>&ldquo;Finally,&rdquo; I muttered to myself sitting at my desk in the study upstairs.</p>
-                <p>I fumbled to turn on the small security monitor next to my laptop in front of me when it finally came alive in a flash. The screen was divided up into six parts, each labeled and displaying a different room of the house. The upper right view was labeled foyer, where a lone figure moved from the front door inward. His build was masculine, somewhere between five-ten and six-one, a rough guesstimate at best. He walked from that frame and into the upper left square labeled living room.</p>
-                <p>In an affluent neighborhood like this, it must have looked like Christmas with all the expensive heirlooms and the fancy knickknacks that had to be workloads of fast cash to the right buyer. I had to wonder: how many houses did this man case before he found the right one to rob. The funny thing was that burglars and the like were all predictable in a way, assuming every opportunity for easy cash was a good one. Never do they think about the person inside the homes they case. And not once do they wonder if the door was unlocked on purpose.</p>
-                <p>I brought up a prompt and began typing lines of code, inputting operations into a runnable program. It was a short test, just one to try the waters of the several dozen wireless receivers I&rsquo;ve installed throughout my home. I pressed the button to run and watched the security feed for the results. The light flickered on and off in the living room, and the burglar paused, glancing around as if slightly unnerved.</p>
-                <p>&ldquo;The lights are working&hellip;&rdquo; I muttered, staring into the security feed. The man began moving from the living room and disappeared out of frame, before reappearing in another feed labeled kitchen. I&rsquo;d just installed controllers on stove burners but hadn&rsquo;t the time to test them until now. I worked my fingers across the keyboard scripting more lines of code and executing it all after a few seconds.</p>
-                <p>On the feed, the burglar was beginning to make his way through the drawers before rudely raiding the fridge. Admittedly, it did bother me at first, watching him chug my orange juice. Bastards. He was halfway through his drink when all the burners on the nearby stove came alive. Flame jetted upward into the cabinet hood, and the room was colored in orange light. The sudden display visibly surprised the burglar on the feed, and he tried to hastily leave the kitchen from the way he came.</p>
-                <p>I was already executing my next bit of code when suddenly the door closed shut into the living room. I could see the burglar fumbling at the knob, but it wouldn&rsquo;t budge. The lights in a nearby room turned on and caught his attention. Then he left from the kitchen frame on the feed and reappeared in the one labeled dining room. He was hastily making his way past the table and chairs, ignoring the finery and china sets in favor of leaving the house. That was when the double door leading out into the foyer slammed shut in front of him, alongside the door he&rsquo;d just entered through. The lights started flickering sporadically, and the thief was beginning to panic, pounding on the doors. I could hear him from upstairs, yelling to let him out.</p>
-                <p>But I had one last trick. The sound system wired throughout my house began playing a low reverberating tone, oscillating and constant to the point where it felt as if the walls were shaking. The thief&rsquo;s yells quickly became screams as I watched fear break his sanity on the live feed, still pounding away on the door begging to be let out. A few key presses later I halted the program. The speakers fell silent, and the walls stopped shaking as the lights returned to normal. The doors unlocked, and as hastily as he could the burglar ran into the foyer and out the front door.</p>
-                <p>I jotted my observations of the subject and noted the responsiveness of the programs I created. This had been the best trial thus far. Hopefully, with these findings along with the data from the other tests, I should be able to finally get support for the smart home system with my employer.</p>
-            </div>
-
-        </div>
+        <div class="main-content" id="main-content">
+    <script id="enc-data" type="application/json">{"salt":"8koxjc4JXG6J4XkVfZ2Ajg==","iv":"FrYqleEZknAU5+q8","ct":"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","tag":"duJolFRicBS6pNElkRwWyA=="}</script>
+</div>
 
         <div class="image-panel">
             <div class="image-panel-hero">
@@ -191,6 +185,104 @@
     </main>
 
 </div>
+
+
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
+    <div class="pw-box">
+        <svg class="pw-lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        <p class="pw-title">This content is password protected</p>
+        <form class="pw-form" id="pw-form" autocomplete="off">
+            <input class="pw-input" type="password" id="pw-input"
+                   placeholder="Enter password"
+                   aria-label="Password"
+                   autocomplete="current-password">
+            <button class="pw-btn" type="submit">Unlock</button>
+            <p class="pw-error" id="pw-error" aria-live="polite">Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    var ITERS = 100000;
+    var encEl = document.getElementById('enc-data');
+    var gate  = document.getElementById('pw-gate');
+    var form  = document.getElementById('pw-form');
+    var input = document.getElementById('pw-input');
+    var errEl = document.getElementById('pw-error');
+    var mc    = document.getElementById('main-content');
+
+    if (!encEl || !gate || !mc) return;
+    if (!window.crypto || !window.crypto.subtle) {
+        gate.classList.add('hidden');   // SubtleCrypto not available (non-HTTPS dev?)
+        return;
+    }
+
+    var data = JSON.parse(encEl.textContent);
+
+    function b64ToBytes(b64) {
+        var bin   = atob(b64);
+        var bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return bytes;
+    }
+
+    async function tryDecrypt(pw) {
+        var te     = new TextEncoder();
+        var keyMat = await crypto.subtle.importKey(
+            'raw', te.encode(pw), 'PBKDF2', false, ['deriveKey']
+        );
+        var key = await crypto.subtle.deriveKey(
+            { name: 'PBKDF2', salt: b64ToBytes(data.salt), iterations: ITERS, hash: 'SHA-256' },
+            keyMat,
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['decrypt']
+        );
+        // Web Crypto AES-GCM expects ciphertext + 16-byte auth tag concatenated
+        var ct       = b64ToBytes(data.ct);
+        var tag      = b64ToBytes(data.tag);
+        var combined = new Uint8Array(ct.length + tag.length);
+        combined.set(ct);
+        combined.set(tag, ct.length);
+        var plain = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: b64ToBytes(data.iv) },
+            key, combined
+        );
+        return new TextDecoder().decode(plain);
+    }
+
+    async function unlock(pw) {
+        try {
+            var html = await tryDecrypt(pw);
+            mc.innerHTML = html;
+            gate.classList.add('hidden');
+            try { sessionStorage.setItem('writing_pw', pw); } catch (e) {}
+        } catch (e) {
+            input.classList.add('pw-shake');
+            errEl.classList.add('visible');
+            input.select();
+            setTimeout(function () { input.classList.remove('pw-shake'); }, 400);
+        }
+    }
+
+    // Auto-unlock if this session is already authenticated
+    var saved = '';
+    try { saved = sessionStorage.getItem('writing_pw') || ''; } catch (e) {}
+    if (saved) { unlock(saved); return; }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = input.value.trim();
+        if (!pw) return;
+        errEl.classList.remove('visible');
+        unlock(pw);
+    });
+}());
+</script>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button id="lightbox-close" aria-label="Close">&times;</button>
