@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
-    <title>Blog Archive — Content</title>
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+    <title>Can You Roleplay History? — Writing</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
@@ -48,26 +49,8 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(255,255,255,0.07) transparent;
         }
-        .sidebar-label {
-            font-size: .6rem;
-            letter-spacing: .3em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
-            padding: 0 1rem .55rem;
-            margin-bottom: .5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .card {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            margin: 0 .7rem .6rem;
-            border-radius: 5px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.07);
-            background: #070707;
-            transition: border-color .2s, transform .18s, box-shadow .2s;
-        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
         .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
         .card-thumb { display: block; line-height: 0; }
         .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
@@ -79,45 +62,24 @@
         .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
 
         .main { flex: 1; display: flex; overflow: hidden; }
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 2rem 2.5rem;
-            gap: 1.75rem;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.07) transparent;
-        }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
 
-        .page-title {
-            font-size: 2rem;
-            font-weight: 300;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-            color: #fff;
-            padding-bottom: .85rem;
-            border-bottom: 1px solid rgba(248,21,98,.35);
-            flex-shrink: 0;
-        }
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
 
-        .content-area { display: flex; flex-direction: column; gap: 2rem; }
-        .two-col { display: flex; flex-direction: row; align-items: center; gap: 2rem; }
-        .two-col:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 2rem; }
-        .col-text { width: 35%; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.25rem; padding-right: 0.75rem; }
-        .col-media { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-        .intro-text { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
-        .entry { display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .entry:last-child { border-bottom: none; padding-bottom: 0; }
-        .entry-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-        .entry-type { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
-        .entry p { font-size: 0.8rem; line-height: 1.65; color: rgba(255,255,255,0.5); }
-        .entry a, .intro-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(248,21,98,0.3); transition: color .2s, border-color .2s; }
-        .entry a:hover, .intro-text a:hover { color: var(--hover); border-color: rgba(93,246,254,0.4); }
-        .link-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-        .link-list li a { font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); text-decoration: none; transition: color .2s; }
-        .link-list li a:hover { color: var(--hover); }
-        .col-media img { width: 100%; display: block; }
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        .prose { flex: 1; font-size: .95rem; line-height: 1.85; color: rgba(255,255,255,.65); display: flex; flex-direction: column; gap: 1rem; }
+        .prose p { margin: 0; }
+        .prose p + p { margin-top: .85rem; }
+
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
 
         /* ── password gate ──────────────────────────────────────── */
         #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
@@ -134,11 +96,6 @@
         .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
         .pw-error.visible { opacity: 1; }
         @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
-    
-        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
-        .image-panel-hero { flex: 1; overflow: hidden; }
-        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
-        .image-panel-hero img:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -205,7 +162,7 @@
             <div class="card-thumb"><img src="img/hero/witches-in-the-brush-hero.jpg" alt="Witches in the Brush" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Witches in the Brush</span><span class="card-tag">Draft</span></div>
         </a>
-        <a href="can-you-roleplay-history.html" class="card">
+        <a href="can-you-roleplay-history.html" class="card card--active">
             <div class="card-thumb"><img src="img/hero/can-you-roleplay-history-hero.jpg" alt="Can You Roleplay History?" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Can You Roleplay History?</span><span class="card-tag">Editorial</span></div>
         </a>
@@ -229,12 +186,12 @@
 
     <main class="main">
         <div class="main-content" id="main-content">
-    <script id="enc-data" type="application/json">{"salt":"DtdzDAIhPHySs1efNyfp+w==","iv":"TJW2tZyKdPmXVGYL","ct":"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","tag":"JjNM+IRMnKToZZ8gNTtlIQ=="}</script>
+    <script id="enc-data" type="application/json">{"salt":"IzbGalLRKqdvpU0vkx5lmA==","iv":"gJGcZvWBPJ1GZBOV","ct":"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","tag":"xEY7rnZvvq6SrZSpgiX32Q=="}</script>
 </div>
-    
+
         <div class="image-panel">
             <div class="image-panel-hero">
-                <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/57303322-6691-43ec-8c88-a10428633a31_rw_1200.png" alt="Blog Archive" loading="lazy">
+                <img src="img/hero/can-you-roleplay-history-hero.jpg" alt="Can You Roleplay History?" loading="lazy">
             </div>
         </div>
     </main>

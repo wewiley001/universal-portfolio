@@ -171,6 +171,11 @@
 
         .partition { border: none; border-top: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; margin: 0; }
 
+        .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
+        .image-panel-hero { flex: 1; overflow: hidden; }
+        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
+        .image-panel-hero img:hover { opacity: 1; }
+
         /* Lightbox */
         #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.93); z-index: 999; align-items: center; justify-content: center; }
         #lightbox.open { display: flex; }
@@ -220,7 +225,7 @@
             <div class="card-body"><span class="card-title">Graphic Design Gallery</span><span class="card-tag">Graphics</span></div>
         </a>
         <a href="virtual-avatar-by-ai.html" class="card">
-            <div class="card-thumb"><img src="img/thumb/virtual-avatar_thumb.jpg" alt="Virtual Avatar by AI" loading="lazy"></div>
+            <div class="card-thumb"><img src="img/virtual-tuber-ai/final-iteration/ba76c8fe-2e6f-472f-9c42-2b4516187ac6_rw_1200.png" alt="Virtual Avatar by AI" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Virtual Avatar by AI</span><span class="card-tag">Graphics</span></div>
         </a>
         <a href="cyberpunk-apartment-3d-backdrops.html" class="card">
@@ -333,6 +338,12 @@
             </div>
         </div>
     </main>
+
+    <div class="image-panel">
+            <div class="image-panel-hero">
+                <img src="img/thumb/graphic-design_thumb.jpg" alt="Graphic Design Gallery" loading="lazy">
+            </div>
+        </div>
 
     <div id="lightbox" role="dialog" aria-modal="true">
         <button id="lb-close" aria-label="Close">&times;</button>

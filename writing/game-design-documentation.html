@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
-    <title>Blog Archive — Content</title>
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+    <title>Game Design Documentation — Writing</title>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root { --accent: #f81562; --hover: #5df6fe; --sidebar-w: 272px; --bar-h: 52px; }
@@ -48,26 +49,8 @@
             scrollbar-width: thin;
             scrollbar-color: rgba(255,255,255,0.07) transparent;
         }
-        .sidebar-label {
-            font-size: .6rem;
-            letter-spacing: .3em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.2);
-            padding: 0 1rem .55rem;
-            margin-bottom: .5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .card {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            margin: 0 .7rem .6rem;
-            border-radius: 5px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.07);
-            background: #070707;
-            transition: border-color .2s, transform .18s, box-shadow .2s;
-        }
+        .sidebar-label { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,0.2); padding: 0 1rem .55rem; margin-bottom: .5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .card { display: block; text-decoration: none; color: #fff; margin: 0 .7rem .6rem; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); background: #070707; transition: border-color .2s, transform .18s, box-shadow .2s; }
         .card:hover { border-color: rgba(248,21,98,.55); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(248,21,98,.14); }
         .card-thumb { display: block; line-height: 0; }
         .card-thumb img { width: 100%; height: 116px; display: block; object-fit: cover; }
@@ -79,45 +62,80 @@
         .card--active .card-tag { color: rgba(255,255,255,.3); border-color: rgba(255,255,255,.1); }
 
         .main { flex: 1; display: flex; overflow: hidden; }
-        .main-content {
-            flex: 1;
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 2rem 2.5rem; gap: 1.75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+        .page-title { font-size: 2rem; font-weight: 300; letter-spacing: .18em; text-transform: uppercase; color: #fff; padding-bottom: .85rem; border-bottom: 1px solid rgba(248,21,98,.35); flex-shrink: 0; }
+
+        .info-bar { display: flex; flex-direction: row; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+        .info-row { flex: 1; display: flex; flex-direction: row; align-items: stretch; border-right: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border-right: none; }
+        .info-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); padding: .55rem .75rem; background: rgba(248,21,98,.055); border-right: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; white-space: nowrap; }
+        .info-value { padding: .55rem .75rem; font-size: .82rem; color: rgba(255,255,255,.45); min-height: 36px; display: flex; align-items: center; }
+
+        /* ── Documentation grid ── */
+        .doc-grid { display: flex; flex-direction: column; gap: 0; }
+
+        .doc-entry {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+        .doc-entry:first-child { border-top: none; padding-top: 0; }
+
+        .doc-left {
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
-            padding: 2rem 2.5rem;
-            gap: 1.75rem;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.07) transparent;
+            gap: 1rem;
         }
 
-        .page-title {
-            font-size: 2rem;
-            font-weight: 300;
-            letter-spacing: .18em;
+        .doc-title {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .2em;
             text-transform: uppercase;
-            color: #fff;
-            padding-bottom: .85rem;
-            border-bottom: 1px solid rgba(248,21,98,.35);
-            flex-shrink: 0;
+            color: var(--accent);
         }
 
-        .content-area { display: flex; flex-direction: column; gap: 2rem; }
-        .two-col { display: flex; flex-direction: row; align-items: center; gap: 2rem; }
-        .two-col:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 2rem; }
-        .col-text { width: 35%; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.25rem; padding-right: 0.75rem; }
-        .col-media { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-        .intro-text { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
-        .entry { display: flex; flex-direction: column; gap: 0.35rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .entry:last-child { border-bottom: none; padding-bottom: 0; }
-        .entry-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-        .entry-type { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
-        .entry p { font-size: 0.8rem; line-height: 1.65; color: rgba(255,255,255,0.5); }
-        .entry a, .intro-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(248,21,98,0.3); transition: color .2s, border-color .2s; }
-        .entry a:hover, .intro-text a:hover { color: var(--hover); border-color: rgba(93,246,254,0.4); }
-        .link-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-        .link-list li a { font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.4); text-decoration: none; transition: color .2s; }
-        .link-list li a:hover { color: var(--hover); }
-        .col-media img { width: 100%; display: block; }
+        .doc-desc {
+            font-size: .88rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,.55);
+            flex: 1;
+        }
+
+        .doc-btn {
+            display: inline-block;
+            align-self: flex-start;
+            background: rgba(248,21,98,.08);
+            border: 1px solid rgba(248,21,98,.4);
+            color: var(--accent);
+            font-family: inherit;
+            font-size: .6rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            padding: .55rem 1.1rem;
+            text-decoration: none;
+            transition: background .2s, border-color .2s, color .2s;
+            border-radius: 2px;
+        }
+        .doc-btn:hover { background: rgba(248,21,98,.2); border-color: var(--accent); color: #fff; }
+
+        .doc-right {
+            display: flex;
+            align-items: center;
+        }
+        .doc-right img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 3px;
+            opacity: .8;
+            transition: opacity .3s;
+        }
+        .doc-right img:hover { opacity: 1; }
 
         /* ── password gate ──────────────────────────────────────── */
         #pw-gate { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0; }
@@ -134,11 +152,20 @@
         .pw-error { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: #f81562; opacity: 0; transition: opacity .2s; text-align: center; min-height: 1em; }
         .pw-error.visible { opacity: 1; }
         @keyframes pw-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-7px)} 40%,80%{transform:translateX(7px)} }
-    
+
         .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
         .image-panel-hero { flex: 1; overflow: hidden; }
         .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
         .image-panel-hero img:hover { opacity: 1; }
+
+        /* ── doc viewer modal ── */
+        #doc-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 10001; align-items: center; justify-content: center; }
+        #doc-modal.open { display: flex; }
+        .doc-modal-inner { position: relative; width: 84%; height: 88%; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.07); background: #000; }
+        .doc-modal-bar { height: 42px; flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; padding: 0 .9rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .doc-modal-close { background: none; border: none; color: rgba(255,255,255,.35); font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; cursor: pointer; font-family: inherit; transition: color .2s; padding: .25rem .4rem; }
+        .doc-modal-close:hover { color: var(--hover); }
+        .doc-modal-frame { flex: 1; width: 100%; border: none; display: block; background: #111; }
     </style>
 </head>
 <body>
@@ -221,7 +248,7 @@
             <div class="card-thumb"><img src="img/hero/easy-characters-the-dnd-way-hero.jpg" alt="Easy Characters the D&amp;D Way" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Easy Characters the D&amp;D Way</span><span class="card-tag">Essay</span></div>
         </a>
-        <a href="game-design-documentation.html" class="card">
+        <a href="game-design-documentation.html" class="card card--active">
             <div class="card-thumb"><img src="img/hero/game-design-documentation-hero.jpg" alt="Game Design Documentation" loading="lazy"></div>
             <div class="card-body"><span class="card-title">Game Design Documentation</span><span class="card-tag">Documentation</span></div>
         </a>
@@ -229,17 +256,17 @@
 
     <main class="main">
         <div class="main-content" id="main-content">
-    <script id="enc-data" type="application/json">{"salt":"DtdzDAIhPHySs1efNyfp+w==","iv":"TJW2tZyKdPmXVGYL","ct":"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","tag":"JjNM+IRMnKToZZ8gNTtlIQ=="}</script>
+    <script id="enc-data" type="application/json">{"salt":"fgwe6dEujRyiXHmiwU3MAA==","iv":"BMq03+8aw8O3MxHn","ct":"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","tag":"IM0+akiOiv5tlYG3iHOnyQ=="}</script>
 </div>
-    
         <div class="image-panel">
             <div class="image-panel-hero">
-                <img src="https://cdn.myportfolio.com/2dd3a134-2bfb-4828-bf2e-905d78c703bb/57303322-6691-43ec-8c88-a10428633a31_rw_1200.png" alt="Blog Archive" loading="lazy">
+                <img src="img/hero/game-design-documentation-hero.jpg" alt="Game Design Documentation" loading="lazy">
             </div>
         </div>
     </main>
 
 </div>
+
 <script>
     const _active = document.querySelector('.sidebar .card--active');
     if (_active) {
@@ -247,6 +274,7 @@
         if (_label) _label.after(_active); else _active.parentElement.prepend(_active);
     }
 </script>
+
 
 <div id="pw-gate" role="dialog" aria-modal="true" aria-label="Content protected">
     <div class="pw-box">
@@ -343,6 +371,32 @@
         unlock(pw);
     });
 }());
+</script>
+
+<div id="doc-modal" role="dialog" aria-modal="true" aria-label="Document viewer">
+    <div class="doc-modal-inner">
+        <div class="doc-modal-bar">
+            <button class="doc-modal-close" onclick="closeDocModal()">&#10005; Close</button>
+        </div>
+        <iframe class="doc-modal-frame" id="doc-modal-frame" src="" allowfullscreen loading="lazy"></iframe>
+    </div>
+</div>
+
+<script>
+function openDocModal(url) {
+    document.getElementById('doc-modal-frame').src = url;
+    document.getElementById('doc-modal').classList.add('open');
+}
+function closeDocModal() {
+    document.getElementById('doc-modal').classList.remove('open');
+    document.getElementById('doc-modal-frame').src = '';
+}
+document.getElementById('doc-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeDocModal();
+});
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeDocModal();
+});
 </script>
 
 </body>
