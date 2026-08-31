@@ -234,6 +234,11 @@
         .acc-cols-img { width: 100%; display: block; border-radius: 3px; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
         .acc-cols-img:hover { opacity: 1; }
 
+        .acc-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+        .acc-gallery img { width: 100%; display: block; border-radius: 3px; object-fit: cover; aspect-ratio: 16/9; opacity: .8; cursor: zoom-in; transition: opacity .2s; }
+        .acc-gallery img:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
+        .acc-gallery img:hover { opacity: 1; }
+
         #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity .2s; cursor: zoom-out; }
         #lightbox.open { opacity: 1; pointer-events: auto; }
         #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; user-select: none; cursor: default; }
@@ -241,9 +246,12 @@
         #lightbox-close:hover { color: #fff; }
     
         .image-panel { width: 33.333%; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.07); background: #000; display: flex; flex-direction: row; }
-        .image-panel-hero { flex: 1; overflow: hidden; }
-        .image-panel-hero img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; }
-        .image-panel-hero img:hover { opacity: 1; }
+        .image-panel-label { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: .5rem; padding: .9rem .35rem; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: #f81562; background: #000; border: none; z-index: 1; user-select: none; pointer-events: none; flex-shrink: 0; }
+        .image-panel-label span { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+        .image-panel-label svg { width: 14px; height: 18px; flex-shrink: 0; color: #f81562; }
+        .image-panel-images { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.07) transparent; }
+        .image-panel-images img { width: 100%; display: block; object-fit: cover; opacity: .75; transition: opacity .3s; cursor: zoom-in; }
+        .image-panel-images img:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -378,7 +386,11 @@
                                         </ul>
                                     </div>
                                     <div>
-                                        <p style="color: rgba(255,255,255,.3); font-size: .75rem; text-align: center; padding-top: 4rem;">Scorn contains no traditional UI screens — this analysis focuses on game design and experience rather than visual UX artifacts.</p>
+                                        <div class="acc-gallery">
+                                            <img src="img/pages/scorn/gameplay/gameplay-puzzle-1.jpg" alt="Scorn gameplay — environmental puzzle" loading="lazy">
+                                            <img src="img/pages/scorn/gameplay/gameplay-puzzle-2.jpg" alt="Scorn gameplay — environmental puzzle mechanism" loading="lazy">
+                                        </div>
+                                        <p style="color: rgba(255,255,255,.3); font-size: .75rem; text-align: center; padding-top: .75rem;">Scorn contains no traditional UI screens — this analysis focuses on game design and experience rather than visual UX artifacts.</p>
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +424,12 @@
                                             <li><strong>FPS Game</strong></li>
                                         </ul>
                                         <hr style="border:none; border-top: 1px solid rgba(255,255,255,0.07); margin: 1rem 0;">
-                                        <p>Result: The vast majority of respondents do not perceive Scorn as an FPS. Combat was broadly identified as the element most harmful to the overall experience.</p>
+                                        <p>Result: Across both polls, FPS was rejected almost unanimously (1 vote out of 61 total). Horror Game led narrowly over Puzzle Game, but combat was broadly identified in comments as the element most harmful to the overall experience.</p>
+                                        <div class="acc-gallery" style="margin-top: .75rem;">
+                                            <img src="img/pages/scorn/community-research/reddit-poll-question.png" alt="r/Scorn poll — What kind of game do you think Scorn is?" loading="lazy">
+                                            <img src="img/pages/scorn/community-research/reddit-poll-results-15votes.png" alt="Poll results — 15 votes" loading="lazy">
+                                            <img src="img/pages/scorn/community-research/reddit-poll-results-46votes.png" alt="Poll results — 46 votes" loading="lazy">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -499,8 +516,14 @@
         </div>
     
         <div class="image-panel">
-            <div class="image-panel-hero">
-                <img src="img/thumb/scorn_thumb.jpg" alt="Scorn Analysis" loading="lazy">
+            <div class="image-panel-label"><span>Gallery</span><svg viewBox="0 0 10 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="1" width="6" height="9" rx="3"/><line x1="5" y1="3.5" x2="5" y2="5.5"/><polyline points="3,11.5 5,13.5 7,11.5"/></svg></div>
+            <div class="image-panel-images">
+            <img src="img/pages/scorn/promo/promo-01.jpg" alt="Scorn — environmental art" loading="lazy">
+            <img src="img/pages/scorn/promo/promo-02.jpg" alt="Scorn — environmental art" loading="lazy">
+            <img src="img/pages/scorn/promo/promo-03.jpg" alt="Scorn — environmental art" loading="lazy">
+            <img src="img/pages/scorn/promo/promo-04.jpg" alt="Scorn — environmental art" loading="lazy">
+            <img src="img/pages/scorn/promo/promo-05.jpg" alt="Scorn — environmental art" loading="lazy">
+            <img src="img/pages/scorn/promo/promo-06.jpg" alt="Scorn — environmental art" loading="lazy">
             </div>
         </div>
     </main>
@@ -528,9 +551,17 @@
         });
     });
 
+    document.querySelectorAll('.image-panel-images img').forEach(function (img) {
+        img.addEventListener('click', function () { openLightbox(img.src, img.alt); });
+    });
+
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.classList.add('open'); }
     function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('acc-cols-img') || e.target.closest('.acc-gallery')) openLightbox(e.target.src, e.target.alt);
+    });
     lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
